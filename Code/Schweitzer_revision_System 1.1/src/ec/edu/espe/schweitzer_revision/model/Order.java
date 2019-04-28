@@ -7,7 +7,7 @@ package ec.edu.espe.schweitzer_revision.model;
 
 /**
  *
- * @author User
+ * @author Andres Garcia
  */
 public class Order {
     private String date;

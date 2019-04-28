@@ -7,9 +7,43 @@ package ec.edu.espe.schweitzer_revision.model;
 
 /**
  *
- * @author User
+ * @author Andres Garcia
  */
 public class OrderStatus {
     private String description;
-    private String orderCompletionDate;
+    private char type;
+    private boolean orderCompletionDate;
+
+    public OrderStatus(String description, char type, boolean orderCompletionDate) {
+        this.description = description;
+        this.type = type;
+        this.orderCompletionDate = orderCompletionDate;
+    }
+
+    public char getType() {
+        return type;
+    }
+
+    public void setType(char type) {
+        this.type = type;
+    }
+
+    
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isOrderCompletionDate() {
+        return orderCompletionDate;
+    }
+
+    public void setOrderCompletionDate(boolean orderCompletionDate) {
+        this.orderCompletionDate = orderCompletionDate;
+    }
+    
 }
