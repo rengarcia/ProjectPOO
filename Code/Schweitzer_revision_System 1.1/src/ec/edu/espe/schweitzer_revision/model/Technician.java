@@ -18,23 +18,23 @@ public class Technician {
     public Technician(String name, Long id) {
         this.name = name;
         this.id = id;
-        this.disponibility=Long.valueOf("0");
+        this.disponibility[0]=Long.valueOf("0");
         this.status = new OrderStatus("No definido","0".charAt(0),false);
     }
 
     public Technician(String name, long id, Long disponibility, OrderStatus status) {
         this.name = name;
         this.id = id;
-        this.disponibility = disponibility;
+        this.disponibility[0] = disponibility;
         this.status = status;
     }
 
-    public Long getDisponibility() {
+    public long [] getDisponibility() {
         return disponibility;
     }
 
     public void setDisponibility(Long disponibility) {
-        this.disponibility = disponibility;
+        this.disponibility[0] = disponibility;
     }
 
     public String getName() {
@@ -62,11 +62,11 @@ public class Technician {
     }
 
     public void updateOrder(Long o){
-        this.disponibility=o;
+        this.disponibility[0]=o;
     }
     
     public void finishOrder(){
-        this.disponibility=Long.valueOf("0");
+        this.disponibility[0]=Long.valueOf("0");
         this.status = new OrderStatus("0","0".charAt(0),false);
     }
 }
