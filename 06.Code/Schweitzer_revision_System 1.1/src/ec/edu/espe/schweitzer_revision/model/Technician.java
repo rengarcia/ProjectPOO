@@ -12,30 +12,36 @@ import java.util.List;
 public class Technician {
     private String name;
     private long id;
-    public long disponibility[];
+    public  Long disponibility;
     private OrderStatus status;
+
+    
+
 
     public Technician(String name, Long id) {
         this.name = name;
         this.id = id;
-        this.disponibility[0]=Long.valueOf("0");
+        this.disponibility=Long.valueOf("0");
         this.status = new OrderStatus("No definido","0".charAt(0),false);
     }
 
     public Technician(String name, long id, Long disponibility, OrderStatus status) {
         this.name = name;
         this.id = id;
-        this.disponibility[0] = disponibility;
+        this.disponibility = disponibility;
         this.status = status;
     }
 
-    public long [] getDisponibility() {
+    public Long getDisponibility() {
         return disponibility;
     }
 
     public void setDisponibility(Long disponibility) {
-        this.disponibility[0] = disponibility;
+        this.disponibility = disponibility;
     }
+
+ 
+
 
     public String getName() {
         return name;
@@ -53,6 +59,8 @@ public class Technician {
         this.id = id;
     }
 
+
+
     public OrderStatus getStatus() {
         return status;
     }
@@ -62,11 +70,11 @@ public class Technician {
     }
 
     public void updateOrder(Long o){
-        this.disponibility[0]=o;
+        this.disponibility=o;
     }
     
     public void finishOrder(){
-        this.disponibility[0]=Long.valueOf("0");
+        this.disponibility=Long.valueOf("0");
         this.status = new OrderStatus("0","0".charAt(0),false);
     }
 }
