@@ -7,15 +7,15 @@ package ec.edu.espe.schweitzer_revision.view;
 
 import com.csvreader.CsvWriter;
 import ec.edu.espe.schweitzer_revision.model.Client;
+import ec.edu.espe.schweitzer_revision.model.Maintenance;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import ec.edu.espe.schweitzer_revision.model.Order;
-import ec.edu.espe.schweitzer_revision.model.OrderStatus;
+import ec.edu.espe.schweitzer_revision.model.Repair;
 import ec.edu.espe.schweitzer_revision.model.SparePart;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -30,12 +30,10 @@ public class Main {
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args){
       start();
-        
-        
     }
     public static void start()
     {
-          Scanner sn = new Scanner(System.in);
+        Scanner sn = new Scanner(System.in);
         boolean salir = false,salir2 = false;
         int opcion,opcion2; 
         Long opcion3;
@@ -141,6 +139,7 @@ public class Main {
             }
         }
     }
+    
     public static void menuDesicion(){
         int opcion;
         char answer;
@@ -176,7 +175,6 @@ public class Main {
                     break;
                       
             }
-            
             System.out.println("\nDesea realizar alguna otra actividad (s/n)");
             answer = input.next().charAt(0);
         }while(answer=='s' || answer=='S');
@@ -184,7 +182,6 @@ public class Main {
     
     public static void reserveOrder(){
         fillDataOrder();
-
     }
     public static void fillDataTechnician()
     {
@@ -199,27 +196,25 @@ public class Main {
             escribirUsuarios.write("name");
             escribirUsuarios.write("id");
             escribirUsuarios.write("adress");
-             escribirUsuarios.write("phone");
+            escribirUsuarios.write("phone");
             escribirUsuarios.write("newOrder");
-              escribirUsuarios.endRecord(); 
+            escribirUsuarios.endRecord(); 
              for(Client cliente : clients) {
                 escribirUsuarios.write(cliente.getName());
                 escribirUsuarios.write(Long.toString(cliente.getId()));
                 escribirUsuarios.write(cliente.getAddress());
                 escribirUsuarios.write(Long.toString(cliente.getPhone()));
                 escribirUsuarios.write(cliente.getNewOrder().getDate());
-                 escribirUsuarios.write(cliente.getNewOrder().getAddress());
+                escribirUsuarios.write(cliente.getNewOrder().getAddress());
                 escribirUsuarios.write(Integer.toString(cliente.getNewOrder().getId()));
-                 escribirUsuarios.write(cliente.getNewOrder().getDate());
-                  escribirUsuarios.write(String.valueOf(cliente.getNewOrder().getType()));
-                   escribirUsuarios.write(cliente.getNewOrder().getDescription());
+                escribirUsuarios.write(cliente.getNewOrder().getDate());
+               // escribirUsuarios.write(String.valueOf(cliente.getNewOrder().getType()));
+                escribirUsuarios.write(cliente.getNewOrder().getDescription());
                 escribirUsuarios.endRecord(); 
             }
-            
-           
+
             escribirUsuarios.close();
-        
-            
+
         } catch(FileNotFoundException e) {
             e.printStackTrace();
         } catch(IOException e) {
@@ -301,6 +296,7 @@ public class Main {
         System.out.println("\tDatos del cliente");
         System.out.println("==================================");
         System.out.println("Ingrese su nombre:");
+        input.nextLine();
         name = input.nextLine();
         System.out.println("Ingrese su número de C.I:");
         id = input.nextLong();
@@ -333,9 +329,11 @@ public class Main {
         String date;
         String address;
         char type;
-        boolean priority = true;
+        boolean priority;
         String description;
         char desicion;
+        int numbOfSession = 0;
+        Order order;
         
         System.out.println("=================================");
         System.out.println("\tDatos de la orden");
@@ -345,6 +343,8 @@ public class Main {
         date = input.nextLine();
         System.out.println("Ingrese la dirección de la orden:");
         address = input.nextLine();
+        System.out.println("Ingrese la descripción de su orden:");
+        description = input.nextLine();
         System.out.println("Ingrese el tipo de la orden: reparación(r)/mantenimiento(m):");
         type = input.next().charAt(0);
         
@@ -354,18 +354,14 @@ public class Main {
             
             if(desicion=='s' || desicion =='S'){
                 priority = true;
-            }else{
-                priority = false;
+                 order = new Repair(priority, date, address, description);
+                 fillDataClient(order);
             }
+        }else{
+            numbOfSession++;
+            order = new Maintenance(numbOfSession, date, address, description);
+            fillDataClient(order);
         }
-        
-        System.out.println("Ingrese la descripción de su orden:");
-        input.nextLine();
-        description = input.nextLine();
-        
-        Order order = new Order(date, address, type, priority, description);
-        fillDataClient(order);
     }
-    
 }
 
