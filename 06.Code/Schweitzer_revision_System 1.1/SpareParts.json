@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Fuente de poder",
+    "price": 14,
+    "id": "F1",
+    "quantity": 15
+  },
+  {
+    "name": "Disco Duro",
+    "price": 30,
+    "id": "D1",
+    "quantity": 15
+  },
+  {
+    "name": "Pantalla",
+    "price": 100,
+    "id": "P1",
+    "quantity": 15
+  },
+  {
+    "name": "Teclado",
+    "price": 50,
+    "id": "T1",
+    "quantity": 15
+  },
+  {
+    "name": "Memoria Ram",
+    "price": 20,
+    "id": "M1",
+    "quantity": 15
+  }
+]

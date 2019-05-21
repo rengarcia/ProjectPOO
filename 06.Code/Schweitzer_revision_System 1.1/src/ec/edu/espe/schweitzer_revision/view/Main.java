@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.schweitzer_revision.view;
 
+import com.google.gson.Gson;
 import com.csvreader.CsvWriter;
 import ec.edu.espe.schweitzer_revision.model.Client;
 import ec.edu.espe.schweitzer_revision.model.Maintenance;

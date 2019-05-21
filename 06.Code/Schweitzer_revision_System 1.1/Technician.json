@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Manuel",
+    "id": 111111,
+    "disponibility": 0,
+    "status": "No definido"
+  },
+  {
+    "name": "Carol",
+    "id": 101010,
+    "disponibility": 0,
+    "status": "No definido"
+  },
+  {
+    "name": "Roberto",
+    "id": 121212,
+    "disponibility": 0,
+    "status": "No definido"
+  },
+  {
+    "name": "Juan",
+    "id": 131313,
+    "disponibility": 0,
+    "status": "No definido"
+  },
+  {
+    "name": "Samuel",
+    "id": 141414,
+    "disponibility": 0,
+    "status": "No definido"
+  }
+]
