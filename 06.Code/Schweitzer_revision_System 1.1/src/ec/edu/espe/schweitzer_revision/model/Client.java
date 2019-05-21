@@ -34,7 +34,7 @@ public class Client {
         {
                 if(technician.getDisponibility()==0)
             {
-                technician= new Technician(technician.getName(),technician.getId(),Long.valueOf(this.newOrder.getDate()),new OrderStatus(this.newOrder.getDescription(),this.newOrder.getType(),false));
+                technician= new Technician(technician.getName(),technician.getId(),Long.valueOf(this.newOrder.getDate()),new OrderStatus(this.newOrder.getDescription(), false));
                 contador2++;
             }
         }
@@ -54,7 +54,17 @@ public class Client {
         this.id = 0;
         this.address = "0";
         this.phone = 0;
-        this.newOrder = new Order("0","0","0".charAt(0),false,"0");
+        this.newOrder = new Order("0","0","0") {
+            @Override
+            public void generateID() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void updateOrder() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
     }
     
     public void displaySparePartList(SparePart item){

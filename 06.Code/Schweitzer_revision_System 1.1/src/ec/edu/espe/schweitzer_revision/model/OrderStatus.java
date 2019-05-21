@@ -20,6 +20,11 @@ public class OrderStatus {
         this.orderCompletionDate = orderCompletionDate;
     }
 
+    public OrderStatus(String description, boolean orderCompletionDate) {
+        this.description = description;
+        this.orderCompletionDate = orderCompletionDate;
+    }
+
     public char getType() {
         return type;
     }
@@ -27,8 +32,6 @@ public class OrderStatus {
     public void setType(char type) {
         this.type = type;
     }
-
-    
 
     public String getDescription() {
         return description;

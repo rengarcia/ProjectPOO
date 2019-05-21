@@ -15,7 +15,7 @@ public class SparePart {
     private String id;
     private int quantity;
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 

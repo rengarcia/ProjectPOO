@@ -16,8 +16,6 @@ public class Technician {
     private OrderStatus status;
 
     
-
-
     public Technician(String name, Long id) {
         this.name = name;
         this.id = id;
@@ -40,9 +38,6 @@ public class Technician {
         this.disponibility = disponibility;
     }
 
- 
-
-
     public String getName() {
         return name;
     }
@@ -58,8 +53,6 @@ public class Technician {
     public void setId(long id) {
         this.id = id;
     }
-
-
 
     public OrderStatus getStatus() {
         return status;
