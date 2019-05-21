@@ -9,13 +9,12 @@ package ec.edu.espe.schweitzer_revision.model;
  *
  * @author Andres Garcia
  */
-public class Order {
+public abstract class Order {
     private String date;
     private String address;
-    private int id;
-    private char type;
-    private boolean priority;
+    private static int id;
     private String description;
+    private OrderStatus status;
 
     public String getDate() {
         return date;
@@ -41,22 +40,6 @@ public class Order {
         this.id = id;
     }
 
-    public char getType() {
-        return type;
-    }
-
-    public void setType(char type) {
-        this.type = type;
-    }
-
-    public boolean isPriority() {
-        return priority;
-    }
-
-    public void setPriority(boolean priority) {
-        this.priority = priority;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -65,20 +48,29 @@ public class Order {
         this.description = description;
     }
 
-    public Order(String date, String address, char type, boolean priority, String description) {
-        this.date = date;
-        this.address = address;
-        this.type = type;
-        this.priority = priority;
-        this.description = description;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void generateID(){
-        // to do
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+  
+    public Order(String date, String address, int id, String description, OrderStatus status) {
+        this.date = date;
+        this.address = address;
+        this.id = id;
+        this.description = description;
+        this.status = status;
+    }
+
+    public Order(String date, String address,String description) {
+        this.date = date;
+        this.address = address;
+        this.description = description;
     }
     
-    public void setPriority(){
-        // to do
-    }
+    public abstract void generateID();
+    public abstract void updateOrder();
     
 }
