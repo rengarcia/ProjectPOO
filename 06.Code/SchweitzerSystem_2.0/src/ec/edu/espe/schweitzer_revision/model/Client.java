@@ -8,6 +8,7 @@ package ec.edu.espe.schweitzer_revision.model;
 import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -98,7 +99,7 @@ public class Client {
     }
 
     public void cancelOrder(String backupPath, String clientOrderFilePath, String orderId)
-            throws FileNotFoundException {
+            throws FileNotFoundException, IOException {
 
         String technicianFilePath = "Files\\TechnicianList.txt";
         String linetoDelete;
@@ -108,7 +109,7 @@ public class Client {
         linetoDelete = dataLine.parseFile(backupPath, orderId);
         dataLine.removeLineFromFile(clientOrderFilePath, linetoDelete);
         
-        //Before delete, we update the Technician File
+        //we update the Technician File
         linetoUpdate = dataLine.parseFile(backupPath, orderId);
 
         Gson gson = new Gson();
@@ -119,12 +120,12 @@ public class Client {
         if (value < 20000) {
             long tempDate = updateTechnicianDates.newRepairOrder.date;
             String tempDeleteOldDate = Long.toString(tempDate);
-            dataLine.modifyFile(technicianFilePath, tempDeleteOldDate, dataLine.randomStringNumber());
+            FileManager.updateTechnicianDate(technicianFilePath,orderId,tempDeleteOldDate);
         } 
         else {
             long tempDate = updateTechnicianDates.newMaintenanceOrder.date;
             String tempDeleteOldDate = Long.toString(tempDate);
-            dataLine.modifyFile(technicianFilePath, tempDeleteOldDate, dataLine.randomStringNumber());
+            FileManager.updateTechnicianDate(technicianFilePath,orderId,tempDeleteOldDate);
         } 
 
     }

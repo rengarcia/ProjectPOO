@@ -1,4 +1,4 @@
-/*
+   /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,10 +11,12 @@ import ec.edu.espe.schweitzer_revision.model.Client;
 import ec.edu.espe.schweitzer_revision.model.Maintenance;
 import ec.edu.espe.schweitzer_revision.model.OrderStatus;
 import ec.edu.espe.schweitzer_revision.model.Repair;
-import java.io.File;
+import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
-
+import java.io.Console;  
+import java.io.File;
 
 /**
  *
@@ -22,15 +24,16 @@ import java.util.Scanner;
  */
 public class RevisionSystem {
     
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         
         String clientOrderFilePath="Files\\ClientOrder.txt" ;
         String backupPath="Backup\\ClientOrder.txt" ;
         String technicianFilePath="Files\\TechnicianList.txt" ;
+        String cipherPath="Files\\Cipher.txt"; 
         
         //Esto es por donde el usurio ingresa los datos y se le asigna la order
-        /*
-        RevisionSystem  instance= new RevisionSystem ();
+        
+        /*RevisionSystem  instance= new RevisionSystem ();
         Client clientData= instance.setData();
         FileManager newDataLine = new FileManager();
         
@@ -64,8 +67,8 @@ public class RevisionSystem {
         Client newOrderWaiting = new Client();
         try {
             newOrderWaiting.AssignOrder(clientOrderFilePath,technicianFilePath,
-                   tempId);} catch (FileNotFoundException ex){}
-        */
+                   tempId);} catch (FileNotFoundException ex){}*/
+        
         
         /***************************************/
         //Esto iria donde se cancelan las ordenes
@@ -75,18 +78,35 @@ public class RevisionSystem {
         System.out.println("Porfavor ingresa el id de la orden: ");
         String tempCancelOrder= scannerCancel.nextLine();
         
-        userCancelOrder.cancelOrder(backupPath,clientOrderFilePath,tempCancelOrder);
+        userCancelOrder.cancelOrder(backupPath,clientOrderFilePath,tempCancelOrder);*/
         
         
         /**************************************/
         //Este seria el menu para el tecnico 
-        /*Technician technician = new Technician();
+        Technician technician = new Technician();
         Scanner scannerTechnician= new Scanner(System.in);
+        Console con = System.console();  
+        
         System.out.println("Porfavor ingresa tu id: ");
         String tempTechnicianId= scannerTechnician.nextLine();
+        System.out.println("Ingresa tu contraseña: ");
+        String attemptPassword= scannerTechnician.nextLine();
         
-        technician.workStatus(clientOrderFilePath, technicianFilePath, 
-                tempTechnicianId);*/
+        int n=0;
+        while(n==0){
+            boolean approve = technician.checkPassword(tempTechnicianId,attemptPassword,cipherPath);
+
+            if(approve==true){
+                 n=1;
+                 technician.workStatus(clientOrderFilePath, technicianFilePath, cipherPath,
+                 tempTechnicianId);
+            }
+            else{
+                System.out.println("Contreseña incorrecta");
+                System.out.println("Ingresa la contraseña de nuevo: ");
+                attemptPassword= scannerTechnician.nextLine();
+            }
+        }
         
     }
     
@@ -125,14 +145,13 @@ public class RevisionSystem {
         System.out.println("2. Mantenimiento");
         int orderTemporal = scanner.nextInt();
         
-        
-        if (orderTemporal==1){
+        switch (orderTemporal) {
+            case 1: {
             //Get data for Order attribute
             Repair repairData = new Repair();
 
             System.out.println("Ingrese la fecha del trabajo: ");
             repairData.setDate(scanner.nextLong());
-            
             
             scanner.nextLine();  // fix to nextLine bug
 
@@ -162,9 +181,11 @@ public class RevisionSystem {
             repairData.setStatus(orderStatusData);
             
             clientData.flag=true;
-        }
+            break;
+           
+            }
         
-        else if (orderTemporal==2){
+            case 2:{
             //Get data for Order attribute
             Maintenance maintenanceData = new Maintenance();
 
@@ -190,9 +211,12 @@ public class RevisionSystem {
             maintenanceData.setStatus(orderStatusData);
             
             clientData.flag=false;
+            break;
+            }
+            
+            default: 
+
         }
-                  
         return clientData;
-    }
-      
+    }  
 }

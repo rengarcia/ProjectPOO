@@ -1,4 +1,6 @@
 package ec.edu.espe.schweitzer_revision.controller;
+import com.google.gson.Gson;
+import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +9,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -85,7 +94,7 @@ public class FileManager {
         int n = 3; //random String Length
         
         // chose a Character random from this String 
-        String AlphaNumericString = "0123456789"
+        String AlphaNumericString = "123456789"
                                     ; 
   
         // create StringBuffer size of AlphaNumericString 
@@ -169,8 +178,84 @@ public class FileManager {
             System.out.println("Se elimino exitosamente");
     }
     
-     public static void modifyFile(String filePath, String oldString, String newString)
-    {
+    public static void updateTechnicianDate(String filePath, String orderId, String oldDate) throws IOException{
+        
+        Path path = Paths.get(filePath);
+        FileManager fileManager= new FileManager();
+        List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+      
+         for (int i = 0; i < fileContent.size(); i++) {
+         String a= fileContent.get(i);
+                
+            if (a.contains(oldDate)&&a.contains(orderId)) {
+
+                String line= fileManager.parseFile(filePath,orderId);
+                Gson gson= new Gson();
+
+                Technician technician= gson.fromJson(line, Technician.class);
+                
+                for(int w=0; w<technician.dates.size();w++){
+
+                    if(technician.dates.get(w).equals(oldDate)){
+                       technician.dates.set(w, fileManager.randomStringNumber());
+                       break;
+                    }
+                }
+
+                String newLine= gson.toJson(technician);
+                fileContent.set(i, newLine);
+                break;
+            }
+        }
+        Files.write(path, fileContent, StandardCharsets.UTF_8);
+    }
+    
+    
+    public static String encrypt(String password){
+    String encryptPassword;
+      
+    List<String> list = new ArrayList<>(Arrays.asList(password.split("")));
+     
+    for(int i=0; i<list.size();i++){
+        String tempString = list.get(i);
+        char tempChar = tempString.charAt(0);  
+
+        int asciiValue = (int) tempChar;
+            asciiValue = asciiValue+8;
+
+        char newChar = (char)asciiValue;
+        list.set(i, String.valueOf(newChar));
+    }
+    
+    encryptPassword = String.join("", list);
+  
+    return encryptPassword;
+    }
+     
+    
+    public static String decrypt(String encryptPassword){
+    String decryptPassword;
+      
+    List<String> list = new ArrayList<>(Arrays.asList(encryptPassword.split("")));
+     
+    for(int i=0; i<list.size();i++){
+        String tempString = list.get(i);
+        char tempChar = tempString.charAt(0);  
+
+        int asciiValue = (int) tempChar;
+            asciiValue = asciiValue-8;
+
+        char newChar = (char)asciiValue;
+        list.set(i, String.valueOf(newChar));
+    }
+    
+    decryptPassword = String.join("", list);
+  
+    return decryptPassword;
+    }
+       
+    public static void modifyFile(String filePath, String oldString, String newString){
+        
         File fileToBeModified = new File(filePath);
         String oldContent = "";   
         BufferedReader reader = null;
