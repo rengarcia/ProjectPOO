@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -502,13 +504,11 @@ public class Menu {
     
     private static boolean isTextual(String cadena) throws OnlyTextException{
         try{
-            return !(cadena.contains("0")||cadena.contains("1")||cadena.contains("2")
-                    ||cadena.contains("3")||cadena.contains("4")||cadena.contains("5")
-                    ||cadena.contains("6")||cadena.contains("7")||cadena.contains("8")
-                    ||cadena.contains("9"));
+            Pattern patron = Pattern.compile("[^A-Za-z ]");
+            Matcher encaja = patron.matcher(cadena);
+            return !encaja.find();
         }catch (Exception e){
             throw new OnlyTextException("Ingrese texto unicamente");
         }
     }
-    
 }

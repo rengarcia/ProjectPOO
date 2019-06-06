@@ -29,19 +29,8 @@ public class RevisionSystem {
             switch (menu.getOption()) {
                 case 1:
                     do {
-                        menu.clientMenu();
-                        switch (menu.getOption()) {
-                            case 1:
-                                menu.reserveOrder();
-                                break;
-                            case 2:
-                                menu.cancelOrder();
-                                break;
-                            case 3:
-                                menu.sellForm();
-                            case 4:
-                                break;
-                        }
+                        menu.setData();
+                      
                     } while (menu.getOption() == 1 || menu.getOption() == 2);
                     break;
                 case 2:
