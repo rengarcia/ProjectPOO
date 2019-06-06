@@ -1,0 +1,10 @@
+{"name":"Condensador","price":"126.5","stock":"20"}
+{"name":"Comprensor","price":"60.9","stock":"60"}
+{"name":"Termostato","price":"40.8","stock":"10"}
+{"name":"Ventilador","price":"56","stock":"63"}
+{"name":"Bomba de agua","price":"25","stock":"45"}
+{"name":"Refrigerante","price":"16","stock":"86"}
+{"name":"Radiador","price":"180.8","stock":"15"}
+{"name":"Tapón de presión","price":"3.25","stock":"100"}
+{"name":"Sensor de temperatura","price":"35.6","stock":"5"}
+{"name":"Mangueras","price":"0.20","stock":"150"}
