@@ -6,7 +6,10 @@
 package ec.edu.espe.schweitzer_revision.controller;
 
 import com.google.gson.Gson;
+import ec.edu.espe.schweitzer_revision.model.OrderStatus;
 import ec.edu.espe.schweitzer_revision.model.Client;
+import ec.edu.espe.schweitzer_revision.model.Repair;
+import ec.edu.espe.schweitzer_revision.model.Maintenance;
 import ec.edu.espe.schweitzer_revision.model.SparePart;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import ec.edu.espe.schweitzer_revision.view.RevisionSystem;
@@ -79,6 +82,287 @@ public class Menu {
 
     }
     
+        public Client setData(){
+        
+        //Get Data for Client class
+        Client clientData = new Client();
+        Scanner scanner= new Scanner(System.in);
+        /*
+            Verificacion de ingreso unicamente texto
+        */
+        boolean flagName = true;
+        do{
+            System.out.println("Ingrese el nombre: ");
+            try{
+                String auxName = scanner.nextLine();
+                if(isTextual(auxName)){
+                    clientData.setName(auxName);
+                    flagName = false;
+                }
+            }catch(OnlyTextException e){
+                System.out.println(e.getMessage());
+            }
+        }while(flagName);
+                
+        /*
+            Verificacion de ingreso unicamente numerico
+        */
+        boolean flagID = true;
+        do{
+            System.out.println("Ingrese su ID: ");
+            try{
+                String auxID = scanner.nextLine();
+                if(isNumeric(auxID)){
+                    clientData.setId(Long.parseLong(auxID));
+                    flagID = false;
+                }
+            }catch(OnlyNumberException e){
+                System.out.println(e.getMessage());
+            }
+        }while(flagID);
+        
+        /*
+            Verificacion de ingreso unicamente texto
+        */
+        boolean flagAddress = true;
+        do{
+            System.out.println("Ingrese su dirección: ");
+            try{
+                String auxAddress = scanner.nextLine();
+                if(isTextual(auxAddress)){
+                    clientData.setAddress(auxAddress);
+                    flagAddress = false;
+                }
+            }catch(OnlyTextException e){
+                System.out.println(e.getMessage());
+            }
+        }while(flagAddress);
+        
+        /*
+            Verificacion de ingreso unicamente numerico
+        */
+        boolean flagPhone = true;
+        do{
+            System.out.println("Ingrese su número de teléfono: ");
+            try{
+                String auxPhone = scanner.nextLine();
+                if(isNumeric(auxPhone)){
+                    clientData.setPhone(Long.parseLong(auxPhone));
+                    flagPhone = false;
+                }
+            }catch(OnlyNumberException e){
+                System.out.println(e.getMessage());
+            }
+        }while(flagPhone);
+        //Data for Order Status is set these values for default
+        FileManager randomValue = new FileManager();
+        
+        OrderStatus orderStatusData= new OrderStatus();
+        orderStatusData.setDescription(randomValue.randomString());
+        orderStatusData.setOrderCompletionDate(randomValue.randomString());
+        orderStatusData.setOrderCompleted(randomValue.randomString());
+        
+        
+        //decide wheter the client want a repair or maintenance
+        boolean flagTemporal = true;
+        int orderTemporal = 0;
+        /*
+            Verificacion de ingreso unicamente numerico de dato
+        */
+        do{
+            System.out.println("---------------------------");
+            System.out.println("Escoja una opción");
+            System.out.println("1. Reparación");
+            System.out.println("2. Mantenimiento");
+            try{
+                String auxTemporal = scanner.nextLine();
+                if(isNumeric(auxTemporal)){
+                    orderTemporal = Integer.parseInt(auxTemporal);
+                    flagTemporal = false;
+                }
+            }catch(OnlyNumberException e){
+                System.out.println(e.getMessage());
+            }
+        }while(flagTemporal);
+        
+        switch (orderTemporal) {
+            case 1: {
+            //Get data for Order attribute
+            Repair repairData = new Repair();
+            
+            /*
+                Verificacion de ingreso unicamente numerico
+            */
+            boolean flagDate = true;
+            do{
+                System.out.println("Ingrese la fecha del trabajo: ");
+                try{
+                    String auxDate = scanner.nextLine();
+                    if(isNumeric(auxDate)){
+                        repairData.setDate(Long.parseLong(auxDate));
+                        flagDate = false;
+                    }
+                }catch(OnlyNumberException e){
+                    System.out.println(e.getMessage());
+                }
+            }while(flagDate);
+            
+            /*
+                Verificacion de ingreso unicamente texto
+            */
+            boolean flagWorkAddress = true;
+            do{
+                System.out.println("Ingrese la dirección del trabajo: ");
+                try{
+                    String auxWorkAddress = scanner.nextLine();
+                    if(isTextual(auxWorkAddress)){
+                        repairData.setAddress(auxWorkAddress);
+                        flagWorkAddress = false;
+                    }
+                }catch(OnlyTextException e){
+                    System.out.println(e.getMessage());
+                }
+            }while(flagWorkAddress);
+            
+            boolean flagDescription = true;
+            do{
+                System.out.println("Ingrese la descripción del trabajo: ");
+                try{
+                    String auxDescription = scanner.nextLine();
+                    if(isTextual(auxDescription)){
+                        repairData.setDescription(auxDescription);
+                        flagDescription = false;
+                    }
+                }catch(OnlyTextException e){
+                    System.out.println(e.getMessage());
+                }
+            }while(flagDescription);
+            
+            /*
+                Verificacion de ingreso unicamente numerico de dato
+            */
+            int priorityTemporal = 0;
+            boolean flagPTemporal = true;
+            do{
+                System.out.println("Es una reparación urgente:");
+                System.out.println("1. Si");
+                System.out.println("2. NO");
+                try{
+                    String auxPTemporal = scanner.nextLine();
+                    if(isNumeric(auxPTemporal)){
+                        priorityTemporal = Integer.parseInt(auxPTemporal);
+                        flagPTemporal = false;
+                    }
+                }catch(OnlyNumberException e){
+                    System.out.println(e.getMessage());
+                }
+            }while(flagPTemporal);
+
+            if(priorityTemporal==1){
+            repairData.setPriority(true);
+            }
+            else if(priorityTemporal==2){
+            repairData.setPriority(false);    
+            }
+            
+            repairData.setId(repairData.generateID());
+            
+            //Set data for Order attribute
+            clientData.setNewRepairOrder(repairData);
+            
+            repairData.setStatus(orderStatusData);
+            
+            clientData.flag=true;
+            break;
+           
+            }
+        
+            case 2:{
+            //Get data for Order attribute
+            Maintenance maintenanceData = new Maintenance();
+            
+            /*
+                Verificacion de ingreso unicamente numerico
+            */
+            boolean flagDate = true;
+            do{
+                System.out.println("Ingrese la fecha del trabajo: ");
+                try{
+                    String auxDate = scanner.nextLine();
+                    if(isNumeric(auxDate)){
+                        maintenanceData.setDate(Long.parseLong(auxDate));
+                        flagDate = false;
+                    }
+                }catch(OnlyNumberException e){
+                    System.out.println(e.getMessage());
+                }
+            }while(flagDate);
+            
+            /*
+                Verificacion de ingreso unicamente texto
+            */
+            boolean flagWorkAddress = true;
+            do{
+                System.out.println("Ingrese la dirección del trabajo: ");
+                try{
+                    String auxWorkAddress = scanner.nextLine();
+                    if(isTextual(auxWorkAddress)){
+                        maintenanceData.setAddress(auxWorkAddress);
+                        flagWorkAddress = false;
+                    }
+                }catch(OnlyTextException e){
+                    System.out.println(e.getMessage());
+                }
+            }while(flagWorkAddress);
+            
+            boolean flagDescription = true;
+            do{
+                System.out.println("Ingrese la descripción del trabajo: ");
+                try{
+                    String auxDescription = scanner.nextLine();
+                    if(isTextual(auxDescription)){
+                        maintenanceData.setDescription(auxDescription);
+                        flagDescription = false;
+                    }
+                }catch(OnlyTextException e){
+                    System.out.println(e.getMessage());
+                }
+            }while(flagDescription);
+            
+            /*
+                Verificacion de ingreso unicamente numerico
+            */
+            boolean flagSession = true;
+            do{
+                System.out.println("Ingrese la fecha del trabajo: ");
+                try{
+                    String auxSession = scanner.nextLine();
+                    if(isNumeric(auxSession)){
+                        maintenanceData.setSession(Integer.parseInt(auxSession));
+                        flagSession = false;
+                    }
+                }catch(OnlyNumberException e){
+                    System.out.println(e.getMessage());
+                }
+            }while(flagSession);
+            
+            //Set data for Order attribute
+            clientData.setNewMaintenanceOrder(maintenanceData);
+            
+            maintenanceData.setId(maintenanceData.generateID());
+            
+            maintenanceData.setStatus(orderStatusData);
+            
+            clientData.flag=false;
+            break;
+            }
+            
+            default: 
+
+        }
+        return clientData;
+    } 
+    
     public void reserveOrder(){
                 
         RevisionSystem instance = new RevisionSystem();
@@ -130,14 +414,43 @@ public class Menu {
     }
     
     public void technicianMenu() throws FileNotFoundException{
-        Technician technician = new Technician();
+    Technician technician = new Technician();
         Scanner scannerTechnician= new Scanner(System.in);
         Console con = System.console();  
         
-        System.out.println("Porfavor ingresa tu id: ");
-        String tempTechnicianId= scannerTechnician.nextLine();
-        System.out.println("Ingresa tu contraseña: ");
-        String attemptPassword= scannerTechnician.nextLine();
+        /*
+            Verificacion de ingreso unicamente texto
+        */
+        boolean flagTID = true;
+        String tempTechnicianId = null;
+        do{
+            System.out.println("Porfavor ingresa tu id: ");
+            try{
+                 String auxTempTechnicianId= scannerTechnician.nextLine();
+                if(isTextual(auxTempTechnicianId)){
+                    tempTechnicianId = auxTempTechnicianId;
+                    flagTID = false;
+                }
+               
+            }catch(OnlyTextException e){
+                System.out.println(e.getMessage());
+            }
+        }while(flagTID);
+        //
+        boolean flagTPassword = true;
+        String attemptPassword = null;
+        do{
+            System.out.println("Ingresa tu contraseña: ");
+            try{
+                String auxAttemptPassword= scannerTechnician.nextLine();
+                if(isTextual(auxAttemptPassword)){
+                    attemptPassword = auxAttemptPassword;
+                    flagTPassword = false;
+                }
+            }catch(OnlyTextException e){
+                System.out.println(e.getMessage());
+            }
+        }while(flagTPassword);  
         
         int n=0;
         while(n==0){
@@ -150,8 +463,19 @@ public class Menu {
             }
             else{
                 System.out.println("Contreseña incorrecta");
-                System.out.println("Ingresa la contraseña de nuevo: ");
-                attemptPassword= scannerTechnician.nextLine();
+                do{
+                    System.out.println("Ingresa la contraseña de nuevo: ");
+                    try{
+                        String auxAttemptPassword= scannerTechnician.nextLine();
+                        if(isTextual(auxAttemptPassword)){
+                            attemptPassword = auxAttemptPassword;
+                            flagTPassword = false;
+                        }
+                       
+                    }catch(OnlyTextException e){
+                        System.out.println(e.getMessage());
+                    }
+                }while(flagTPassword);  
             }
         }
     }
@@ -166,6 +490,25 @@ public class Menu {
     public void setOption(int option) {
         this.option = option;
     }
+
+       private static boolean isNumeric(String cadena) throws OnlyNumberException{
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException e){
+            throw new OnlyNumberException("Ingrese numeros unicamente");
+        }
+    }
     
+    private static boolean isTextual(String cadena) throws OnlyTextException{
+        try{
+            return !(cadena.contains("0")||cadena.contains("1")||cadena.contains("2")
+                    ||cadena.contains("3")||cadena.contains("4")||cadena.contains("5")
+                    ||cadena.contains("6")||cadena.contains("7")||cadena.contains("8")
+                    ||cadena.contains("9"));
+        }catch (Exception e){
+            throw new OnlyTextException("Ingrese texto unicamente");
+        }
+    }
     
 }
