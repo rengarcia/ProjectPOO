@@ -6,6 +6,7 @@
 package ec.edu.espe.schweitzer_revision.frames;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,6 +61,12 @@ public class FRMClient extends javax.swing.JFrame {
 
         jLabel3.setText("Nombre: ");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -101,9 +108,26 @@ public class FRMClient extends javax.swing.JFrame {
 
         jLabel6.setText("Tipo de orden: ");
 
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
+
         jLabel7.setText("ID (4 últimos dígitos cédula)");
 
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
+            }
+        });
+
         jToggleButton1.setText("Salir");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jButtonRegister.setText("Registrar");
 
@@ -195,6 +219,43 @@ public class FRMClient extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+      char validate=evt.getKeyChar();
+
+    if(Character.isLetter(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    }
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+     char validate=evt.getKeyChar();
+
+    if(Character.isDigit(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    }
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+         char validate=evt.getKeyChar();
+
+    if(Character.isLetter(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    }
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
