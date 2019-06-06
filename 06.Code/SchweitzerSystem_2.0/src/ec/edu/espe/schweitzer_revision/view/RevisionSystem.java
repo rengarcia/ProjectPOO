@@ -5,18 +5,15 @@
  */
 package ec.edu.espe.schweitzer_revision.view;
 
-import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import ec.edu.espe.schweitzer_revision.controller.Menu;
 import ec.edu.espe.schweitzer_revision.model.Client;
 import ec.edu.espe.schweitzer_revision.model.Maintenance;
 import ec.edu.espe.schweitzer_revision.model.OrderStatus;
 import ec.edu.espe.schweitzer_revision.model.Repair;
-import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.Console;  
-import java.io.File;
 
 /**
  *
@@ -26,88 +23,36 @@ public class RevisionSystem {
     
     public static void main(String[] args) throws FileNotFoundException, IOException {
         
-        String clientOrderFilePath="Files\\ClientOrder.txt" ;
-        String backupPath="Backup\\ClientOrder.txt" ;
-        String technicianFilePath="Files\\TechnicianList.txt" ;
-        String cipherPath="Files\\Cipher.txt"; 
-        
-        //Esto es por donde el usurio ingresa los datos y se le asigna la order
-        
-        /*RevisionSystem  instance= new RevisionSystem ();
-        Client clientData= instance.setData();
-        FileManager newDataLine = new FileManager();
-        
-        String tempId;   
-        
-        Boolean decide=clientData.flag;
-        
-        if(decide==true){
-          tempId=clientData.getNewRepairOrder().getId();  
-        }
-        else {
-          tempId=clientData.getNewMaintenanceOrder().getId();  
-        }
-        
-        //convert data to json format
-        Gson gson = new Gson();
-        String jsonClientData;
-        jsonClientData = gson.toJson(clientData);
-              
-        File firstTimeRun= new File(clientOrderFilePath);
-        boolean exist = firstTimeRun.exists();
-        if(exist==false){
-        newDataLine.writeFile(clientOrderFilePath,jsonClientData);
-        newDataLine.writeFile(backupPath,jsonClientData);
-        }
-        else {
-        newDataLine.appendStrToFile(clientOrderFilePath,jsonClientData);
-        newDataLine.appendStrToFile(backupPath,jsonClientData);
-        }    
+        Menu menu = new Menu();
+        do {
+            menu.principalMenu();
+            switch (menu.getOption()) {
+                case 1:
+                    do {
+                        menu.clientMenu();
+                        switch (menu.getOption()) {
+                            case 1:
+                                menu.reserveOrder();
+                                break;
+                            case 2:
+                                menu.cancelOrder();
+                                break;
+                            case 3:
+                                menu.sellForm();
+                            case 4:
+                                break;
+                        }
+                    } while (menu.getOption() == 1 || menu.getOption() == 2);
+                    break;
+                case 2:
+                    menu.technicianMenu();
+                    break;
+                case 3:
+                    System.exit(0);
 
-        Client newOrderWaiting = new Client();
-        try {
-            newOrderWaiting.AssignOrder(clientOrderFilePath,technicianFilePath,
-                   tempId);} catch (FileNotFoundException ex){}*/
-        
-        
-        /***************************************/
-        //Esto iria donde se cancelan las ordenes
-        /*Client userCancelOrder= new Client();
-        Scanner scannerCancel= new Scanner(System.in);
-        
-        System.out.println("Porfavor ingresa el id de la orden: ");
-        String tempCancelOrder= scannerCancel.nextLine();
-        
-        userCancelOrder.cancelOrder(backupPath,clientOrderFilePath,tempCancelOrder);*/
-        
-        
-        /**************************************/
-        //Este seria el menu para el tecnico 
-        Technician technician = new Technician();
-        Scanner scannerTechnician= new Scanner(System.in);
-        Console con = System.console();  
-        
-        System.out.println("Porfavor ingresa tu id: ");
-        String tempTechnicianId= scannerTechnician.nextLine();
-        System.out.println("Ingresa tu contraseña: ");
-        String attemptPassword= scannerTechnician.nextLine();
-        
-        int n=0;
-        while(n==0){
-            boolean approve = technician.checkPassword(tempTechnicianId,attemptPassword,cipherPath);
+            }
+        } while (menu.getOption() >= 1 || menu.getOption() <= 3);
 
-            if(approve==true){
-                 n=1;
-                 technician.workStatus(clientOrderFilePath, technicianFilePath, cipherPath,
-                 tempTechnicianId);
-            }
-            else{
-                System.out.println("Contreseña incorrecta");
-                System.out.println("Ingresa la contraseña de nuevo: ");
-                attemptPassword= scannerTechnician.nextLine();
-            }
-        }
-        
     }
     
     public Client setData(){
@@ -115,10 +60,10 @@ public class RevisionSystem {
         //Get Data for Client class
         Client clientData = new Client();
         Scanner scanner= new Scanner(System.in);
-        System.out.println("Ingrese el nombre: ");
+        System.out.println("Ingrese su nombre: ");
         clientData.setName(scanner.nextLine());
                 
-        System.out.println("Ingrese su ID: ");
+        System.out.println("Ingrese su ID (Cuatro últimos dígitos de su cédula): ");
         clientData.setId(scanner.nextLong());
         
         scanner.nextLine();  // fix to nextLine bug
@@ -150,7 +95,7 @@ public class RevisionSystem {
             //Get data for Order attribute
             Repair repairData = new Repair();
 
-            System.out.println("Ingrese la fecha del trabajo: ");
+            System.out.println("Ingrese la fecha del trabajo (dd/mm/aa): ");
             repairData.setDate(scanner.nextLong());
             
             scanner.nextLine();  // fix to nextLine bug
@@ -189,7 +134,7 @@ public class RevisionSystem {
             //Get data for Order attribute
             Maintenance maintenanceData = new Maintenance();
 
-            System.out.println("Ingrese la fecha del trabajo: ");
+            System.out.println("Ingrese la fecha del trabajo(dd/mm/aa): ");
             maintenanceData.setDate(scanner.nextLong());
 
             scanner.nextLine();  // fix to nextLine bug
