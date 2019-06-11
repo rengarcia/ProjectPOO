@@ -5,14 +5,16 @@
  */
 package ec.edu.espe.schweitzer_revision.frames;
 
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jhony Naranjo
  */
 public class FRMUpdateMaintenance extends javax.swing.JFrame {
-
+private static final Logger LOG = Logger.getLogger(FRMUpdateMaintenance.class.getName());
     /**
      * Creates new form FRMUpdateMaintenance
      */
@@ -46,6 +48,12 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha de completacion: ");
 
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
+
         jLabel5.setText("Nueva Descripción: ");
 
         jTextArea1.setColumns(20);
@@ -55,6 +63,12 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         jButton1.setText("Actualizar Mantenimiento");
 
         jLabel6.setText("Ingresa ID del mantenimiento : ");
+
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,6 +127,30 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+                       char validate=evt.getKeyChar();
+
+    if(Character.isLetter(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");
+    }
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+    char validate=evt.getKeyChar();
+
+    if(Character.isLetter(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");
+    }
+    }//GEN-LAST:event_jTextField2KeyTyped
 
     /**
      * @param args the command line arguments

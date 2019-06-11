@@ -5,14 +5,16 @@
  */
 package ec.edu.espe.schweitzer_revision.frames;
 
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jhony Naranjo
  */
 public class FRMReserveMaintenance extends javax.swing.JFrame {
-
+private static final Logger LOG = Logger.getLogger(FRMReserveMaintenance.class.getName());
     /**
      * Creates new form FRMReserveMaintenance
      */
@@ -45,7 +47,19 @@ public class FRMReserveMaintenance extends javax.swing.JFrame {
 
         jLabel1.setText("Ingrese la fecha para el mantenimiento (dd/mm/aa): ");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Ingrese la dirección del mantenimiento: ");
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Ingrese una descripción: ");
 
@@ -121,6 +135,31 @@ public class FRMReserveMaintenance extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        
+                char validate=evt.getKeyChar();
+
+    if(Character.isLetter(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");
+    }
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+    char validate=evt.getKeyChar();
+
+    if(Character.isDigit(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    LOG.warning("Values entered incorrect");
+    }
+    }//GEN-LAST:event_jTextField2KeyTyped
 
     /**
      * @param args the command line arguments

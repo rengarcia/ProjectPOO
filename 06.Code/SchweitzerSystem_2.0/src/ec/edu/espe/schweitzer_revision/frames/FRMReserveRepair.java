@@ -5,14 +5,16 @@
  */
 package ec.edu.espe.schweitzer_revision.frames;
 
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jhony Naranjo
  */
 public class FRMReserveRepair extends javax.swing.JFrame {
-
+private static final Logger LOG = Logger.getLogger(FRMReserveRepair.class.getName());
     /**
      * Creates new form FRMReserveOrder
      */
@@ -47,12 +49,29 @@ public class FRMReserveRepair extends javax.swing.JFrame {
 
         jLabel1.setText("Ingrese la fecha de la reparación (dd/mm/aa):");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Ingrese la dirección de la reparación: ");
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Ingrese una descripción de la reparación:");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel4.setText("Es una reparación urgente: ");
@@ -135,6 +154,42 @@ public class FRMReserveRepair extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+                    char validate=evt.getKeyChar();
+
+    if(Character.isLetter(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");
+    }
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+    char validate=evt.getKeyChar();
+
+    if(Character.isDigit(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    LOG.warning("Values entered incorrect");
+    }
+    }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
+    char validate=evt.getKeyChar();
+
+    if(Character.isDigit(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    LOG.warning("Values entered incorrect");
+    }
+    }//GEN-LAST:event_jTextArea1KeyTyped
 
     /**
      * @param args the command line arguments
