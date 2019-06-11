@@ -6,19 +6,39 @@
 package ec.edu.espe.schweitzer_revision.frames;
 
 import javax.swing.ImageIcon;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jhony Naranjo
  */
 public class FRMSchweitzerSystem extends javax.swing.JFrame {
-
+private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.getName());
     /**
      * Creates new form FRMSchweitzerSystem
      */
     public FRMSchweitzerSystem() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/frames/icono.png")).getImage());
+            try{
+            Handler consoleHandler = new ConsoleHandler();
+            Handler fileHandler = new FileHandler("Logger.log", false);
+            SimpleFormatter simpleFormatter = new SimpleFormatter();
+            fileHandler.setFormatter(simpleFormatter);
+            LOG.addHandler(consoleHandler);
+            LOG.addHandler(fileHandler);
+            consoleHandler.setLevel(Level.ALL);
+            fileHandler.setLevel(Level.ALL);
+            LOG.log(Level.INFO, "Logger Initilized");
+        }catch(Exception ex){
+            LOG.log(Level.SEVERE, "Error of IO");
+        }
     }
 
     /**

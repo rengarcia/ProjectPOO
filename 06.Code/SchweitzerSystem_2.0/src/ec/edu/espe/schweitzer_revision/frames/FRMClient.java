@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.schweitzer_revision.frames;
 
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author Jhony Naranjo
  */
 public class FRMClient extends javax.swing.JFrame {
-
+private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
     /**
      * Creates new form FRMClient
      */
@@ -228,6 +229,7 @@ public class FRMClient extends javax.swing.JFrame {
     evt.consume();
 
     JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+     LOG.warning("Values entered incorrect");
     }
     }//GEN-LAST:event_jTextField4KeyTyped
 
@@ -239,6 +241,7 @@ public class FRMClient extends javax.swing.JFrame {
     evt.consume();
 
     JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    LOG.warning("Values entered incorrect");
     }
     }//GEN-LAST:event_jTextField1KeyTyped
 
@@ -250,6 +253,7 @@ public class FRMClient extends javax.swing.JFrame {
     evt.consume();
 
     JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");
     }
     }//GEN-LAST:event_jTextField3KeyTyped
 

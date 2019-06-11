@@ -5,14 +5,16 @@
  */
 package ec.edu.espe.schweitzer_revision.frames;
 
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jhony Naranjo
  */
 public class FRMCancelOrder extends javax.swing.JFrame {
-
+private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName());
     /**
      * Creates new form FRMCancelOrder
      */
@@ -39,6 +41,12 @@ public class FRMCancelOrder extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Ingrese ID de la orden a cancelar:");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
 
         jButton1.setText("Cancelar Orden");
 
@@ -91,6 +99,18 @@ public class FRMCancelOrder extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+           char validate=evt.getKeyChar();
+
+    if(Character.isLetter(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+     LOG.warning("Values entered incorrect");
+    }
+    }//GEN-LAST:event_jTextField1KeyTyped
 
     /**
      * @param args the command line arguments
