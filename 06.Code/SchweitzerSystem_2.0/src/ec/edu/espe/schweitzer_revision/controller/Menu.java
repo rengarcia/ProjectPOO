@@ -415,7 +415,7 @@ public class Menu {
 
     }
     
-    public void technicianMenu() throws FileNotFoundException{
+    public void technicianMenu() throws FileNotFoundException, OnlyNumberException{
     Technician technician = new Technician();
         Scanner scannerTechnician= new Scanner(System.in);
         Console con = System.console();  
@@ -429,12 +429,12 @@ public class Menu {
             System.out.println("Porfavor ingresa tu id: ");
             try{
                  String auxTempTechnicianId= scannerTechnician.nextLine();
-                if(isTextual(auxTempTechnicianId)){
+                if(isNumeric(auxTempTechnicianId)){
                     tempTechnicianId = auxTempTechnicianId;
                     flagTID = false;
                 }
                
-            }catch(OnlyTextException e){
+            }catch(OnlyNumberException e){
                 System.out.println(e.getMessage());
             }
         }while(flagTID);
