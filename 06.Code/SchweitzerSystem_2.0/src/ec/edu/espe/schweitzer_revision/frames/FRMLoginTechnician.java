@@ -11,12 +11,14 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jhony Naranjo
  */
 public class FRMLoginTechnician extends javax.swing.JFrame {
+    private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
 
     /**
      * Creates new form FRMLoginTechnician
@@ -46,6 +48,12 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Ingrese su ID: ");
+
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("Ingrese su contraseña :");
 
@@ -124,7 +132,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
             aux.setId(txtId.getText());
             aux.setPassword(txtPassword.getText());
 
-            if(fm.verifyUserExistence(aux)){
+            if(fm.verifyUserExistence(aux)==true){
                 this.setVisible(false);
                 FRMTechnician entry = new FRMTechnician();
                 entry.setVisible(true);
@@ -147,6 +155,18 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         * INGRESO AL MENU PRINCIPAL
         */
     }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+                 char validate=evt.getKeyChar();
+
+    if(Character.isLetter(validate)){
+    getToolkit().beep();
+    evt.consume();
+
+    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");
+    }
+    }//GEN-LAST:event_txtIdKeyTyped
 
     public void emptyFields(){
         txtId.setText("");
