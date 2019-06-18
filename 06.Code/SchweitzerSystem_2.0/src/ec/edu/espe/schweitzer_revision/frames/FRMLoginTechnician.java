@@ -7,6 +7,7 @@ package ec.edu.espe.schweitzer_revision.frames;
 
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import ec.edu.espe.schweitzer_revision.model.Password;
+import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,8 @@ import javax.swing.JOptionPane;
  */
 public class FRMLoginTechnician extends javax.swing.JFrame {
     private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
-
+    
+    String cipherPath="Files\\Cipher.txt"; 
     /**
      * Creates new form FRMLoginTechnician
      */
@@ -127,12 +129,12 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
-            FileManager fm = new FileManager();
             Password aux = new Password();
+            Technician tech = new Technician();
             aux.setId(txtId.getText());
             aux.setPassword(txtPassword.getText());
 
-            if(fm.verifyUserExistence(aux)==true){
+            if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
                 this.setVisible(false);
                 FRMTechnician entry = new FRMTechnician();
                 entry.setVisible(true);

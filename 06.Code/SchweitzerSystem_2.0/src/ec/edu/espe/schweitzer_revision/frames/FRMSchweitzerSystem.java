@@ -54,7 +54,6 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
         jMnuFile = new javax.swing.JMenu();
         jMenuItemReserveOrder = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuTechnician = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,9 +67,6 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
 
         jMenuItem1.setText("Cancelar Orden");
         jMnuFile.add(jMenuItem1);
-
-        jMenuItem4.setText("Visualizar Repuestos");
-        jMnuFile.add(jMenuItem4);
 
         jMenuBar1.add(jMnuFile);
 
@@ -136,7 +132,6 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemReserveOrder;
     private javax.swing.JMenu jMenuTechnician;
     private javax.swing.JMenu jMnuFile;
