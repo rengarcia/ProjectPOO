@@ -5,7 +5,14 @@
  */
 package ec.edu.espe.schweitzer_revision.frames;
 
+import com.google.gson.Gson;
+import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import ec.edu.espe.schweitzer_revision.model.Password;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,16 +40,26 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jButtonBack = new javax.swing.JButton();
+        txtPassword = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Ingrese la nueva contraseña: ");
 
         jButton1.setText("Cambiar contraseña");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
-        jButton2.setText("Atras");
+        jButtonBack.setText("Atras");
+        jButtonBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonBackMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -56,13 +73,13 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(jButtonBack)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -71,11 +88,11 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jButtonBack)
                 .addContainerGap())
         );
 
@@ -92,6 +109,31 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try {
+            FileManager dataLine = new FileManager();
+            String technicianId = "30001";
+            String cipherPath = "Files\\Cipher.txt";
+            String newPassword = txtPassword.getText();
+            Gson gson = new Gson();
+            String encryptPassword = FileManager.encrypt(newPassword);
+            String passwordLine = dataLine.parseFile(cipherPath, technicianId);
+            Password password = gson.fromJson(passwordLine,Password.class);
+            String currentPassword = password.getPassword();
+            dataLine.modifyFile(cipherPath, currentPassword, encryptPassword);
+            JOptionPane.showMessageDialog(this,"Contraseña actualizada!","Cambio de contraseña", WIDTH);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FRMUpdatePassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButtonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackMouseClicked
+        FRMTechnician technician = new FRMTechnician();
+        technician.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonBackMouseClicked
 
     /**
      * @param args the command line arguments
@@ -130,9 +172,9 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

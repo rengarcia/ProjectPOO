@@ -36,13 +36,14 @@ public class FRMTechnician extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxOptions = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jButtonAccept = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SchweitzerSystem");
 
-        lblWelcome.setText("Bienvenid@ \"Name technician\"");
+        lblWelcome.setText("Bienvenid@ ");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -61,7 +62,7 @@ public class FRMTechnician extends javax.swing.JFrame {
 
         jLabel3.setText("Deseas realizar :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Actualizar Reparaciones", "Actualizar Mantenimientos", "Cambiar contraseña" }));
+        jComboBoxOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Actualizar Reparaciones", "Actualizar Mantenimientos", "Cambiar contraseña" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,8 +83,8 @@ public class FRMTechnician extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel3)
                         .addGap(35, 35, 35)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboBoxOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,11 +98,23 @@ public class FRMTechnician extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(81, 81, 81))
         );
 
         jButton1.setText("Salir");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        jButtonAccept.setText("Aceptar");
+        jButtonAccept.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAcceptMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,7 +124,9 @@ public class FRMTechnician extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 370, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonAccept)
+                .addGap(134, 134, 134)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -120,12 +135,42 @@ public class FRMTechnician extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButtonAccept))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAcceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAcceptMouseClicked
+        String value = jComboBoxOptions.getSelectedItem().toString();
+        String option1 = "Actualizar Reparaciones";
+        String option2 = "Actualizar Mantenimientos";
+                
+        if(value.equals(option1)){
+            FRMUpdateRepair repair = new FRMUpdateRepair();
+            repair.setVisible(true);
+            this.setVisible(false);
+        }else{
+            if(value.equals(option2)){
+                FRMUpdateMaintenance maintenance = new FRMUpdateMaintenance();
+                maintenance.setVisible(true);
+                this.setVisible(false);
+            }else{
+                FRMUpdatePassword password = new FRMUpdatePassword();
+                password.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_jButtonAcceptMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        FRMSchweitzerSystem schweitzerSystem = new FRMSchweitzerSystem();
+        schweitzerSystem.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -165,7 +210,8 @@ public class FRMTechnician extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButtonAccept;
+    private javax.swing.JComboBox<String> jComboBoxOptions;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
