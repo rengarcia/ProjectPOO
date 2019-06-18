@@ -8,10 +8,6 @@ package ec.edu.espe.schweitzer_revision.model;
 import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -47,43 +43,25 @@ public class Repair extends Order{
        return id;
     }
     
-     @Override
-    public void updateOrder(String clientOrderFilePath, String orderId) throws FileNotFoundException {
-        Scanner scanner= new Scanner(System.in);
+   
+    public void updateOrder(String clientOrderFilePath, String orderId, String descriptionUpdate, String completionDateUpdate, String completionOrderUpdate) throws FileNotFoundException {
+
         String dataOrder;
         FileManager dataLine=new FileManager();
         Gson gson = new Gson();
-
         dataOrder=dataLine.parseFile(clientOrderFilePath, orderId);
         Client dataFromFileClient = gson.fromJson(dataOrder,Client.class);   
-
         String currentDescription;
         String currentCompletionDate;
         String currentOrderCompletion;
-
         currentDescription= dataFromFileClient.getNewRepairOrder().getStatus().getDescription();
         currentCompletionDate= dataFromFileClient.getNewRepairOrder().getStatus().getOrderCompletionDate();
-        currentOrderCompletion= dataFromFileClient.getNewRepairOrder().getStatus().getOrderCompleted();
-        
-        System.out.println("\nIngrese la nueva descripción");
-        String descriptionUpdate;
-        descriptionUpdate=scanner.nextLine();
-
-        FileManager.modifyFile(clientOrderFilePath,currentDescription,descriptionUpdate);
-
-        System.out.println("\nIngrese la fecha de completación");
-        String completionDateUpdate;
-        completionDateUpdate=scanner.nextLine();
-
+        currentOrderCompletion= dataFromFileClient.getNewRepairOrder().getStatus().getOrderCompleted();          
+        FileManager.modifyFile(clientOrderFilePath,currentDescription,descriptionUpdate);     
         FileManager.modifyFile(clientOrderFilePath,currentCompletionDate,completionDateUpdate);
-        
-        System.out.println("\nEl trabajo esta finalizado?");
-        String completionOrderUpdate;
-        completionOrderUpdate=scanner.nextLine();      
-        
         FileManager.modifyFile(clientOrderFilePath,currentOrderCompletion,completionOrderUpdate);
         
-        System.out.println("\nHas el estado de la orden "+orderId);
+       
     }
     
     public Boolean getPriority() {
@@ -92,6 +70,11 @@ public class Repair extends Order{
 
     public void setPriority(Boolean priority) {
         this.priority = priority;
+    }
+
+    @Override
+    public void updateOrder(String clientOrderFilePath, String orderId) throws FileNotFoundException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
