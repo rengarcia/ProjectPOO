@@ -1,5 +1,6 @@
 package ec.edu.espe.schweitzer_revision.controller;
 import com.google.gson.Gson;
+import ec.edu.espe.schweitzer_revision.model.Password;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -299,5 +300,29 @@ public class FileManager {
                 e.printStackTrace();
             }
         }
+    }
+
+ public boolean verifyUserExistence(Password auxPas) throws FileNotFoundException, IOException{
+        File archive = new File("files/Cipher.txt");
+        FileReader fr = new FileReader(archive);
+        BufferedReader br = new BufferedReader(fr);
+        ArrayList<Password> arrPassword = new ArrayList<>();
+        boolean flag = false;
+        
+        String line;
+        while((line = br.readLine())!=null){
+            Gson gson = new Gson();
+            Password auxExit = (Password)gson.fromJson(line,Password.class);
+            arrPassword.add(auxExit);
+        }
+        
+        String decryptedPassword;
+        for(Password aux : arrPassword){
+            decryptedPassword = decrypt(aux.getPassword());
+            if(aux.getId().equals(auxPas.getId()) && decryptedPassword.equals(auxPas.getPassword())){
+                flag = true;
+            }
+        }
+        return flag;
     }
 }

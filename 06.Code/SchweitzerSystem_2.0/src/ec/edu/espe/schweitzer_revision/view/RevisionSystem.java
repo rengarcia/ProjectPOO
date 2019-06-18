@@ -7,6 +7,7 @@ package ec.edu.espe.schweitzer_revision.view;
 
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import ec.edu.espe.schweitzer_revision.controller.Menu;
+import ec.edu.espe.schweitzer_revision.controller.OnlyNumberException;
 import ec.edu.espe.schweitzer_revision.model.Client;
 import ec.edu.espe.schweitzer_revision.model.Maintenance;
 import ec.edu.espe.schweitzer_revision.model.OrderStatus;
@@ -21,7 +22,7 @@ import java.util.Scanner;
  */
 public class RevisionSystem {
     
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, OnlyNumberException {
         
         Menu menu = new Menu();
         do {
