@@ -133,11 +133,18 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
             Technician tech = new Technician();
             aux.setId(txtId.getText());
             aux.setPassword(txtPassword.getText());
+            String filePath= "files\\ConstantIdLogin.txt";
+            String passwordPath= "files\\ConstantPassword.txt";
+            FileManager file = new FileManager();
 
             if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
                 this.setVisible(false);
                 FRMTechnician entry = new FRMTechnician();
                 entry.setVisible(true);
+                String id = txtId.getText();
+                String password = txtPassword.getText();
+                file.writeFile(filePath, id);
+                file.writeFile(passwordPath,password);
             }
             else{
                 emptyFields();
