@@ -9,10 +9,13 @@ import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import ec.edu.espe.schweitzer_revision.model.Password;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -166,15 +169,27 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-                 char validate=evt.getKeyChar();
+    char validate=evt.getKeyChar();
 
-    if(Character.isLetter(validate)){
-    getToolkit().beep();
-    evt.consume();
-
-    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-    LOG.warning("Values entered incorrect");
+    if(validate >=48 && validate<=57){
+     
     }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");  
+    }
+    
+    
+    if (txtId.getText().length()== 5) {
+
+         evt.consume(); 
+    } 
+
+    
+
+    
     }//GEN-LAST:event_txtIdKeyTyped
 
     public void emptyFields(){
@@ -207,7 +222,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FRMLoginTechnician.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+    
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

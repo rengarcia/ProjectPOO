@@ -14,6 +14,7 @@ import ec.edu.espe.schweitzer_revision.model.OrderStatus;
 import ec.edu.espe.schweitzer_revision.model.Repair;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -22,7 +23,7 @@ import javax.swing.JOptionPane;
  * @author Jhony Naranjo
  */
 public class FRMClient extends javax.swing.JFrame {
-
+ private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
     /**
      * Creates new form FRMClient
      */
@@ -589,7 +590,10 @@ public class FRMClient extends javax.swing.JFrame {
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
         char validate=evt.getKeyChar();
 
-        if(Character.isDigit(validate)){
+        if(validate >=97 && validate<=122  ){
+          
+        }
+            else{
             getToolkit().beep();
             evt.consume();
 
@@ -600,23 +604,33 @@ public class FRMClient extends javax.swing.JFrame {
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
         char validate=evt.getKeyChar();
 
-        if(Character.isLetter(validate)){
-            getToolkit().beep();
+    if(validate >=48 && validate<=57){
+     
+    }
+    else{
+        getToolkit().beep();
             evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        LOG.warning("Values entered incorrect");  
+    }
+        if (txtId.getText().length()== 5) {
 
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+         evt.consume(); 
+    } 
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void txtPhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhoneNumberKeyTyped
         char validate=evt.getKeyChar();
 
-        if(Character.isLetter(validate)){
-            getToolkit().beep();
+           if(validate >=48 && validate<=57){
+     
+    }
+    else{
+        getToolkit().beep();
             evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        LOG.warning("Values entered incorrect");  
+    }
     }//GEN-LAST:event_txtPhoneNumberKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
