@@ -63,14 +63,39 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
         jMnuFile.setText("Cliente");
 
         jMenuItemReserveOrder.setText("Agendar Orden");
+        jMenuItemReserveOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItemReserveOrderMouseClicked(evt);
+            }
+        });
+        jMenuItemReserveOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemReserveOrderActionPerformed(evt);
+            }
+        });
         jMnuFile.add(jMenuItemReserveOrder);
 
         jMenuItem1.setText("Cancelar Orden");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem1MouseClicked(evt);
+            }
+        });
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMnuFile.add(jMenuItem1);
 
         jMenuBar1.add(jMnuFile);
 
         jMenuTechnician.setText("Técnico");
+        jMenuTechnician.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuTechnicianMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenuTechnician);
 
         setJMenuBar(jMenuBar1);
@@ -90,7 +115,33 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void jMenuItemReserveOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemReserveOrderMouseClicked
+        new FRMClient().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItemReserveOrderMouseClicked
 
+    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
+
+    }//GEN-LAST:event_jMenuItem1MouseClicked
+    
+    private void jMenuTechnicianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuTechnicianMouseClicked
+        new FRMLoginTechnician().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuTechnicianMouseClicked
+
+    private void jMenuItemReserveOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReserveOrderActionPerformed
+        new FRMClient().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItemReserveOrderActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
+        new FRMCancelOrder().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    
+    
     /**
      * @param args the command line arguments
      */
