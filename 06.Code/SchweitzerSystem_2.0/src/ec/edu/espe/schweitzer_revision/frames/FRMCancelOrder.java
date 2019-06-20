@@ -5,6 +5,10 @@
  */
 package ec.edu.espe.schweitzer_revision.frames;
 
+import ec.edu.espe.schweitzer_revision.model.Client;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -34,31 +38,31 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtId = new javax.swing.JTextField();
+        jButtonCancelOrder = new javax.swing.JButton();
+        jButtonMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Ingrese ID de la orden a cancelar:");
 
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                txtIdKeyTyped(evt);
             }
         });
 
-        jButton1.setText("Cancelar Orden");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonCancelOrder.setText("Cancelar Orden");
+        jButtonCancelOrder.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                jButtonCancelOrderMouseClicked(evt);
             }
         });
 
-        jButton2.setText("Menú");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonMenu.setText("Menú");
+        jButtonMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                jButtonMenuMouseClicked(evt);
             }
         });
 
@@ -72,14 +76,14 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
                         .addGap(27, 27, 27)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(144, 144, 144)
-                        .addComponent(jButton1)))
-                .addContainerGap(107, Short.MAX_VALUE))
+                        .addComponent(jButtonCancelOrder)))
+                .addContainerGap(78, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jButtonMenu)
                 .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
@@ -88,11 +92,11 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
                 .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52)
-                .addComponent(jButton1)
+                .addComponent(jButtonCancelOrder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jButtonMenu)
                 .addGap(22, 22, 22))
         );
 
@@ -110,7 +114,7 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
            char validate=evt.getKeyChar();
 
     if(Character.isLetter(validate)){
@@ -120,16 +124,26 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
     JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
      LOG.warning("Values entered incorrect");
     }
-    }//GEN-LAST:event_jTextField1KeyTyped
+    }//GEN-LAST:event_txtIdKeyTyped
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void jButtonMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMenuMouseClicked
         new FRMSchweitzerSystem().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_jButtonMenuMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        JOptionPane.showMessageDialog(rootPane, "Orden cancelada","Cancelar", HEIGHT);
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void jButtonCancelOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCancelOrderMouseClicked
+        Client userCancelOrder = new Client();
+        String tempCancelOrder = txtId.getText();
+        String clientOrderFilePath = "Files\\ClientOrder.txt";
+        String backupPath = "Backup\\ClientOrder.txt";
+        try {
+            userCancelOrder.cancelOrder(backupPath, clientOrderFilePath, tempCancelOrder);
+            JOptionPane.showMessageDialog(this, "Orden cancelada", "Cancelar", WIDTH);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this,"No se encontro el id ingresado","Cancelar orden", WIDTH);
+            Logger.getLogger(FRMCancelOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonCancelOrderMouseClicked
 
     /**
      * @param args the command line arguments
@@ -167,10 +181,10 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCancelOrder;
+    private javax.swing.JButton jButtonMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }

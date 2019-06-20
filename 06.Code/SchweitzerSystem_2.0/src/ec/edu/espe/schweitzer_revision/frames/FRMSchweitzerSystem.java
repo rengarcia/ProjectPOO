@@ -54,6 +54,7 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
         jMnuFile = new javax.swing.JMenu();
         jMenuItemReserveOrder = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemViewSpareParts = new javax.swing.JMenuItem();
         jMenuTechnician = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,6 +88,14 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
             }
         });
         jMnuFile.add(jMenuItem1);
+
+        jMenuItemViewSpareParts.setText("Visualizar Repuestos");
+        jMenuItemViewSpareParts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemViewSparePartsActionPerformed(evt);
+            }
+        });
+        jMnuFile.add(jMenuItemViewSpareParts);
 
         jMenuBar1.add(jMnuFile);
 
@@ -140,6 +149,11 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
         new FRMCancelOrder().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItemViewSparePartsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewSparePartsActionPerformed
+        new FRMSparePart().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItemViewSparePartsActionPerformed
     
     
     /**
@@ -184,6 +198,7 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemReserveOrder;
+    private javax.swing.JMenuItem jMenuItemViewSpareParts;
     private javax.swing.JMenu jMenuTechnician;
     private javax.swing.JMenu jMnuFile;
     // End of variables declaration//GEN-END:variables
