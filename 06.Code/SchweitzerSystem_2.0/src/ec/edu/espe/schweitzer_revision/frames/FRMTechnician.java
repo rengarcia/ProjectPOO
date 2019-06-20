@@ -45,8 +45,10 @@ public class FRMTechnician extends javax.swing.JFrame {
         jLabel3.setText("Deseas realizar :");
 
         jComboBoxOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Actualizar Reparaciones", "Actualizar Mantenimientos", "Cambiar contraseña" }));
+        jComboBoxOptions.setToolTipText("Selecciona la accion que deseas realizar");
 
         jButtonAccept.setText("Aceptar");
+        jButtonAccept.setToolTipText("Realizar la accion seleccionada");
         jButtonAccept.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonAcceptMouseClicked(evt);
@@ -86,6 +88,7 @@ public class FRMTechnician extends javax.swing.JFrame {
         );
 
         jButton1.setText("Salir");
+        jButton1.setToolTipText("Salir de la ventana");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);

@@ -107,6 +107,7 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButton1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Atr&#xe1;s"/>
+        <Property name="toolTipText" type="java.lang.String" value="Regresar al menu"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jToggleButton1MouseClicked"/>
@@ -118,6 +119,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDate">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingresa la fecha que vas a completar el mantenimiento"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -135,6 +139,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="toolTipText" type="java.lang.String" value="Describe lo que realizaste en el mantenimiento realizado actualmente"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -142,6 +147,7 @@
     <Component class="javax.swing.JButton" name="jButtonUpdateMaintenance">
       <Properties>
         <Property name="text" type="java.lang.String" value="Actualizar Mantenimiento"/>
+        <Property name="toolTipText" type="java.lang.String" value="Actualizar estado del mantenimiento"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonUpdateMaintenanceMouseClicked"/>
@@ -153,6 +159,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtId">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingresa el ID del mantenimiento que deseas cambiar el estado"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

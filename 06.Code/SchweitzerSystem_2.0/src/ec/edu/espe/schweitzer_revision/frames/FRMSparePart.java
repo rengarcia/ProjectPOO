@@ -102,6 +102,7 @@ public class FRMSparePart extends javax.swing.JFrame {
         jLabel1.setText("Productos Disponibles");
 
         jButtonMenu.setText("Menú");
+        jButtonMenu.setToolTipText("Regresar al menu principal");
         jButtonMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonMenuMouseClicked(evt);

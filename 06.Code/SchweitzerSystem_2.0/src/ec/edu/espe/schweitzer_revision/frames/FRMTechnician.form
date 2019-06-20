@@ -109,6 +109,7 @@
                 <StringItem index="2" value="Cambiar contrase&#xf1;a"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Selecciona la accion que deseas realizar"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -117,6 +118,7 @@
         <Component class="javax.swing.JButton" name="jButtonAccept">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Realizar la accion seleccionada"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonAcceptMouseClicked"/>
@@ -127,6 +129,7 @@
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salir"/>
+        <Property name="toolTipText" type="java.lang.String" value="Salir de la ventana"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>

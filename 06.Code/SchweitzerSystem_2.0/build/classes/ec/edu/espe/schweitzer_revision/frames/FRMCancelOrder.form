@@ -84,6 +84,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtId">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingrese el ID de la orden que desea cancelar&#xa;"/>
+          </Properties>
           <Events>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdKeyTyped"/>
           </Events>
@@ -91,6 +94,7 @@
         <Component class="javax.swing.JButton" name="jButtonCancelOrder">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar Orden"/>
+            <Property name="toolTipText" type="java.lang.String" value="Cancelar la orden"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCancelOrderMouseClicked"/>
@@ -99,6 +103,7 @@
         <Component class="javax.swing.JButton" name="jButtonMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Men&#xfa;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Regresar al menu"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMenuMouseClicked"/>

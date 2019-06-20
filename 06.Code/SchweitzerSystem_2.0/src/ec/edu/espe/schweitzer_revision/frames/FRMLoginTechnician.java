@@ -62,7 +62,10 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
 
         jLabel2.setText("Ingrese su contraseña :");
 
+        txtPassword.setToolTipText("Ingresa tu contraseña");
+
         btnLogin.setText("Entrar");
+        btnLogin.setToolTipText("Ingresar al menu tecnico");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -70,6 +73,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         });
 
         btnMenu.setText("Menú");
+        btnMenu.setToolTipText("Regresar al menu principal");
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMenuActionPerformed(evt);

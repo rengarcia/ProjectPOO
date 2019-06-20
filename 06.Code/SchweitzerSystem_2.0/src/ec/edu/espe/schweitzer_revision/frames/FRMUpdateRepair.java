@@ -53,12 +53,17 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
 
         jLabel1.setText("Ingrese ID de la reparación: ");
 
+        txtId.setToolTipText("Ingresa el ID de la reparacion");
+
         jLabel2.setText("Ingrese fecha de completación: ");
+
+        txtDate.setToolTipText("Ingresa la fecha actual");
 
         jLabel3.setText("Ingrese nueva descripcion: ");
 
         jTextAreaDescription.setColumns(20);
         jTextAreaDescription.setRows(5);
+        jTextAreaDescription.setToolTipText("Describe la reparación realizada");
         jScrollPane1.setViewportView(jTextAreaDescription);
 
         jButton1.setText("Actualizar Reparación");
@@ -78,6 +83,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         jLabel4.setText("Orden Completa :");
 
         jComboBoxCompleted.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
+        jComboBoxCompleted.setToolTipText("Describe si la reparacion fue completada totalmente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

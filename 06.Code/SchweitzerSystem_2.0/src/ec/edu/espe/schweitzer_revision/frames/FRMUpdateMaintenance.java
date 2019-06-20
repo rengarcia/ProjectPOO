@@ -49,6 +49,7 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToggleButton1.setText("Atrás");
+        jToggleButton1.setToolTipText("Regresar al menu");
         jToggleButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jToggleButton1MouseClicked(evt);
@@ -57,13 +58,17 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha de completacion : ");
 
+        txtDate.setToolTipText("Ingresa la fecha que vas a completar el mantenimiento");
+
         jLabel5.setText("Nueva Descripción : ");
 
         jTextAreaDescription.setColumns(20);
         jTextAreaDescription.setRows(5);
+        jTextAreaDescription.setToolTipText("Describe lo que realizaste en el mantenimiento realizado actualmente");
         jScrollPane1.setViewportView(jTextAreaDescription);
 
         jButtonUpdateMaintenance.setText("Actualizar Mantenimiento");
+        jButtonUpdateMaintenance.setToolTipText("Actualizar estado del mantenimiento");
         jButtonUpdateMaintenance.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonUpdateMaintenanceMouseClicked(evt);
@@ -71,6 +76,8 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         });
 
         jLabel6.setText("Ingresa ID del mantenimiento : ");
+
+        txtId.setToolTipText("Ingresa el ID del mantenimiento que deseas cambiar el estado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

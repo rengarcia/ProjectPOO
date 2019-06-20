@@ -36,6 +36,7 @@ public class FRMUtilBadMessage extends javax.swing.JFrame {
         jLabel1.setText("Datos Erroneos, Por Favor Ingrese Correctamente Los Datos");
 
         jButton1.setText("REINTENTAR");
+        jButton1.setToolTipText("Intentar nuevamente");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

@@ -44,6 +44,7 @@ public class FRMSplash extends javax.swing.JFrame {
         lblName.setText("Loading Resources...");
 
         jButtonMenu.setText("Saltar");
+        jButtonMenu.setToolTipText("Saltar la presentacion del programa");
         jButtonMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonMenuMouseClicked(evt);

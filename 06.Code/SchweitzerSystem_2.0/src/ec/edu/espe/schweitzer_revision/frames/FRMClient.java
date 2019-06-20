@@ -237,6 +237,7 @@ public class FRMClient extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnExit.setText("Salir");
+        btnExit.setToolTipText("Salir de la pantalla");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
@@ -247,6 +248,7 @@ public class FRMClient extends javax.swing.JFrame {
 
         jLabel6.setText("Tipo de orden: ");
 
+        txtPhoneNumber.setToolTipText("Ingrese aqui su numero telefonico de contacto");
         txtPhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPhoneNumberKeyTyped(evt);
@@ -255,6 +257,7 @@ public class FRMClient extends javax.swing.JFrame {
 
         jLabel7.setText("ID (4 últimos dígitos cédula)");
 
+        txtId.setToolTipText("Aqui ingrese los cuatro ultimos digitos de su cedula");
         txtId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdKeyTyped(evt);
@@ -263,6 +266,7 @@ public class FRMClient extends javax.swing.JFrame {
 
         jLabel3.setText("Nombre: ");
 
+        txtName.setToolTipText("Ingrese aqui sus nombres");
         txtName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNameKeyTyped(evt);
@@ -270,6 +274,8 @@ public class FRMClient extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Direccion:");
+
+        txtAddress.setToolTipText("Ingrese aqui su direccio");
 
         cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reparacion ", "Mantenimiento" }));
 
@@ -340,6 +346,7 @@ public class FRMClient extends javax.swing.JFrame {
         jLabel2.setText("Ingrese sus datos para su orden");
 
         btnNewOrder.setText("Nueva Orden");
+        btnNewOrder.setToolTipText("Generar la orden con los datos establecidos");
         btnNewOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewOrderActionPerformed(evt);
@@ -348,12 +355,17 @@ public class FRMClient extends javax.swing.JFrame {
 
         lblMaintenanceDate.setText("Ingrese la fecha para el mantenimiento (dd/mm/aa): ");
 
+        txtMaintenanceDate.setToolTipText("Ingrese la fecha que desea que lo visitemos");
+
         lblMaintenanceAddress.setText("Ingrese la dirección del mantenimiento: ");
+
+        txtMaintenanceAddress.setToolTipText("Ingrese la direccion donde desea que lo visitemos para el mantenimiento");
 
         lblMaintenanceDescription.setText("Ingrese una descripción: ");
 
         txtMaintenanceDescription.setColumns(20);
         txtMaintenanceDescription.setRows(5);
+        txtMaintenanceDescription.setToolTipText("Ingrese una breve descripcion del problema");
         jScrollPane2.setViewportView(txtMaintenanceDescription);
 
         lblSesionNumber.setText("Numero de Sesion:");
@@ -409,15 +421,22 @@ public class FRMClient extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
+        jPanel4.setToolTipText("Ingrese la descripcion de su problema");
+
         lblReparationDate.setText("Ingrese la fecha de la reparación (dd/mm/aa):");
 
+        txtReparationDate.setToolTipText("Ingrese la fecha que desea que lo visitemos ");
+
         lblReparationAddress.setText("Ingrese la dirección de la reparación: ");
+
+        txtReparationAddress.setToolTipText("Ingrese la direccion de reparación");
 
         lblReparationDescription.setText("Ingrese una descripción de la reparación:");
 
         lblReparationPriority.setText("Es una reparación urgente: ");
 
         cbUrgencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
+        cbUrgencia.setToolTipText("Considera usted que es de suma urgencia la reparacion?");
 
         txtReparationDescription.setColumns(20);
         txtReparationDescription.setRows(5);
@@ -463,7 +482,7 @@ public class FRMClient extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblReparationDescription)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbUrgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblReparationPriority))
@@ -471,6 +490,7 @@ public class FRMClient extends javax.swing.JFrame {
         );
 
         btnSave.setText("Guardar");
+        btnSave.setToolTipText("Guardar con los datos establecidos");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
@@ -527,7 +547,7 @@ public class FRMClient extends javax.swing.JFrame {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();

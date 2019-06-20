@@ -131,6 +131,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtId">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingresa el ID de la reparacion"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -138,6 +141,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDate">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingresa la fecha actual"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -155,6 +161,7 @@
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
+                <Property name="toolTipText" type="java.lang.String" value="Describe la reparaci&#xf3;n realizada"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -188,6 +195,7 @@
                 <StringItem index="1" value="NO"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Describe si la reparacion fue completada totalmente"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

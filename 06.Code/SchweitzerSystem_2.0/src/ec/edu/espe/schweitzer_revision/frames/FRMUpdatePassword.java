@@ -50,6 +50,7 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
         jLabel1.setText("Ingrese la nueva contraseña: ");
 
         jButtonUpdatePassword.setText("Cambiar contraseña");
+        jButtonUpdatePassword.setToolTipText("Confirmar el cambio de contraseña");
         jButtonUpdatePassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonUpdatePasswordMouseClicked(evt);
@@ -57,13 +58,18 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
         });
 
         jButtonBack.setText("Atras");
+        jButtonBack.setToolTipText("Regresar al menu");
         jButtonBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonBackMouseClicked(evt);
             }
         });
 
+        txtPassword.setToolTipText("Ingresa la nueva contraseña");
+
         jLabel2.setText("Ingrese su contraseña actual: ");
+
+        txtLastPassword.setToolTipText("Ingresa la contraseña actual\n");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -46,6 +46,7 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
 
         jLabel1.setText("Ingrese ID de la orden a cancelar:");
 
+        txtId.setToolTipText("Ingrese el ID de la orden que desea cancelar\n");
         txtId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdKeyTyped(evt);
@@ -53,6 +54,7 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
         });
 
         jButtonCancelOrder.setText("Cancelar Orden");
+        jButtonCancelOrder.setToolTipText("Cancelar la orden");
         jButtonCancelOrder.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonCancelOrderMouseClicked(evt);
@@ -60,6 +62,7 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
         });
 
         jButtonMenu.setText("Menú");
+        jButtonMenu.setToolTipText("Regresar al menu");
         jButtonMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonMenuMouseClicked(evt);

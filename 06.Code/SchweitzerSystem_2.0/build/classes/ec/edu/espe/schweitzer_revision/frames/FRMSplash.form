@@ -87,6 +87,7 @@
         <Component class="javax.swing.JButton" name="jButtonMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Saltar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Saltar la presentacion del programa"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMenuMouseClicked"/>

@@ -97,7 +97,7 @@
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -106,6 +106,7 @@
     <Component class="javax.swing.JToggleButton" name="btnExit">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salir"/>
+        <Property name="toolTipText" type="java.lang.String" value="Salir de la pantalla"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExitActionPerformed"/>
@@ -207,6 +208,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPhoneNumber">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingrese aqui su numero telefonico de contacto"/>
+          </Properties>
           <Events>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPhoneNumberKeyTyped"/>
           </Events>
@@ -217,6 +221,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtId">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Aqui ingrese los cuatro ultimos digitos de su cedula"/>
+          </Properties>
           <Events>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdKeyTyped"/>
           </Events>
@@ -227,6 +234,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtName">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingrese aqui sus nombres"/>
+          </Properties>
           <Events>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNameKeyTyped"/>
           </Events>
@@ -237,6 +247,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAddress">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingrese aqui su direccio"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbType">
           <Properties>
@@ -266,6 +279,7 @@
     <Component class="javax.swing.JButton" name="btnNewOrder">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nueva Orden"/>
+        <Property name="toolTipText" type="java.lang.String" value="Generar la orden con los datos establecidos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewOrderActionPerformed"/>
@@ -346,6 +360,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaintenanceDate">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingrese la fecha que desea que lo visitemos"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblMaintenanceAddress">
           <Properties>
@@ -353,6 +370,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaintenanceAddress">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingrese la direccion donde desea que lo visitemos para el mantenimiento"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblMaintenanceDescription">
           <Properties>
@@ -370,6 +390,7 @@
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
+                <Property name="toolTipText" type="java.lang.String" value="Ingrese una breve descripcion del problema"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -384,6 +405,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel4">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese la descripcion de su problema"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -435,7 +459,7 @@
                       <Component id="lblReparationDescription" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cbUrgencia" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblReparationPriority" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -452,6 +476,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtReparationDate">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingrese la fecha que desea que lo visitemos "/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblReparationAddress">
           <Properties>
@@ -459,6 +486,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtReparationAddress">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingrese la direccion de reparaci&#xf3;n"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblReparationDescription">
           <Properties>
@@ -478,6 +508,7 @@
                 <StringItem index="1" value="No"/>
               </StringArray>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Considera usted que es de suma urgencia la reparacion?"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -503,6 +534,7 @@
     <Component class="javax.swing.JButton" name="btnSave">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Guardar con los datos establecidos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>

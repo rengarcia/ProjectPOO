@@ -10,11 +10,13 @@
               <Border info="null"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cliente"/>
+            <Property name="toolTipText" type="java.lang.String" value="Visualizar el menu para el cliente"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReserveOrder">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agendar Orden"/>
+                <Property name="toolTipText" type="java.lang.String" value="Menu para generar orden"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenuItemReserveOrderMouseClicked"/>
@@ -24,6 +26,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar Orden"/>
+                <Property name="toolTipText" type="java.lang.String" value="Menu para cancelar la orden&#xa;"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenuItem1MouseClicked"/>
@@ -33,6 +36,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemViewSpareParts">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visualizar Repuestos"/>
+                <Property name="toolTipText" type="java.lang.String" value="Menu para visualizar los repuestos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemViewSparePartsActionPerformed"/>
@@ -43,6 +47,7 @@
         <Menu class="javax.swing.JMenu" name="jMenuTechnician">
           <Properties>
             <Property name="text" type="java.lang.String" value="T&#xe9;cnico"/>
+            <Property name="toolTipText" type="java.lang.String" value="Visualizar menu del tecnico"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenuTechnicianMouseClicked"/>

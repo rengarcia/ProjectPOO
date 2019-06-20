@@ -62,8 +62,10 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
 
         jMnuFile.setBorder(null);
         jMnuFile.setText("Cliente");
+        jMnuFile.setToolTipText("Visualizar el menu para el cliente");
 
         jMenuItemReserveOrder.setText("Agendar Orden");
+        jMenuItemReserveOrder.setToolTipText("Menu para generar orden");
         jMenuItemReserveOrder.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuItemReserveOrderMouseClicked(evt);
@@ -77,6 +79,7 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
         jMnuFile.add(jMenuItemReserveOrder);
 
         jMenuItem1.setText("Cancelar Orden");
+        jMenuItem1.setToolTipText("Menu para cancelar la orden\n");
         jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuItem1MouseClicked(evt);
@@ -90,6 +93,7 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
         jMnuFile.add(jMenuItem1);
 
         jMenuItemViewSpareParts.setText("Visualizar Repuestos");
+        jMenuItemViewSpareParts.setToolTipText("Menu para visualizar los repuestos");
         jMenuItemViewSpareParts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemViewSparePartsActionPerformed(evt);
@@ -100,6 +104,7 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
         jMenuBar1.add(jMnuFile);
 
         jMenuTechnician.setText("Técnico");
+        jMenuTechnician.setToolTipText("Visualizar menu del tecnico");
         jMenuTechnician.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuTechnicianMouseClicked(evt);

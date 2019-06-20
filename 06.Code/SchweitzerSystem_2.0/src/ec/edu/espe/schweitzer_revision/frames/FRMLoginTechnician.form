@@ -102,10 +102,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPassword">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Ingresa tu contrase&#xf1;a"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnLogin">
           <Properties>
             <Property name="text" type="java.lang.String" value="Entrar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Ingresar al menu tecnico"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
@@ -114,6 +118,7 @@
         <Component class="javax.swing.JButton" name="btnMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Men&#xfa;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Regresar al menu principal"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuActionPerformed"/>
