@@ -633,7 +633,7 @@ public class FRMClient extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         LOG.warning("Values entered incorrect");  
     }
-        if (txtId.getText().length()== 5) {
+        if (txtId.getText().length()== 4) {
 
          evt.consume(); 
     } 

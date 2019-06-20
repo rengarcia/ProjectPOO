@@ -33,7 +33,7 @@ public class Technician {
 
     }
 
-    public boolean checkPassword(String technicianId, String passwordAttempt,
+        public boolean checkPassword(String technicianId, String passwordAttempt,
             String cipherFilePath) throws FileNotFoundException {
 
         boolean pass = false;

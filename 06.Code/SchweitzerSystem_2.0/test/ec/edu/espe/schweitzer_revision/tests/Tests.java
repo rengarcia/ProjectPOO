@@ -6,6 +6,8 @@
 package ec.edu.espe.schweitzer_revision.tests;
 
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import ec.edu.espe.schweitzer_revision.model.Technician;
+import java.io.FileNotFoundException;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -16,6 +18,7 @@ import org.junit.Test;
 public class Tests {
     
     FileManager fm = new FileManager();
+    Technician th = new Technician();
     
     public Tests() {
     }
@@ -656,5 +659,11 @@ public class Tests {
         String actual = fm.decrypt("jzi~w9>");
         String expected =  "bravo16";
         assertEquals(expected,actual);
+    }
+    @Test
+    public void testcheckPassword() throws FileNotFoundException{
+        boolean actual = th.checkPassword("30001" , "hi" , "Files/Cipher.txt");
+        boolean expected = true;
+        assertEquals(expected, actual);
     }
 }
