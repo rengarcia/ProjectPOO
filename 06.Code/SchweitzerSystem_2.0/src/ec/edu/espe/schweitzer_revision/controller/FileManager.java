@@ -235,6 +235,26 @@ public class FileManager {
     return encryptPassword;
     }
      
+    public static String encryptforTest(String password,int type){
+    String encryptedPassword;
+      
+    List<String> list = new ArrayList<>(Arrays.asList(password.split("")));
+     
+    for(int i=0; i<list.size();i++){
+        String tempString = list.get(i);
+        char tempChar = tempString.charAt(0);  
+
+        int asciiValue = (int) tempChar;
+            asciiValue = asciiValue+type;
+
+        char newChar = (char)asciiValue;
+        list.set(i, String.valueOf(newChar));
+    }
+    
+    encryptedPassword = String.join("", list);
+  
+    return encryptedPassword;
+    }
     
     public static String decrypt(String encryptPassword){
     String decryptPassword;
@@ -256,7 +276,27 @@ public class FileManager {
   
     return decryptPassword;
     }
-       
+    
+    public static String decryptforTest(String encryptPassword, int arg){
+    String decryptPassword;
+      
+    List<String> list = new ArrayList<>(Arrays.asList(encryptPassword.split("")));
+     
+    for(int i=0; i<list.size();i++){
+        String tempString = list.get(i);
+        char tempChar = tempString.charAt(0);  
+
+        int asciiValue = (int) tempChar;
+            asciiValue = asciiValue-arg;
+
+        char newChar = (char)asciiValue;
+        list.set(i, String.valueOf(newChar));
+    }
+    
+    decryptPassword = String.join("", list);
+  
+    return decryptPassword;
+    }
     
     
     public static void modifyFile(String filePath, String oldString, String newString){
