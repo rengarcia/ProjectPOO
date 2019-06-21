@@ -129,13 +129,13 @@ public class Technician {
         this.id = id;
     }
 
-    /*public ArrayList<String> getDates() {
+    public ArrayList<String> getDates() {
         return dates;
     }
 
     public void setDates(ArrayList<String> dates) {
         this.dates = dates;
-    }*/
+    }
     public ArrayList<String> getOrderId() {
         return orderId;
     }
