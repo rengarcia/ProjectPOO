@@ -50,12 +50,16 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMnuFile = new javax.swing.JMenu();
         jMenuItemReserveOrder = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItemViewSpareParts = new javax.swing.JMenuItem();
         jMenuTechnician = new javax.swing.JMenu();
+        menuAdmin = new javax.swing.JMenu();
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Schweitzer System");
@@ -112,6 +116,15 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
         });
         jMenuBar1.add(jMenuTechnician);
 
+        menuAdmin.setText("Admin");
+        menuAdmin.setToolTipText("Visualizar menu del tecnico");
+        menuAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuAdminMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuAdmin);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,6 +172,11 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
         new FRMSparePart().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItemViewSparePartsActionPerformed
+
+    private void menuAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuAdminMouseClicked
+        new FRMAdmin().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_menuAdminMouseClicked
     
     
     /**
@@ -202,9 +220,11 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemReserveOrder;
     private javax.swing.JMenuItem jMenuItemViewSpareParts;
     private javax.swing.JMenu jMenuTechnician;
     private javax.swing.JMenu jMnuFile;
+    private javax.swing.JMenu menuAdmin;
     // End of variables declaration//GEN-END:variables
 }

@@ -122,7 +122,7 @@ public class FileManager {
     
     
     
-    public  void appendStrToFile(String fileName,String dataLine) 
+    public static void appendStrToFile(String fileName,String dataLine) 
     { 
         try {    
             // Open given file in append mode. 
@@ -137,7 +137,7 @@ public class FileManager {
         } 
     } 
     
-    public String parseFile(String fileName,String searchStr) throws FileNotFoundException{  
+    public static String parseFile(String fileName,String searchStr) throws FileNotFoundException{  
         String desiredLine=null;
         Scanner scan = new Scanner(new File(fileName));
         while(scan.hasNext()){
@@ -167,7 +167,7 @@ public class FileManager {
     }
     
     
-    public void removeLineFromFile(String pathFile, String lineToRemove) {
+    public static void removeLineFromFile(String pathFile, String lineToRemove) {
         
         File inputFile = new File(pathFile);
         File tempFile = new File(inputFile.getAbsolutePath() + ".tmp");

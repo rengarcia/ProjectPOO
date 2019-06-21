@@ -9,14 +9,10 @@ import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import ec.edu.espe.schweitzer_revision.model.Password;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.text.NumberFormatter;
-
 /**
  *
  * @author Jhony Naranjo
@@ -63,6 +59,11 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         jLabel2.setText("Ingrese su contraseña :");
 
         txtPassword.setToolTipText("Ingresa tu contraseña");
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
         btnLogin.setText("Entrar");
         btnLogin.setToolTipText("Ingresar al menu tecnico");
@@ -184,17 +185,17 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
     LOG.warning("Values entered incorrect");  
     }
-    
-    
+
     if (txtId.getText().length()== 5) {
 
          evt.consume(); 
     } 
 
-    
-
-    
     }//GEN-LAST:event_txtIdKeyTyped
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     public void emptyFields(){
         txtId.setText("");
