@@ -149,6 +149,24 @@ public class FileManager {
         return desiredLine;
     }
     
+     public static void updateLine(String filePath, String oldString, String newString) throws IOException{
+        
+        Path path = Paths.get(filePath);
+        List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+      
+         for (int i = 0; i < fileContent.size(); i++) {
+         String a= fileContent.get(i);
+                
+            if (a.equals(oldString)) {
+    
+                fileContent.set(i, newString);
+                break;
+            }
+        }
+        Files.write(path, fileContent, StandardCharsets.UTF_8);
+    }
+    
+    
     public void removeLineFromFile(String pathFile, String lineToRemove) {
         
         File inputFile = new File(pathFile);

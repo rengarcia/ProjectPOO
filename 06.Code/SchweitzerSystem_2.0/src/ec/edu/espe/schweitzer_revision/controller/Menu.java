@@ -365,7 +365,7 @@ public class Menu {
         return clientData;
     } 
     
-    public void reserveOrder(){
+    public void reserveOrder() throws IOException{
                 
         RevisionSystem instance = new RevisionSystem();
         Client clientData = instance.setData();

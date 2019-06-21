@@ -39,8 +39,7 @@ public class Client {
 
     public void  AssignOrder(String clientOrderFilePath, String TechnicianFilePath,
             String orderId)
-            throws FileNotFoundException {
-
+            throws FileNotFoundException, IOException {
         String dataOrder;
         String technicianData;
         FileManager dataLine = new FileManager();
@@ -74,14 +73,21 @@ public class Client {
 
             for (int i = 0; i <= tempSize; i++) {
                 String tempOldDateString = dataFromJsonTechnician.dates.get(i);
-                String tempOldIdString = dataFromJsonTechnician.orderId.get(i);
-                int tempValue = Integer.parseInt(tempOldDateString);
-
+              
                 if (tempOldDateString.equals(tempNewDateString)) {
                     break;
-                } else if (!tempOldDateString.equals(tempNewDateString)&&1000>tempValue) {
-                    FileManager.modifyFile(TechnicianFilePath, tempOldDateString, tempNewDateString);
-                    FileManager.modifyFile(TechnicianFilePath, tempOldIdString, tempNewIdString);
+                } 
+
+                else if (!tempOldDateString.equals(tempNewDateString)&&
+                        tempOldDateString.equals("000000")) {
+                     
+                    dataFromJsonTechnician.dates.set(i,tempNewDateString);
+                    dataFromJsonTechnician.orderId.set(i,tempNewIdString);
+                    
+                    String newString = gson.toJson(dataFromJsonTechnician);
+
+                    FileManager.updateLine(TechnicianFilePath,technicianData,newString);
+
                     System.out.println("Su orden fue asignada");
                     flag = true;
                     break;
@@ -96,6 +102,7 @@ public class Client {
             }
             n++;
         }
+        
     }
 
     public void cancelOrder(String backupPath, String clientOrderFilePath, String orderId)

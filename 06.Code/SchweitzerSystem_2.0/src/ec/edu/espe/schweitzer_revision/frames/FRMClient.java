@@ -14,6 +14,8 @@ import ec.edu.espe.schweitzer_revision.model.OrderStatus;
 import ec.edu.espe.schweitzer_revision.model.Repair;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -71,20 +73,31 @@ public class FRMClient extends javax.swing.JFrame {
         clientData.setPhone(Long.valueOf(txtPhoneNumber.getText()));
         
         //Data for Order Status is set these values for default
-        FileManager randomValue = new FileManager();
+       
         
         OrderStatus orderStatusData= new OrderStatus();
-        orderStatusData.setDescription(randomValue.randomString());
-        orderStatusData.setOrderCompletionDate(randomValue.randomString());
-        orderStatusData.setOrderCompleted(randomValue.randomString());
-        
+        orderStatusData.setDescription("null");
+        orderStatusData.setOrderCompletionDate("null");
+        orderStatusData.setOrderCompleted("null");
         
         //temperol value for Combo Box
         String choice = (String)cmbType.getSelectedItem();
-        
-        //decide wheter the client want a repair or maintenance
+       
         if (choice.equals("Reparacion")){
-            Repair repairData = new Repair();
+                      
+            clientData.flag=true;
+        }
+        
+        else if (choice.equals("Mantenimiento")){
+
+            clientData.flag=false;
+        
+            }
+        return clientData;
+    }  
+    
+    public Repair RepairOrder(){
+        Repair repairData = new Repair();
 
             repairData.setDate(Long.valueOf(txtReparationDate.getText()));
     
@@ -102,20 +115,14 @@ public class FRMClient extends javax.swing.JFrame {
             }
             
             repairData.setId(repairData.generateID());
-            
-            //Set data for Order attribute
-            clientData.setNewRepairOrder(repairData);
-            
-            repairData.setStatus(orderStatusData);
-            
-            clientData.flag=true;
-        }
+            repairData.setStatus(Status());
         
-        else if (choice.equals("Mantenimiento")){
-            //Get data for Order attribute
-            Maintenance maintenanceData = new Maintenance();
+        return repairData;
+    }
+    
+    public Maintenance MaitenanceOrder(){
+        Maintenance maintenanceData = new Maintenance();
 
-            
             maintenanceData.setDate(Long.valueOf(txtMaintenanceDate.getText()));
 
             maintenanceData.setAddress(txtMaintenanceAddress.getText());
@@ -124,36 +131,39 @@ public class FRMClient extends javax.swing.JFrame {
 
             maintenanceData.setSession(Integer.parseInt(txtSesionNumber.getText()));
             
-            //Set data for Order attribute
-            clientData.setNewMaintenanceOrder(maintenanceData);
-            
+    
             maintenanceData.setId(maintenanceData.generateID());
             
-            maintenanceData.setStatus(orderStatusData);
-            
-            clientData.flag=false;
+            maintenanceData.setStatus(Status());
         
-            }
-
-        return clientData;
-    }  
+        return maintenanceData;
+    }
     
     
-    public void reserveOrder(){
+    
+    public OrderStatus Status(){
+        OrderStatus orderStatusData= new OrderStatus();
+        orderStatusData.setDescription("null");
+        orderStatusData.setOrderCompletionDate("null");
+        orderStatusData.setOrderCompleted("null");
+        
+        return orderStatusData;
+    }
+    
+  public void reserveOrder(Client clientData){
         
        String clientOrderFilePath="Files\\ClientOrder.txt" ;
        String backupPath="Backup\\ClientOrder.txt" ;
        String technicianFilePath="Files\\TechnicianList.txt"; 
         
 
-        Client clientData = setData();
         FileManager newDataLine = new FileManager();
 
         String tempId;
 
         Boolean decide = clientData.flag;
 
-        if (decide == true) {
+        if (decide) {
             tempId = clientData.getNewRepairOrder().getId();
         } else {
             tempId = clientData.getNewMaintenanceOrder().getId();
@@ -178,9 +188,10 @@ public class FRMClient extends javax.swing.JFrame {
         try {
             newOrderWaiting.AssignOrder(clientOrderFilePath, technicianFilePath,
                     tempId);
-        } catch (FileNotFoundException ex) {}
+        } catch (FileNotFoundException ex) {} catch (IOException ex) {
+         Logger.getLogger(FRMClient.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -655,7 +666,17 @@ public class FRMClient extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        reserveOrder();
+        Client data = new Client();
+        data = setData();
+
+        if(data.flag==true){
+        data.setNewRepairOrder(RepairOrder());
+        }
+        else if (data.flag==false){
+        data.setNewMaintenanceOrder(MaitenanceOrder());
+        }
+
+        reserveOrder(data);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**

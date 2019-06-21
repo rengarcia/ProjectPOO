@@ -8,6 +8,7 @@ package ec.edu.espe.schweitzer_revision.model;
 import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  *
@@ -43,27 +44,7 @@ public class Repair extends Order{
        return id;
     }
     
-   
-    public void updateOrder(String clientOrderFilePath, String orderId, String descriptionUpdate, String completionDateUpdate, String completionOrderUpdate) throws FileNotFoundException {
-
-        String dataOrder;
-        FileManager dataLine=new FileManager();
-        Gson gson = new Gson();
-        dataOrder=dataLine.parseFile(clientOrderFilePath, orderId);
-        Client dataFromFileClient = gson.fromJson(dataOrder,Client.class);   
-        String currentDescription;
-        String currentCompletionDate;
-        String currentOrderCompletion;
-        currentDescription= dataFromFileClient.getNewRepairOrder().getStatus().getDescription();
-        currentCompletionDate= dataFromFileClient.getNewRepairOrder().getStatus().getOrderCompletionDate();
-        currentOrderCompletion= dataFromFileClient.getNewRepairOrder().getStatus().getOrderCompleted();          
-        FileManager.modifyFile(clientOrderFilePath,currentDescription,descriptionUpdate);     
-        FileManager.modifyFile(clientOrderFilePath,currentCompletionDate,completionDateUpdate);
-        FileManager.modifyFile(clientOrderFilePath,currentOrderCompletion,completionOrderUpdate);
-        
-       
-    }
-    
+ 
     public Boolean getPriority() {
         return priority;
     }
@@ -74,7 +55,24 @@ public class Repair extends Order{
 
     @Override
     public void updateOrder(String clientOrderFilePath, String orderId) throws FileNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
+    
+    public void updateOrder(String clientOrderFilePath, String orderId, String descriptionUpdate, String completionDateUpdate, String completionOrderUpdate) throws FileNotFoundException, IOException {
 
+       String dataOrder;
+        FileManager dataLine=new FileManager();
+        Gson gson = new Gson();
+        dataOrder=dataLine.parseFile(clientOrderFilePath, orderId);
+        Client dataFromFileClient = gson.fromJson(dataOrder,Client.class);   
+        
+        dataFromFileClient.getNewRepairOrder().getStatus().setDescription(descriptionUpdate);
+        dataFromFileClient.getNewRepairOrder().getStatus().setOrderCompletionDate(completionDateUpdate);
+        dataFromFileClient.getNewRepairOrder().getStatus().setOrderCompleted(completionOrderUpdate);
+        
+        String newString = gson.toJson(dataFromFileClient);
+        FileManager.updateLine(clientOrderFilePath,dataOrder,newString);
+        
+       
+    }
 }
