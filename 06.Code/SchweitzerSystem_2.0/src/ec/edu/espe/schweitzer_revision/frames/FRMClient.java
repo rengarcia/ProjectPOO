@@ -15,6 +15,8 @@ import ec.edu.espe.schweitzer_revision.model.Repair;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -33,6 +35,7 @@ public class FRMClient extends javax.swing.JFrame {
         initComponents();
         setVisibility();
         setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/frames/icono.png")).getImage());
+        btnSave.setVisible(false);
     }
     
     public void setVisibility (){
@@ -41,7 +44,7 @@ public class FRMClient extends javax.swing.JFrame {
          lblReparationDescription.setVisible(false);
          lblReparationPriority.setVisible(false);
          txtReparationAddress.setVisible(false);
-         txtReparationDate.setVisible(false);
+          jDateChooserRepair.setVisible(false);
          txtReparationDescription.setVisible(false);
          cbUrgencia.setVisible(false);
          jScrollPane4.setVisible(false);
@@ -51,7 +54,7 @@ public class FRMClient extends javax.swing.JFrame {
           lblMaintenanceDescription.setVisible(false);
           lblSesionNumber.setVisible(false);
           txtMaintenanceAddress.setVisible(false);
-          txtMaintenanceDate.setVisible(false);
+          jDateChooserMaintenance.setVisible(false);
           txtMaintenanceDescription.setVisible(false);
           txtSesionNumber.setVisible(false);
           jScrollPane2.setVisible(false);
@@ -99,7 +102,12 @@ public class FRMClient extends javax.swing.JFrame {
     public Repair RepairOrder(){
         Repair repairData = new Repair();
 
-            repairData.setDate(Long.valueOf(txtReparationDate.getText()));
+            String formato = jDateChooserRepair.getDateFormatString();
+            Date date = jDateChooserRepair.getDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+            Long dateInLong = Long.valueOf(dateFormat.format(date));
+
+            repairData.setDate(dateInLong);
     
             repairData.setAddress(txtReparationAddress.getText());
             
@@ -123,7 +131,12 @@ public class FRMClient extends javax.swing.JFrame {
     public Maintenance MaitenanceOrder(){
         Maintenance maintenanceData = new Maintenance();
 
-            maintenanceData.setDate(Long.valueOf(txtMaintenanceDate.getText()));
+            String formato = jDateChooserMaintenance.getDateFormatString();
+            Date date = jDateChooserMaintenance.getDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+            Long dateInLong = Long.valueOf(dateFormat.format(date));
+            
+            maintenanceData.setDate(dateInLong);
 
             maintenanceData.setAddress(txtMaintenanceAddress.getText());
 
@@ -188,7 +201,9 @@ public class FRMClient extends javax.swing.JFrame {
         try {
             newOrderWaiting.AssignOrder(clientOrderFilePath, technicianFilePath,
                     tempId);
+            JOptionPane.showMessageDialog(this,"Su orden fue asignada con éxito","Orden Asignada", WIDTH);
         } catch (FileNotFoundException ex) {} catch (IOException ex) {
+         JOptionPane.showMessageDialog(this,"Error con su orden","Error Orden", WIDTH);
          Logger.getLogger(FRMClient.class.getName()).log(Level.SEVERE, null, ex);
      }
     }
@@ -206,7 +221,6 @@ public class FRMClient extends javax.swing.JFrame {
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
         jRadioButton1 = new javax.swing.JRadioButton();
-        btnExit = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -220,10 +234,8 @@ public class FRMClient extends javax.swing.JFrame {
         cmbType = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnNewOrder = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblMaintenanceDate = new javax.swing.JLabel();
-        txtMaintenanceDate = new javax.swing.JTextField();
         lblMaintenanceAddress = new javax.swing.JLabel();
         txtMaintenanceAddress = new javax.swing.JTextField();
         lblMaintenanceDescription = new javax.swing.JLabel();
@@ -231,9 +243,9 @@ public class FRMClient extends javax.swing.JFrame {
         txtMaintenanceDescription = new javax.swing.JTextArea();
         lblSesionNumber = new javax.swing.JLabel();
         txtSesionNumber = new javax.swing.JTextField();
+        jDateChooserMaintenance = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         lblReparationDate = new javax.swing.JLabel();
-        txtReparationDate = new javax.swing.JTextField();
         lblReparationAddress = new javax.swing.JLabel();
         txtReparationAddress = new javax.swing.JTextField();
         lblReparationDescription = new javax.swing.JLabel();
@@ -241,19 +253,14 @@ public class FRMClient extends javax.swing.JFrame {
         cbUrgencia = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtReparationDescription = new javax.swing.JTextArea();
+        jDateChooserRepair = new com.toedter.calendar.JDateChooser();
         btnSave = new javax.swing.JButton();
+        btnNewOrder = new javax.swing.JButton();
+        btnExit = new javax.swing.JToggleButton();
 
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnExit.setText("Salir");
-        btnExit.setToolTipText("Salir de la pantalla");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Numero telefónico: ");
 
@@ -312,17 +319,17 @@ public class FRMClient extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
-                                .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtId)
-                                    .addComponent(txtPhoneNumber))))
+                                    .addComponent(txtPhoneNumber)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                                .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(3, 3, 3)))
                 .addGap(59, 59, 59))
         );
@@ -356,17 +363,7 @@ public class FRMClient extends javax.swing.JFrame {
 
         jLabel2.setText("Ingrese sus datos para su orden");
 
-        btnNewOrder.setText("Nueva Orden");
-        btnNewOrder.setToolTipText("Generar la orden con los datos establecidos");
-        btnNewOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewOrderActionPerformed(evt);
-            }
-        });
-
         lblMaintenanceDate.setText("Ingrese la fecha para el mantenimiento (dd/mm/aa): ");
-
-        txtMaintenanceDate.setToolTipText("Ingrese la fecha que desea que lo visitemos");
 
         lblMaintenanceAddress.setText("Ingrese la dirección del mantenimiento: ");
 
@@ -381,6 +378,8 @@ public class FRMClient extends javax.swing.JFrame {
 
         lblSesionNumber.setText("Numero de Sesion:");
 
+        jDateChooserMaintenance.setDateFormatString("ddMMyy");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -394,26 +393,29 @@ public class FRMClient extends javax.swing.JFrame {
                         .addComponent(txtSesionNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblMaintenanceDate)
-                        .addGap(63, 63, 63)
-                        .addComponent(txtMaintenanceDate))
+                        .addGap(28, 28, 28)
+                        .addComponent(jDateChooserMaintenance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblMaintenanceAddress)
                             .addComponent(lblMaintenanceDescription))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMaintenanceAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(91, 91, 91)
+                                .addComponent(txtMaintenanceAddress)))))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMaintenanceDate)
-                    .addComponent(txtMaintenanceDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jDateChooserMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMaintenanceAddress)
                     .addComponent(txtMaintenanceAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -436,8 +438,6 @@ public class FRMClient extends javax.swing.JFrame {
 
         lblReparationDate.setText("Ingrese la fecha de la reparación (dd/mm/aa):");
 
-        txtReparationDate.setToolTipText("Ingrese la fecha que desea que lo visitemos ");
-
         lblReparationAddress.setText("Ingrese la dirección de la reparación: ");
 
         txtReparationAddress.setToolTipText("Ingrese la direccion de reparación");
@@ -452,6 +452,8 @@ public class FRMClient extends javax.swing.JFrame {
         txtReparationDescription.setColumns(20);
         txtReparationDescription.setRows(5);
         jScrollPane4.setViewportView(txtReparationDescription);
+
+        jDateChooserRepair.setDateFormatString("ddMMyy");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -468,13 +470,13 @@ public class FRMClient extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblReparationDate)
                             .addComponent(lblReparationAddress))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtReparationDate, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                        .addGap(60, 60, 60)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateChooserRepair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtReparationAddress)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addComponent(lblReparationDescription)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(42, 42, 42))
         );
@@ -482,10 +484,10 @@ public class FRMClient extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblReparationDate)
-                    .addComponent(txtReparationDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jDateChooserRepair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblReparationAddress)
                     .addComponent(txtReparationAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -508,6 +510,22 @@ public class FRMClient extends javax.swing.JFrame {
             }
         });
 
+        btnNewOrder.setText("Nueva Orden");
+        btnNewOrder.setToolTipText("Generar la orden con los datos establecidos");
+        btnNewOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewOrderActionPerformed(evt);
+            }
+        });
+
+        btnExit.setText("Menú");
+        btnExit.setToolTipText("Salir de la pantalla");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -522,19 +540,21 @@ public class FRMClient extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSave)
-                                    .addComponent(btnNewOrder)
-                                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(btnNewOrder)
+                        .addGap(70, 70, 70)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSave)
+                .addGap(190, 190, 190))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,30 +562,33 @@ public class FRMClient extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSave)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(24, 24, 24)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNewOrder)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSave)
-                        .addGap(46, 46, 46)
-                        .addComponent(btnExit))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNewOrder)
+                            .addComponent(btnExit))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        System.exit(0);
+         FRMSchweitzerSystem system = new FRMSchweitzerSystem();
+        system.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnNewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewOrderActionPerformed
@@ -576,7 +599,7 @@ public class FRMClient extends javax.swing.JFrame {
             lblReparationDescription.setVisible(true);
             lblReparationPriority.setVisible(true);
             txtReparationAddress.setVisible(true);
-            txtReparationDate.setVisible(true);
+            jDateChooserRepair.setVisible(true);
             txtReparationDescription.setVisible(true);
             cbUrgencia.setVisible(true);
             jScrollPane4.setVisible(true);
@@ -587,10 +610,11 @@ public class FRMClient extends javax.swing.JFrame {
             lblMaintenanceDescription.setVisible(false);
             lblSesionNumber.setVisible(false);
             txtMaintenanceAddress.setVisible(false);
-            txtMaintenanceDate.setVisible(false);
+            jDateChooserMaintenance.setVisible(false);
             txtMaintenanceDescription.setVisible(false);
             txtSesionNumber.setVisible(false);
             jScrollPane2.setVisible(false);
+            btnSave.setVisible(true);
    
         }
         else if(index==1) {
@@ -599,7 +623,7 @@ public class FRMClient extends javax.swing.JFrame {
             lblMaintenanceDescription.setVisible(true);
             lblSesionNumber.setVisible(true);
             txtMaintenanceAddress.setVisible(true);
-            txtMaintenanceDate.setVisible(true);
+            jDateChooserMaintenance.setVisible(true);
             txtMaintenanceDescription.setVisible(true);
             txtSesionNumber.setVisible(true);
             jScrollPane2.setVisible(true);
@@ -610,10 +634,11 @@ public class FRMClient extends javax.swing.JFrame {
             lblReparationDescription.setVisible(false);
             lblReparationPriority.setVisible(false);
             txtReparationAddress.setVisible(false);
-            txtReparationDate.setVisible(false);
+            jDateChooserRepair.setVisible(false);
             txtReparationDescription.setVisible(false);
             cbUrgencia.setVisible(false);
             jScrollPane4.setVisible(false);
+            btnSave.setVisible(true);
             
         }
     }//GEN-LAST:event_btnNewOrderActionPerformed
@@ -621,7 +646,7 @@ public class FRMClient extends javax.swing.JFrame {
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
         char validate=evt.getKeyChar();
 
-        if(validate >=97 && validate<=122  ){
+        if(validate >=97 && validate<=122 || validate  >= 65 &&validate<=90 || validate ==32 ){
           
         }
             else{
@@ -727,6 +752,8 @@ public class FRMClient extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JComboBox<String> cbUrgencia;
     private javax.swing.JComboBox<String> cmbType;
+    private com.toedter.calendar.JDateChooser jDateChooserMaintenance;
+    private com.toedter.calendar.JDateChooser jDateChooserRepair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -751,12 +778,10 @@ public class FRMClient extends javax.swing.JFrame {
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtMaintenanceAddress;
-    private javax.swing.JTextField txtMaintenanceDate;
     private javax.swing.JTextArea txtMaintenanceDescription;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtReparationAddress;
-    private javax.swing.JTextField txtReparationDate;
     private javax.swing.JTextArea txtReparationDescription;
     private javax.swing.JTextField txtSesionNumber;
     // End of variables declaration//GEN-END:variables
