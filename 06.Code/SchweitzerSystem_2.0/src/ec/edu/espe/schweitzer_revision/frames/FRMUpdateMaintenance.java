@@ -7,7 +7,8 @@ package ec.edu.espe.schweitzer_revision.frames;
 
 import ec.edu.espe.schweitzer_revision.model.Maintenance;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -39,13 +40,13 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
 
         jToggleButton1 = new javax.swing.JToggleButton();
         jLabel4 = new javax.swing.JLabel();
-        txtDate = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDescription = new javax.swing.JTextArea();
         jButtonUpdateMaintenance = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,9 +58,7 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Fecha de completacion : ");
-
-        txtDate.setToolTipText("Ingresa la fecha que vas a completar el mantenimiento");
+        jLabel4.setText("Fecha de completacion (dd/mm/aa) : ");
 
         jLabel5.setText("Nueva Descripción : ");
 
@@ -80,6 +79,8 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
 
         txtId.setToolTipText("Ingresa el ID del mantenimiento que deseas cambiar el estado");
 
+        jDateChooser.setDateFormatString("ddMMyy");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,20 +98,17 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtId))
+                                .addComponent(txtId)
+                                .addGap(49, 49, 49))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jLabel4)
-                                        .addGap(51, 51, 51))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDate))))
-                        .addGap(49, 49, 49)))
+                                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(35, 35, 35)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,22 +118,18 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 61, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
                         .addGap(80, 80, 80)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton1)
                     .addComponent(jButtonUpdateMaintenance))
@@ -148,19 +142,19 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
     private void jButtonUpdateMaintenanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpdateMaintenanceMouseClicked
         String tempOderId = txtId.getText();
         String descriptionUpdate = jTextAreaDescription.getText();
-        String completionDateUpdate = txtDate.getText();
+        String formato = jDateChooser.getDateFormatString();
+        Date date = jDateChooser.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+        String completionDateUpdate = String.valueOf(dateFormat.format(date));
         String clientOrderFilePath = "Files\\ClientOrder.txt" ;
         Maintenance maintenance = new Maintenance();
         try {
             maintenance.updateOrder(clientOrderFilePath, tempOderId, descriptionUpdate, completionDateUpdate);
             JOptionPane.showMessageDialog(this,"Se Actualizo con los nuevos datos","Mantenimiento Actualizado", WIDTH);
-            txtDate.setText("");
             txtId.setText("");
             jTextAreaDescription.setText("");
                        
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FRMUpdateMaintenance.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
             Logger.getLogger(FRMUpdateMaintenance.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonUpdateMaintenanceMouseClicked
@@ -214,13 +208,13 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonUpdateMaintenance;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaDescription;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }

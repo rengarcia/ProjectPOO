@@ -8,6 +8,8 @@ package ec.edu.espe.schweitzer_revision.frames;
 import ec.edu.espe.schweitzer_revision.model.Repair;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -40,7 +42,6 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtDate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDescription = new javax.swing.JTextArea();
@@ -48,6 +49,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         jButtonBack = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jComboBoxCompleted = new javax.swing.JComboBox<>();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,9 +57,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
 
         txtId.setToolTipText("Ingresa el ID de la reparacion");
 
-        jLabel2.setText("Ingrese fecha de completación: ");
-
-        txtDate.setToolTipText("Ingresa la fecha actual");
+        jLabel2.setText("Fecha de completación (dd/mm/aa): ");
 
         jLabel3.setText("Ingrese nueva descripcion: ");
 
@@ -85,6 +85,8 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         jComboBoxCompleted.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
         jComboBoxCompleted.setToolTipText("Describe si la reparacion fue completada totalmente");
 
+        jDateChooser.setDateFormatString("ddMMyy");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -99,15 +101,6 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
                         .addComponent(jButtonBack))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(30, 30, 30)
-                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtDate)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -115,8 +108,16 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
                                 .addGap(39, 39, 39)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBoxCompleted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 42, Short.MAX_VALUE)))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(47, 47, 47)
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -126,10 +127,10 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
@@ -139,7 +140,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(34, 34, 34))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -169,14 +170,16 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         String tempOderId = txtId.getText();
         String descriptionUpdate = jTextAreaDescription.getText();
-        String completionDateUpdate = txtDate.getText();
+        String formato = jDateChooser.getDateFormatString();
+        Date date = jDateChooser.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+        String completionDateUpdate = String.valueOf(dateFormat.format(date));
         String completionOrderUpdate = jComboBoxCompleted.getSelectedItem().toString();
         String clientOrderFilePath = "Files\\ClientOrder.txt" ;
         Repair repair = new Repair();
         try {
             repair.updateOrder(clientOrderFilePath, tempOderId, descriptionUpdate, completionDateUpdate, completionOrderUpdate);
             JOptionPane.showMessageDialog(this,"Se Actualizo con los nuevos datos","Reparación Actualizada", WIDTH);
-            txtDate.setText("");
             txtId.setText("");
             jTextAreaDescription.setText("");
                        
@@ -230,6 +233,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JComboBox<String> jComboBoxCompleted;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -237,7 +241,6 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaDescription;
-    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }
