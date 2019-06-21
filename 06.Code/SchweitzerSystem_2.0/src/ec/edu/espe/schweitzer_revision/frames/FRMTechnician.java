@@ -5,7 +5,15 @@
  */
 package ec.edu.espe.schweitzer_revision.frames;
 
+import com.google.gson.Gson;
+import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import ec.edu.espe.schweitzer_revision.model.Technician;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,14 +21,59 @@ import javax.swing.ImageIcon;
  */
 public class FRMTechnician extends javax.swing.JFrame {
 
+    
+    DefaultTableModel table = new DefaultTableModel();
+    String technicianFilePath = "Files\\TechnicianList.txt";
+    String filePath = "Files\\ConstantIdLogin.txt";
+    FileManager dataLine = new FileManager();
+    String technicianId = dataLine.getConstantId(filePath);
+   
     /**
      * Creates new form FRMTechnician
      */
     public FRMTechnician() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/frames/icono.png")).getImage());
+        
+        try {
+            Gson gson = new Gson();
+            
+            String dataTechnician = dataLine.parseFile(technicianFilePath, technicianId);
+            Technician dataFromFileTechnician = gson.fromJson(dataTechnician, Technician.class);
+            ArrayList<String> order = new ArrayList<>();
+            order = dataFromFileTechnician.getOrderId();
+            
+            ArrayList<String> dates = new ArrayList<>();
+            dates = dataFromFileTechnician.dates;
+            setTable(order,dates);
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(FRMSparePart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      
     }
+   
+     public void setTable(ArrayList dataTechnician, ArrayList dates){
+        ArrayList<String> column = new ArrayList<String>();
+        column.add("Id de la Orden");
+        column.add("Fecha de la Orden");
+    
+        for (Object col : column) {
+            table.addColumn(col);
+        }
+        this.jTable1.setModel(table);
+        Object[] fila = new Object[table.getColumnCount()];
+        for (int i = 0; i < dataTechnician.size(); i++) {
+            fila[0] = dataTechnician.get(i);
+            fila[1] = dates.get(i);
 
+            table.addRow(fila);
+            
+        }       
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,28 +85,33 @@ public class FRMTechnician extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lblWelcome = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButtonAccept = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jComboBoxOptions = new javax.swing.JComboBox<>();
-        jButtonAccept = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SchweitzerSystem");
 
         lblWelcome.setText("Bienvenid@ ");
 
-        jLabel3.setText("Deseas realizar :");
-
-        jComboBoxOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Actualizar Reparaciones", "Actualizar Mantenimientos", "Cambiar contraseña" }));
-        jComboBoxOptions.setToolTipText("Selecciona la accion que deseas realizar");
-
-        jButtonAccept.setText("Aceptar");
-        jButtonAccept.setToolTipText("Realizar la accion seleccionada");
-        jButtonAccept.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAcceptMouseClicked(evt);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setText("Estas son tus ordenes");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -63,31 +121,28 @@ public class FRMTechnician extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addGap(48, 48, 48)
-                        .addComponent(jComboBoxOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonAccept))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGap(162, 162, 162)
+                        .addComponent(lblWelcome))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(30, 30, 30)
                 .addComponent(lblWelcome)
-                .addGap(54, 54, 54)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBoxOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(jButtonAccept)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Salir");
+        jButton1.setText("Menú");
         jButton1.setToolTipText("Salir de la ventana");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -95,25 +150,54 @@ public class FRMTechnician extends javax.swing.JFrame {
             }
         });
 
+        jButtonAccept.setText("Aceptar");
+        jButtonAccept.setToolTipText("Realizar la accion seleccionada");
+        jButtonAccept.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAcceptMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setText("Deseas realizar :");
+
+        jComboBoxOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Actualizar Reparaciones", "Actualizar Mantenimientos", "Cambiar contraseña" }));
+        jComboBoxOptions.setToolTipText("Selecciona la accion que deseas realizar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel3)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jComboBoxOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonAccept)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(34, 34, 34))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBoxOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAccept)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,8 +271,11 @@ public class FRMTechnician extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAccept;
     private javax.swing.JComboBox<String> jComboBoxOptions;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblWelcome;
     // End of variables declaration//GEN-END:variables
 }
