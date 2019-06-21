@@ -13,11 +13,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jhony Naranjo
  */
 public class FRMLoginTechnician extends javax.swing.JFrame {
+    
+ 
     private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
     
     String cipherPath="Files\\Cipher.txt"; 
@@ -28,6 +31,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/frames/icono.png")).getImage());
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,15 +62,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
 
         jLabel2.setText("Ingrese su contraseña :");
 
-        txtPassword.setToolTipText("Ingresa tu contraseña");
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
-            }
-        });
-
         btnLogin.setText("Entrar");
-        btnLogin.setToolTipText("Ingresar al menu tecnico");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -74,7 +70,6 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         });
 
         btnMenu.setText("Menú");
-        btnMenu.setToolTipText("Regresar al menu principal");
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMenuActionPerformed(evt);
@@ -141,18 +136,27 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
             Technician tech = new Technician();
             aux.setId(txtId.getText());
             aux.setPassword(txtPassword.getText());
-            String filePath= "files\\ConstantIdLogin.txt";
-            String passwordPath= "files\\ConstantPassword.txt";
+            String filePath= "Files\\ConstantIdLogin.txt";
+            String passwordPath= "Files\\ConstantPassword.txt";
             FileManager file = new FileManager();
+            
 
             if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
                 this.setVisible(false);
-                FRMTechnician entry = new FRMTechnician();
-                entry.setVisible(true);
                 String id = txtId.getText();
                 String password = txtPassword.getText();
-                file.writeFile(filePath, id);
-                file.writeFile(passwordPath,password);
+                
+                FRMTechnician entry = new FRMTechnician(id);
+                entry.setVisible(true);
+                
+                String content = FileManager.getConstantId(filePath);
+                String contentPass = FileManager.getConstantId(passwordPath);
+                
+                FileManager.modifyFile(filePath,content,id);
+                FileManager.modifyFile(passwordPath,contentPass,password);
+                
+                /*file.writeFile(filePath, id);
+                file.writeFile(passwordPath,password);*/
             }
             else{
                 emptyFields();
@@ -185,17 +189,17 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
     LOG.warning("Values entered incorrect");  
     }
-
+    
+    
     if (txtId.getText().length()== 5) {
 
          evt.consume(); 
     } 
 
+    
+
+    
     }//GEN-LAST:event_txtIdKeyTyped
-
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-
-    }//GEN-LAST:event_txtPasswordActionPerformed
 
     public void emptyFields(){
         txtId.setText("");
@@ -226,6 +230,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FRMLoginTechnician.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
     
         /* Create and display the form */

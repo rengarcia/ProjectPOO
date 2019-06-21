@@ -49,7 +49,21 @@ public class FileManager {
     }
     
     
-    public String getConstantId(String filePath){
+    public static String readFile(String pathname) throws IOException {
+
+    File file = new File(pathname);
+    StringBuilder fileContents = new StringBuilder((int)file.length());        
+
+    try (Scanner scanner = new Scanner(file)) {
+        while(scanner.hasNextLine()) {
+            fileContents.append(scanner.nextLine() + System.lineSeparator());
+        }
+        return fileContents.toString();
+    }
+}
+    
+    
+    public static String getConstantId(String filePath){
         Scanner in = null;
         try {
             in = new Scanner(new FileReader(filePath));

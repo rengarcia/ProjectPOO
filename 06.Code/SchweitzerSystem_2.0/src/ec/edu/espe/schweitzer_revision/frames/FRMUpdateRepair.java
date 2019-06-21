@@ -8,6 +8,7 @@ package ec.edu.espe.schweitzer_revision.frames;
 import ec.edu.espe.schweitzer_revision.model.Repair;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -182,6 +183,8 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
                        
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FRMUpdateMaintenance.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FRMUpdateRepair.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1MouseClicked
 

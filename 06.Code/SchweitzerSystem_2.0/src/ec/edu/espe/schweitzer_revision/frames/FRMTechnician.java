@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,9 +26,8 @@ public class FRMTechnician extends javax.swing.JFrame {
     
     DefaultTableModel table = new DefaultTableModel();
     String technicianFilePath = "Files\\TechnicianList.txt";
-    String filePath = "Files\\ConstantIdLogin.txt";
     FileManager dataLine = new FileManager();
-    String technicianId = dataLine.getConstantId(filePath);
+    
    
     /**
      * Creates new form FRMTechnician
@@ -34,11 +35,14 @@ public class FRMTechnician extends javax.swing.JFrame {
     public FRMTechnician() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/frames/icono.png")).getImage());
-        
+    }
+    
+    public FRMTechnician(String id) {
+        initComponents();
+   
         try {
             Gson gson = new Gson();
-            
-            String dataTechnician = dataLine.parseFile(technicianFilePath, technicianId);
+            String dataTechnician = dataLine.parseFile(technicianFilePath, id);
             Technician dataFromFileTechnician = gson.fromJson(dataTechnician, Technician.class);
             ArrayList<String> order = new ArrayList<>();
             order = dataFromFileTechnician.getOrderId();
@@ -46,14 +50,14 @@ public class FRMTechnician extends javax.swing.JFrame {
             ArrayList<String> dates = new ArrayList<>();
             dates = dataFromFileTechnician.dates;
             setTable(order,dates);
-            
-            
+
         } catch (IOException ex) {
             Logger.getLogger(FRMSparePart.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-      
+  
     }
+    
+    
    
      public void setTable(ArrayList dataTechnician, ArrayList dates){
         ArrayList<String> column = new ArrayList<String>();
