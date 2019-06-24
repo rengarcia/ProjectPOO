@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.schweitzer_revision.model;
 
 import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  *
@@ -45,7 +39,7 @@ public class Client {
         FileManager dataLine = new FileManager();
 
         int intOrderId = Integer.parseInt(orderId);
-        dataOrder = dataLine.parseFile(clientOrderFilePath, orderId);
+        dataOrder = FileManager.parseFile(clientOrderFilePath, orderId);
 
         Gson gson = new Gson();
         Client dataFromJsonClient = gson.fromJson(dataOrder, Client.class);
@@ -67,7 +61,7 @@ public class Client {
             int loopTemporal = 30000 + n;
             String id = String.valueOf(loopTemporal);
 
-            technicianData = dataLine.parseFile(TechnicianFilePath, id);
+            technicianData = FileManager.parseFile(TechnicianFilePath, id);
             Technician dataFromJsonTechnician = gson.fromJson(technicianData, Technician.class);
             int tempSize = dataFromJsonTechnician.dates.size();
 
@@ -111,13 +105,12 @@ public class Client {
         String technicianFilePath = "Files\\TechnicianList.txt";
         String linetoDelete;
         String linetoUpdate;
-        FileManager dataLine = new FileManager();
-
-        linetoDelete = dataLine.parseFile(backupPath, orderId);
-        dataLine.removeLineFromFile(clientOrderFilePath, linetoDelete);
+     
+        linetoDelete = FileManager.parseFile(backupPath, orderId);
+        FileManager.removeLineFromFile(clientOrderFilePath, linetoDelete);
         
         //we update the Technician File
-        linetoUpdate = dataLine.parseFile(backupPath, orderId);
+        linetoUpdate = FileManager.parseFile(backupPath, orderId);
 
         Gson gson = new Gson();
         Client updateTechnicianDates = gson.fromJson(linetoUpdate, Client.class);

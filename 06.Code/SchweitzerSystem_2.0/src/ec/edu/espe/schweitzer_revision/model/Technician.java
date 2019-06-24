@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.schweitzer_revision.model;
 
 import com.google.gson.Gson;
@@ -41,7 +36,7 @@ public class Technician {
         FileManager dataLine = new FileManager();
         Gson gson = new Gson();
 
-        String passwordLine = dataLine.parseFile(cipherFilePath, technicianId);
+        String passwordLine = FileManager.parseFile(cipherFilePath, technicianId);
         Password password = gson.fromJson(passwordLine, Password.class);
 
         String actualPassword = dataLine.decrypt(password.getPassword());
@@ -59,10 +54,9 @@ public class Technician {
 
         Scanner scanner = new Scanner(System.in);
         String dataTechnician;
-        FileManager dataLine = new FileManager();
         Gson gson = new Gson();
 
-        dataTechnician = dataLine.parseFile(technicianFilePath, technicianId);
+        dataTechnician = FileManager.parseFile(technicianFilePath, technicianId);
         Technician dataFromFileTechnician = gson.fromJson(dataTechnician, Technician.class);
 
         System.out.println("Bienvenido  " + dataFromFileTechnician.getName());
@@ -98,13 +92,13 @@ public class Technician {
             case 3: {
                 System.out.println("Ingrese la nueva contraseña: ");
                 String newPassword = scanner.nextLine();
-                String encryptPassword = dataLine.encrypt(newPassword);
+                String encryptPassword = FileManager.encrypt(newPassword);
 
-                String passwordLine = dataLine.parseFile(cipherPath, technicianId);
+                String passwordLine = FileManager.parseFile(cipherPath, technicianId);
                 Password password = gson.fromJson(passwordLine, Password.class);
                 String currentPassword = password.getPassword();
 
-                dataLine.modifyFile(cipherPath, currentPassword, encryptPassword);
+                FileManager.modifyFile(cipherPath, currentPassword, encryptPassword);
                 System.out.println("Contraseña actualizada");
             }
             default:

@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.schweitzer_revision.model;
 
 import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
-import ec.edu.espe.schweitzer_revision.frames.FRMUpdateMaintenance;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
 
 /**
  *
@@ -33,16 +24,14 @@ public class Maintenance extends Order{
     public String generateID() {
       String filePath= "files\\ConstantMaintenanceId.txt";
       String tempId;
-        
-        FileManager updateId= new FileManager();
-        
-        tempId=updateId.getConstantId(filePath);
+ 
+        tempId=FileManager.getConstantId(filePath);
         
         int repairId = Integer.parseInt(tempId);
         repairId= repairId+1;
         id=String.valueOf(repairId);
         
-        updateId.modifyFile(filePath, tempId, id);
+        FileManager.modifyFile(filePath, tempId, id);
        
        return id;
     }
@@ -64,9 +53,8 @@ public class Maintenance extends Order{
     public void updateOrder(String clientOrderFilePath, String orderId, String descriptionUpdate, String completionDateUpdate) throws FileNotFoundException, IOException {
 
         String dataOrder;
-        FileManager dataLine = new FileManager();
         Gson gson = new Gson();
-        dataOrder = dataLine.parseFile(clientOrderFilePath, orderId);
+        dataOrder = FileManager.parseFile(clientOrderFilePath, orderId);
         Client dataFromFileClient = gson.fromJson(dataOrder, Client.class);
    
         dataFromFileClient.getNewMaintenanceOrder().getStatus().setDescription(descriptionUpdate);
