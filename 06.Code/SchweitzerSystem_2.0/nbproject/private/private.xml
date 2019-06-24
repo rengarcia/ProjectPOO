@@ -3,20 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMUtilBadMessage.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMCancelOrder.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMClient.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMSparePart.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMDeleteTech.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMUpdateMaintenance.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMAddTech.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMTechnician.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMUpdateRepair.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMSplash.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/controller/FileManager.java</file>
             <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMLoginTechnician.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMAdmin.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMSchweitzerSystem.java</file>
-            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMUpdatePassword.java</file>
         </group>
     </open-files>
 </project-private>

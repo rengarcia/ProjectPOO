@@ -146,6 +146,11 @@ public class FRMTechnician extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButtonAccept.setText("Aceptar");
         jButtonAccept.setToolTipText("Realizar la accion seleccionada");
@@ -178,7 +183,7 @@ public class FRMTechnician extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonAccept)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(34, 34, 34))))
         );
@@ -223,10 +228,13 @@ public class FRMTechnician extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAcceptMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        FRMSchweitzerSystem schweitzerSystem = new FRMSchweitzerSystem();
-        schweitzerSystem.setVisible(true);
+        new FRMSchweitzerSystem().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

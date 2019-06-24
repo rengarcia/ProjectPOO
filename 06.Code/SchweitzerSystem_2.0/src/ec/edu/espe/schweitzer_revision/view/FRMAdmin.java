@@ -25,6 +25,7 @@ public class FRMAdmin extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSalie = new javax.swing.JButton();
+        btnMainMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +50,13 @@ public class FRMAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnMainMenu.setText("Menu Principal");
+        btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMainMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,9 +68,11 @@ public class FRMAdmin extends javax.swing.JFrame {
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(92, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addComponent(btnMainMenu)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalie)
-                .addGap(39, 39, 39))
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,9 +81,11 @@ public class FRMAdmin extends javax.swing.JFrame {
                 .addComponent(btnAdd)
                 .addGap(44, 44, 44)
                 .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addComponent(btnSalie)
-                .addGap(32, 32, 32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalie)
+                    .addComponent(btnMainMenu))
+                .addGap(47, 47, 47))
         );
 
         pack();
@@ -94,6 +106,11 @@ public class FRMAdmin extends javax.swing.JFrame {
     private void btnSalieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalieActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalieActionPerformed
+
+    private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
+        this.setVisible(false);
+        new FRMSchweitzerSystem().setVisible(true);
+    }//GEN-LAST:event_btnMainMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,6 +150,7 @@ public class FRMAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnSalie;
     // End of variables declaration//GEN-END:variables
 }
