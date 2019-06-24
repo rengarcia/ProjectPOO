@@ -205,7 +205,8 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
     private void jTextAreaDescriptionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaDescriptionKeyTyped
       char validate=evt.getKeyChar();
 
-   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 ){
+   if(validate >=65 && validate<=90 || validate==8 || validate ==32
+           || validate >=97 && validate<=122 ){
      
     }
     else{

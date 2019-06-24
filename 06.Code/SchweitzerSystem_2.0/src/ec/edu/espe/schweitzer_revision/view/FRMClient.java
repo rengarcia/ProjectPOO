@@ -680,7 +680,8 @@ public class FRMClient extends javax.swing.JFrame {
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
         char validate=evt.getKeyChar();
 
-   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 ){
+   if(validate >=65 && validate<=90 || validate==8 
+           || validate >=97 && validate<=122 || validate ==32 ){
      
     }
     else{
@@ -779,7 +780,8 @@ public class FRMClient extends javax.swing.JFrame {
     private void txtReparationDescriptionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReparationDescriptionKeyTyped
        char validate=evt.getKeyChar();
 
-   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 ){
+   if(validate >=65 && validate<=90 || validate==8 || 
+           validate >=97 && validate<=122 || validate ==32){
      
     }
     else{
@@ -793,7 +795,8 @@ public class FRMClient extends javax.swing.JFrame {
     private void txtMaintenanceDescriptionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaintenanceDescriptionKeyTyped
         char validate=evt.getKeyChar();
 
-   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 ){
+   if(validate >=65 && validate<=90 || validate==8 || 
+           validate >=97 && validate<=122 || validate ==32 ){
      
     }
     else{
