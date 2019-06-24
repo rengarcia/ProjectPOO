@@ -27,7 +27,7 @@ public class FRMSparePart extends javax.swing.JFrame {
      */
     public FRMSparePart(){
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/frames/icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
         try {
             readLastLine(sellForm);
         } catch (IOException ex) {

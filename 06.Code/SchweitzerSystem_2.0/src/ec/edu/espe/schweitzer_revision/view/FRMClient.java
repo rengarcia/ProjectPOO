@@ -29,7 +29,7 @@ public class FRMClient extends javax.swing.JFrame {
     public FRMClient() {
         initComponents();
         setVisibility();
-        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/frames/icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
         btnSave.setVisible(false);
     }
     

@@ -18,7 +18,7 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
      */
     public FRMCancelOrder() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/frames/icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
     }
 
     /**
