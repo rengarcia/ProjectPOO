@@ -21,8 +21,8 @@ public class TechnicianTest {
 
     @Test
     public void testcheckPasswordfirst() throws FileNotFoundException{
-        boolean actual = th.checkPassword("30002" , "jm|iA@>" , "Files/Cipher.txt");
-        boolean expected = true;
+        boolean actual = th.checkPassword("30003" , "wumoi;=>" , "Files/Cipher.txt");
+        boolean expected = false;
         assertEquals(expected, actual);
     }
     
