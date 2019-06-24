@@ -16,12 +16,12 @@ import org.junit.Test;
  *
  * @author Andres Garcia
  */
-public class Tests {
+public class TestsEncrypt {
     
     FileManager fm = new FileManager();
     Technician th = new Technician();
     SparePart sp = new SparePart();
-    public Tests() {
+    public TestsEncrypt() {
     }
 
     @Test
@@ -667,14 +667,6 @@ public class Tests {
         boolean expected = false;
         assertEquals(expected, actual);
     }
-    @Test
-    public void testcheckPasswordfirst() throws FileNotFoundException{
-        boolean actual = th.checkPassword("30001" , "itxpi=@<" , "Files/Cipher.txt");
-        boolean expected = true;
-        assertEquals(expected, actual);
-    }
-    @Test
-    public void SparePart(){
-        sp.getName();
-    }
+   
+    
 }
