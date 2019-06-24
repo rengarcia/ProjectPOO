@@ -132,6 +132,9 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Ingresa el ID de la reparacion"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -156,6 +159,9 @@
                 <Property name="rows" type="int" value="5"/>
                 <Property name="toolTipText" type="java.lang.String" value="Describe la reparaci&#xf3;n realizada"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextAreaDescriptionKeyTyped"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

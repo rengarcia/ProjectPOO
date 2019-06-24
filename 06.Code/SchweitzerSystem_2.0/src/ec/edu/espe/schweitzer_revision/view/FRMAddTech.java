@@ -5,6 +5,7 @@ import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import ec.edu.espe.schweitzer_revision.model.Password;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class FRMAddTech extends javax.swing.JFrame {
 
+    private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
     /**
      * Creates new form FRMAddTech
      */
@@ -122,6 +124,12 @@ public class FRMAddTech extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre:");
 
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNameKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Contraseña: ");
 
         btnAddNewTech.setText("Agregar");
@@ -193,6 +201,22 @@ public class FRMAddTech extends javax.swing.JFrame {
         FRMAdmin newWindow = new FRMAdmin();
         newWindow.setVisible(true);
     }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
+    char validate=evt.getKeyChar();
+
+   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 ){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    LOG.warning("Values entered incorrect");  
+    }
+    
+  
+    }//GEN-LAST:event_txtNameKeyTyped
 
     /**
      * @param args the command line arguments

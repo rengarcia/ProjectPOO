@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author David Lopez
  */
 public class FRMDeleteTech extends javax.swing.JFrame {
-
+     private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
     /**
      * Creates new form FRMDeleteTech
      */
@@ -58,6 +58,12 @@ public class FRMDeleteTech extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Id:");
+
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdKeyTyped(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +135,27 @@ public class FRMDeleteTech extends javax.swing.JFrame {
         FRMAdmin newWindow = new FRMAdmin();
         newWindow.setVisible(true);
     }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+        // TODO add your handling code here:
+        char validate=evt.getKeyChar();
+
+    if(validate >=48 && validate<=57 || validate==8){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");  
+    }
+    
+    
+    if (txtId.getText().length()== 5) {
+
+         evt.consume(); 
+    } 
+    }//GEN-LAST:event_txtIdKeyTyped
 
     /**
      * @param args the command line arguments

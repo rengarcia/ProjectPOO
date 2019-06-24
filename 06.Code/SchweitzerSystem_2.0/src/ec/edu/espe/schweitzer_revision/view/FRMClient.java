@@ -289,6 +289,11 @@ public class FRMClient extends javax.swing.JFrame {
         jLabel4.setText("Direccion:");
 
         txtAddress.setToolTipText("Ingrese aqui su direccio");
+        txtAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAddressKeyTyped(evt);
+            }
+        });
 
         cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reparacion ", "Mantenimiento" }));
 
@@ -363,12 +368,22 @@ public class FRMClient extends javax.swing.JFrame {
         lblMaintenanceAddress.setText("Ingrese la dirección del mantenimiento: ");
 
         txtMaintenanceAddress.setToolTipText("Ingrese la direccion donde desea que lo visitemos para el mantenimiento");
+        txtMaintenanceAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMaintenanceAddressKeyTyped(evt);
+            }
+        });
 
         lblMaintenanceDescription.setText("Ingrese una descripción: ");
 
         txtMaintenanceDescription.setColumns(20);
         txtMaintenanceDescription.setRows(5);
         txtMaintenanceDescription.setToolTipText("Ingrese una breve descripcion del problema");
+        txtMaintenanceDescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMaintenanceDescriptionKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(txtMaintenanceDescription);
 
         lblSesionNumber.setText("Numero de Sesion:");
@@ -436,6 +451,11 @@ public class FRMClient extends javax.swing.JFrame {
         lblReparationAddress.setText("Ingrese la dirección de la reparación: ");
 
         txtReparationAddress.setToolTipText("Ingrese la direccion de reparación");
+        txtReparationAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtReparationAddressKeyTyped(evt);
+            }
+        });
 
         lblReparationDescription.setText("Ingrese una descripción de la reparación:");
 
@@ -446,6 +466,11 @@ public class FRMClient extends javax.swing.JFrame {
 
         txtReparationDescription.setColumns(20);
         txtReparationDescription.setRows(5);
+        txtReparationDescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtReparationDescriptionKeyTyped(evt);
+            }
+        });
         jScrollPane4.setViewportView(txtReparationDescription);
 
         jDateChooserRepair.setDateFormatString("ddMMyy");
@@ -641,21 +666,22 @@ public class FRMClient extends javax.swing.JFrame {
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
         char validate=evt.getKeyChar();
 
-        if(validate >=97 && validate<=122 || validate  >= 65 &&validate<=90 || validate ==32 ){
-          
-        }
-            else{
-            getToolkit().beep();
+   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 ){
+     
+    }
+    else{
+        getToolkit().beep();
             evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
-        }
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    LOG.warning("Values entered incorrect");  
+    }
+   
     }//GEN-LAST:event_txtNameKeyTyped
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
         char validate=evt.getKeyChar();
 
-    if(validate >=48 && validate<=57){
+    if(validate >=48 && validate<=57 || validate ==8){
      
     }
     else{
@@ -673,7 +699,7 @@ public class FRMClient extends javax.swing.JFrame {
     private void txtPhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhoneNumberKeyTyped
         char validate=evt.getKeyChar();
 
-           if(validate >=48 && validate<=57){
+           if(validate >=48 && validate<=57 || validate==8){
      
     }
     else{
@@ -682,6 +708,12 @@ public class FRMClient extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         LOG.warning("Values entered incorrect");  
     }
+            if (txtPhoneNumber.getText().length()== 10) {
+
+         evt.consume(); 
+    } 
+
+            
     }//GEN-LAST:event_txtPhoneNumberKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -698,6 +730,79 @@ public class FRMClient extends javax.swing.JFrame {
 
         reserveOrder(data);
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void txtAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyTyped
+       char validate=evt.getKeyChar();
+
+   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 || 
+           validate >=48 && validate<=57 || validate ==45){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras numeros y guion");
+    LOG.warning("Values entered incorrect");  
+    }
+    }//GEN-LAST:event_txtAddressKeyTyped
+
+    private void txtReparationAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReparationAddressKeyTyped
+        char validate=evt.getKeyChar();
+
+   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 || 
+           validate >=48 && validate<=57 || validate ==45){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras numeros y guion");
+    LOG.warning("Values entered incorrect");  
+    }
+    }//GEN-LAST:event_txtReparationAddressKeyTyped
+
+    private void txtReparationDescriptionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReparationDescriptionKeyTyped
+       char validate=evt.getKeyChar();
+
+   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 ){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    LOG.warning("Values entered incorrect");  
+    }
+    }//GEN-LAST:event_txtReparationDescriptionKeyTyped
+
+    private void txtMaintenanceDescriptionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaintenanceDescriptionKeyTyped
+        char validate=evt.getKeyChar();
+
+   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 ){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    LOG.warning("Values entered incorrect");  
+    }
+    }//GEN-LAST:event_txtMaintenanceDescriptionKeyTyped
+
+    private void txtMaintenanceAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaintenanceAddressKeyTyped
+        char validate=evt.getKeyChar();
+
+   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 || 
+           validate >=48 && validate<=57 || validate ==45){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras numeros y guion");
+    LOG.warning("Values entered incorrect");  
+    }
+    }//GEN-LAST:event_txtMaintenanceAddressKeyTyped
 
     /**
      * @param args the command line arguments

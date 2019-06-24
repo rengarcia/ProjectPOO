@@ -124,6 +124,9 @@
             <Property name="rows" type="int" value="5"/>
             <Property name="toolTipText" type="java.lang.String" value="Describe lo que realizaste en el mantenimiento realizado actualmente"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextAreaDescriptionKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -145,11 +148,17 @@
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Ingresa el ID del mantenimiento que deseas cambiar el estado"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdKeyTyped"/>
+      </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser">
       <Properties>
         <Property name="dateFormatString" type="java.lang.String" value="ddMMyy"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jDateChooserKeyTyped"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

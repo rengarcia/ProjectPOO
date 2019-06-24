@@ -112,15 +112,23 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-           char validate=evt.getKeyChar();
-
-    if(Character.isLetter(validate)){
-    getToolkit().beep();
-    evt.consume();
-
-    JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-     LOG.warning("Values entered incorrect");
+    char validate=evt.getKeyChar();
+   if(validate >=48 && validate<=57 || validate==8){
+     
     }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");  
+    }
+    
+    
+    if (txtId.getText().length()== 5) {
+
+         evt.consume(); 
+    } 
+
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void jButtonMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMenuMouseClicked

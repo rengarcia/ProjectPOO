@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Jhony Naranjo
  */
 public class FRMUpdateMaintenance extends javax.swing.JFrame {
-   
+   private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.getName());
 
     /**
      * Creates new form FRMUpdateMaintenance
@@ -61,6 +61,11 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         jTextAreaDescription.setColumns(20);
         jTextAreaDescription.setRows(5);
         jTextAreaDescription.setToolTipText("Describe lo que realizaste en el mantenimiento realizado actualmente");
+        jTextAreaDescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextAreaDescriptionKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextAreaDescription);
 
         jButtonUpdateMaintenance.setText("Actualizar Mantenimiento");
@@ -74,8 +79,18 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         jLabel6.setText("Ingresa ID del mantenimiento : ");
 
         txtId.setToolTipText("Ingresa el ID del mantenimiento que deseas cambiar el estado");
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdKeyTyped(evt);
+            }
+        });
 
         jDateChooser.setDateFormatString("ddMMyy");
+        jDateChooser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jDateChooserKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,6 +178,44 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
        this.setVisible(false);
        
     }//GEN-LAST:event_jToggleButton1MouseClicked
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+       char validate=evt.getKeyChar();
+   if(validate >=48 && validate<=57 || validate==8){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");  
+    }
+    
+    
+    if (txtId.getText().length()== 5) {
+
+         evt.consume(); 
+    } 
+    }//GEN-LAST:event_txtIdKeyTyped
+
+    private void jDateChooserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDateChooserKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateChooserKeyTyped
+
+    private void jTextAreaDescriptionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaDescriptionKeyTyped
+      char validate=evt.getKeyChar();
+
+   if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 ){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+    LOG.warning("Values entered incorrect");  
+    }
+        
+    }//GEN-LAST:event_jTextAreaDescriptionKeyTyped
 
     /**
      * @param args the command line arguments

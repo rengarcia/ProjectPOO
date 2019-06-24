@@ -175,7 +175,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
     char validate=evt.getKeyChar();
 
-    if(validate >=48 && validate<=57){
+    if(validate >=48 && validate<=57 || validate==8){
      
     }
     else{

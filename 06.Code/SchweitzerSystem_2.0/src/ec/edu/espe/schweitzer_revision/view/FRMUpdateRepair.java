@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class FRMUpdateRepair extends javax.swing.JFrame {
 
+    private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
     /**
      * Creates new form FRMUpdateRepair
      */
@@ -53,6 +54,11 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         jLabel1.setText("Ingrese ID de la reparación: ");
 
         txtId.setToolTipText("Ingresa el ID de la reparacion");
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("Fecha de completación (dd/mm/aa): ");
 
@@ -61,6 +67,11 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         jTextAreaDescription.setColumns(20);
         jTextAreaDescription.setRows(5);
         jTextAreaDescription.setToolTipText("Describe la reparación realizada");
+        jTextAreaDescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextAreaDescriptionKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextAreaDescription);
 
         jButton1.setText("Actualizar Reparación");
@@ -192,6 +203,32 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         technician.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonBackMouseClicked
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+        char validate=evt.getKeyChar();
+
+    if(validate >=48 && validate<=57 || validate==8){
+     
+    }
+    else{
+        getToolkit().beep();
+            evt.consume();
+      JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+    LOG.warning("Values entered incorrect");  
+    }
+    
+    
+    if (txtId.getText().length()== 5) {
+
+         evt.consume(); 
+    } 
+        
+    }//GEN-LAST:event_txtIdKeyTyped
+
+    private void jTextAreaDescriptionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaDescriptionKeyTyped
+       
+        
+    }//GEN-LAST:event_jTextAreaDescriptionKeyTyped
 
     /**
      * @param args the command line arguments
