@@ -54,7 +54,7 @@ public class Client {
             tempNewIdString = dataFromJsonClient.newMaintenanceOrder.id;
         }
 
-        int n = 1;
+        int n = 2;
         /*Si aumentas el tamaño de los arreglos  CAMBIA ESTE NUMERO 6*/
         while (n <= 6) {
             boolean flag = false;

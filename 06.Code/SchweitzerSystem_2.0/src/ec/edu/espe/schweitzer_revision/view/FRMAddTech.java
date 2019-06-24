@@ -191,7 +191,7 @@ public class FRMAddTech extends javax.swing.JFrame {
 
     private void btnAddNewTechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewTechActionPerformed
         Create();
-        JOptionPane.showMessageDialog(this,"Tecnico Creado con Exito","Confirmación",JOptionPane.WARNING_MESSAGE);     
+        JOptionPane.showMessageDialog(this,"Tecnico Creado con Exito\n"+"El ID del técnico es: "+readID(),"Confirmación",JOptionPane.WARNING_MESSAGE);     
         
     }//GEN-LAST:event_btnAddNewTechActionPerformed
 

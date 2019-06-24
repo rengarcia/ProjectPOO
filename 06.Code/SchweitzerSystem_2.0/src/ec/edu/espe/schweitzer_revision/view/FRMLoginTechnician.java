@@ -166,10 +166,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
          this.setVisible(false);
-        /*
-        **
-        * INGRESO AL MENU PRINCIPAL
-        */
+         new FRMSchweitzerSystem().setVisible(true);
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped

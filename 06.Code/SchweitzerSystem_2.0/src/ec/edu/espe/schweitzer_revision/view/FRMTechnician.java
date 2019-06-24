@@ -49,9 +49,7 @@ public class FRMTechnician extends javax.swing.JFrame {
         }
   
     }
-    
-    
-   
+
      public void setTable(ArrayList dataTechnician, ArrayList dates){
         ArrayList<String> column = new ArrayList<String>();
         column.add("Id de la Orden");

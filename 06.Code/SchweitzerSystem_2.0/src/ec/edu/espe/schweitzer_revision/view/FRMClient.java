@@ -30,31 +30,44 @@ public class FRMClient extends javax.swing.JFrame {
         initComponents();
         setVisibility();
         setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
-        btnSave.setVisible(false);
+    }
+    
+    public void clearTxtFiles(){
+        txtName.setText("");
+        txtAddress.setText("");
+        txtId.setText("");
+        txtPhoneNumber.setText("");
+        txtMaintenanceAddress.setText("");
+        txtMaintenanceDescription.setText("");
+        txtSesionNumber.setText("");
+        
+        txtReparationDescription.setText("");
+        txtReparationAddress.setText("");
+ 
     }
     
     public void setVisibility (){
-         lblReparationAddress.setVisible(false);
-         lblReparationDate.setVisible(false);
-         lblReparationDescription.setVisible(false);
-         lblReparationPriority.setVisible(false);
-         txtReparationAddress.setVisible(false);
-          jDateChooserRepair.setVisible(false);
-         txtReparationDescription.setVisible(false);
-         cbUrgencia.setVisible(false);
-         jScrollPane4.setVisible(false);
+        lblReparationAddress.setVisible(false);
+        lblReparationDate.setVisible(false);
+        lblReparationDescription.setVisible(false);
+        lblReparationPriority.setVisible(false);
+        txtReparationAddress.setVisible(false);
+        jDateChooserRepair.setVisible(false);
+        txtReparationDescription.setVisible(false);
+        cbUrgencia.setVisible(false);
+        jScrollPane4.setVisible(false);
         
-          lblMaintenanceAddress.setVisible(false);
-          lblMaintenanceDate.setVisible(false);
-          lblMaintenanceDescription.setVisible(false);
-          lblSesionNumber.setVisible(false);
-          txtMaintenanceAddress.setVisible(false);
-          jDateChooserMaintenance.setVisible(false);
-          txtMaintenanceDescription.setVisible(false);
-          txtSesionNumber.setVisible(false);
-          jScrollPane2.setVisible(false);
+        lblMaintenanceAddress.setVisible(false);
+        lblMaintenanceDate.setVisible(false);
+        lblMaintenanceDescription.setVisible(false);
+        lblSesionNumber.setVisible(false);
+        txtMaintenanceAddress.setVisible(false);
+        jDateChooserMaintenance.setVisible(false);
+        txtMaintenanceDescription.setVisible(false);
+        txtSesionNumber.setVisible(false);
+        jScrollPane2.setVisible(false);
            
-         
+        btnSave.setVisible(false);
     }
 
     public Client setData(){
@@ -188,15 +201,16 @@ public class FRMClient extends javax.swing.JFrame {
             newDataLine.writeFile(clientOrderFilePath, jsonClientData);
             newDataLine.writeFile(backupPath, jsonClientData);
         } else {
-            newDataLine.appendStrToFile(clientOrderFilePath, jsonClientData);
-            newDataLine.appendStrToFile(backupPath, jsonClientData);
+            FileManager.appendStrToFile(clientOrderFilePath, jsonClientData);
+            FileManager.appendStrToFile(backupPath, jsonClientData);
         }
 
         Client newOrderWaiting = new Client();
         try {
             newOrderWaiting.AssignOrder(clientOrderFilePath, technicianFilePath,
                     tempId);
-            JOptionPane.showMessageDialog(this,"Su orden fue asignada con éxito","Orden Asignada", WIDTH);
+            JOptionPane.showMessageDialog(this,"Su orden fue asignada con éxito\n"
+                    + "El ID de su orden es: "+ tempId,"Orden Asignada", WIDTH);
         } catch (FileNotFoundException ex) {} catch (IOException ex) {
          JOptionPane.showMessageDialog(this,"Error con su orden","Error Orden", WIDTH);
          Logger.getLogger(FRMClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -729,6 +743,7 @@ public class FRMClient extends javax.swing.JFrame {
         }
 
         reserveOrder(data);
+        clearTxtFiles();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyTyped
