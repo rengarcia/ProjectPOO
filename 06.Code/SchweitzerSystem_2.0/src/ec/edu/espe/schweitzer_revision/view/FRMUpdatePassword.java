@@ -35,7 +35,7 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButtonUpdatePassword = new javax.swing.JButton();
-        jButtonBack = new javax.swing.JButton();
+        jButtonMenu = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtLastPassword = new javax.swing.JPasswordField();
         txtPassword = new javax.swing.JPasswordField();
@@ -52,11 +52,11 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
             }
         });
 
-        jButtonBack.setText("Atras");
-        jButtonBack.setToolTipText("Regresar al menu");
-        jButtonBack.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonMenu.setText("Menú");
+        jButtonMenu.setToolTipText("Regresar al menu");
+        jButtonMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonBackMouseClicked(evt);
+                jButtonMenuMouseClicked(evt);
             }
         });
 
@@ -68,7 +68,7 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonBack)
+                .addComponent(jButtonMenu)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(156, Short.MAX_VALUE)
@@ -101,7 +101,7 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addComponent(jButtonUpdatePassword)
                 .addGap(45, 45, 45)
-                .addComponent(jButtonBack)
+                .addComponent(jButtonMenu)
                 .addContainerGap())
         );
 
@@ -148,11 +148,10 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonUpdatePasswordMouseClicked
 
-    private void jButtonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackMouseClicked
-        FRMTechnician technician = new FRMTechnician();
-        technician.setVisible(true);
+    private void jButtonMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMenuMouseClicked
+        new FRMSchweitzerSystem().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButtonBackMouseClicked
+    }//GEN-LAST:event_jButtonMenuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -190,7 +189,7 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonBack;
+    private javax.swing.JButton jButtonMenu;
     private javax.swing.JButton jButtonUpdatePassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
