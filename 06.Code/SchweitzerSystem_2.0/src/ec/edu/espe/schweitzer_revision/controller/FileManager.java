@@ -157,6 +157,17 @@ public class FileManager {
         return desiredLine;
     }
     
+     public static boolean searchFile(String fileName,String searchStr) throws FileNotFoundException{  
+        Scanner scan = new Scanner(new File(fileName));
+        while(scan.hasNext()){
+            String line = scan.nextLine();
+            if(line.contains(searchStr)){
+            return true;
+            }
+        }
+        return false;
+    }
+    
      public static void updateLine(String filePath, String oldString, String newString) throws IOException{
         
         Path path = Paths.get(filePath);
