@@ -133,10 +133,10 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
             aux.setPassword(txtPassword.getText());
             String filePath= "Files\\ConstantIdLogin.txt";
             String passwordPath= "Files\\ConstantPassword.txt";
-            FileManager file = new FileManager();
-            
 
-            if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
+            
+            if(FileManager.searchFile(cipherPath, aux.getId())){
+                if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
                 this.setVisible(false);
                 String id = txtId.getText();
                 String password = txtPassword.getText();
@@ -152,8 +152,13 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
                 
                 /*file.writeFile(filePath, id);
                 file.writeFile(passwordPath,password);*/
-            }
-            else{
+                }
+                else{
+                emptyFields();
+                FRMUtilBadMessage error = new FRMUtilBadMessage();
+                error.setVisible(true);
+                }
+            }else{
                 emptyFields();
                 FRMUtilBadMessage error = new FRMUtilBadMessage();
                 error.setVisible(true);
@@ -161,7 +166,6 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FRMLoginTechnician.class.getName()).log(Level.SEVERE, null, ex);
         }
-                                         
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
@@ -187,10 +191,6 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
 
          evt.consume(); 
     } 
-
-    
-
-    
     }//GEN-LAST:event_txtIdKeyTyped
 
     public void emptyFields(){
