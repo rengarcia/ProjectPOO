@@ -1,7 +1,8 @@
 package ec.edu.espe.schweitzer_revision.view;
 
 import com.google.gson.Gson;
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import filemanager.FileManager;
+import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class FRMTechnician extends javax.swing.JFrame {
 
     
     DefaultTableModel table = new DefaultTableModel();
-    String technicianFilePath = "Files\\TechnicianList.txt";
+    String technicianFilePath = Path.technicianList;
     FileManager dataLine = new FileManager();
     
    

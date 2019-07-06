@@ -157,10 +157,9 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         Date date = jDateChooser.getDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
         String completionDateUpdate = String.valueOf(dateFormat.format(date));
-        String clientOrderFilePath = "Files\\ClientOrder.txt" ;
         Maintenance maintenance = new Maintenance();
         try {
-            maintenance.updateOrder(clientOrderFilePath, tempOderId, descriptionUpdate, completionDateUpdate);
+            maintenance.updateOrder(tempOderId, descriptionUpdate, completionDateUpdate);
             JOptionPane.showMessageDialog(this,"Se Actualizo con los nuevos datos","Mantenimiento Actualizado", WIDTH);
             txtId.setText("");
             jTextAreaDescription.setText("");

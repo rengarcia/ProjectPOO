@@ -1,7 +1,7 @@
 package ec.edu.espe.schweitzer_revision.model;
 
 import com.google.gson.Gson;
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import filemanager.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -31,10 +31,11 @@ public class Client {
     public Client() {
     }
 
-    public void  AssignOrder(String clientOrderFilePath, String TechnicianFilePath,
-            String orderId)
+    public void  AssignOrder( String orderId)
             throws FileNotFoundException, IOException {
         
+        String clientOrderFilePath= Path.ClientOrders;
+        String technicianFilePath=Path.technicianList; 
         String dataOrder;
         String technicianData;
 
@@ -61,7 +62,7 @@ public class Client {
             int loopTemporal = 30000 + n;
             String id = String.valueOf(loopTemporal);
 
-            technicianData = FileManager.parseFile(TechnicianFilePath, id);
+            technicianData = FileManager.parseFile(technicianFilePath, id);
             Technician dataFromJsonTechnician = gson.fromJson(technicianData, Technician.class);
             int tempSize = dataFromJsonTechnician.dates.size();
 
@@ -80,7 +81,7 @@ public class Client {
                     
                     String newString = gson.toJson(dataFromJsonTechnician);
 
-                    FileManager.updateLine(TechnicianFilePath,technicianData,newString);
+                    FileManager.updateLine(technicianFilePath,technicianData,newString);
 
                     System.out.println("Su orden fue asignada");
                     flag = true;
@@ -100,10 +101,13 @@ public class Client {
     }
        
     
-    public void cancelOrder(String backupPath, String clientOrderFilePath, String orderId)
+    public void cancelOrder(String orderId)
             throws FileNotFoundException, IOException {
-
-        String technicianFilePath = "Files\\TechnicianList.txt";
+        
+        String technicianFilePath = Path.technicianList;
+        String backupPath = Path.backupClientOrders;
+        String clientOrderFilePath= Path.ClientOrders;
+        
         String linetoDelete;
         String linetoUpdate;
      
@@ -121,12 +125,12 @@ public class Client {
         if (value < 20000) {
             long tempDate = updateTechnicianDates.newRepairOrder.date;
             String tempDeleteOldDate = Long.toString(tempDate);
-            FileManager.updateTechnicianDate(technicianFilePath,orderId,tempDeleteOldDate);
+            Technician.updateTechnicianDate(technicianFilePath,orderId,tempDeleteOldDate);
         } 
         else {
             long tempDate = updateTechnicianDates.newMaintenanceOrder.date;
             String tempDeleteOldDate = Long.toString(tempDate);
-            FileManager.updateTechnicianDate(technicianFilePath,orderId,tempDeleteOldDate);
+            Technician.updateTechnicianDate(technicianFilePath,orderId,tempDeleteOldDate);
         } 
 
     }

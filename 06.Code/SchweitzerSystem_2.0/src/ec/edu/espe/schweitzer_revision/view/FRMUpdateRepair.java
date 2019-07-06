@@ -183,10 +183,9 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
         String completionDateUpdate = String.valueOf(dateFormat.format(date));
         String completionOrderUpdate = jComboBoxCompleted.getSelectedItem().toString();
-        String clientOrderFilePath = "Files\\ClientOrder.txt" ;
         Repair repair = new Repair();
         try {
-            repair.updateOrder(clientOrderFilePath, tempOderId, descriptionUpdate, completionDateUpdate, completionOrderUpdate);
+            repair.updateOrder(tempOderId, descriptionUpdate, completionDateUpdate, completionOrderUpdate);
             JOptionPane.showMessageDialog(this,"Se Actualizo con los nuevos datos","Reparación Actualizada", WIDTH);
             txtId.setText("");
             jTextAreaDescription.setText("");

@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.model.Client;
 import ec.edu.espe.schweitzer_revision.model.Maintenance;
 import ec.edu.espe.schweitzer_revision.model.OrderStatus;
+import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.Repair;
 import ec.edu.espe.schweitzer_revision.view.FRMClient;
+import filemanager.FileManager;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -99,8 +101,6 @@ public class NewOrder {
         return maintenanceData;
     }
     
-    
-    
     public OrderStatus Status(){
         OrderStatus orderStatusData= new OrderStatus();
         orderStatusData.setDescription("null");
@@ -112,9 +112,8 @@ public class NewOrder {
     
     public void reserveOrder(Client clientData,FRMClient currentFrame){
         
-        String clientOrderFilePath="Files\\ClientOrder.txt" ;
-        String backupPath="Backup\\ClientOrder.txt" ;
-        String technicianFilePath="Files\\TechnicianList.txt"; 
+        String clientOrderFilePath=Path.ClientOrders;
+        String backupPath=Path.backupClientOrders;
         
         String tempId;
 
@@ -143,8 +142,7 @@ public class NewOrder {
 
         Client newOrderWaiting = new Client();
         try {
-            newOrderWaiting.AssignOrder(clientOrderFilePath, technicianFilePath,
-                    tempId);
+            newOrderWaiting.AssignOrder(tempId);
 
             JOptionPane.showMessageDialog(currentFrame,"Su orden fue asignada con éxito\n"
                     + "El ID de su orden es: "+ tempId,"Orden Asignada", WIDTH);

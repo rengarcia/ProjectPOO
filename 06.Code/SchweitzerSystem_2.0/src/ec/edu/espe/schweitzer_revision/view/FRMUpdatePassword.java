@@ -1,8 +1,9 @@
 package ec.edu.espe.schweitzer_revision.view;
 
 import com.google.gson.Gson;
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import filemanager.FileManager;
 import ec.edu.espe.schweitzer_revision.model.Password;
+import ec.edu.espe.schweitzer_revision.model.Path;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -121,22 +122,22 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
 
     private void jButtonUpdatePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpdatePasswordMouseClicked
         try {
-            FileManager dataLine = new FileManager();
-            String filePath = "files\\ConstantIdLogin.txt";
-            String technicianId = dataLine.getConstantId(filePath);
-            String cipherPath = "Files\\Cipher.txt";
+            
+            String filePath = Path.logInId;
+            String technicianId = FileManager.getConstantId(filePath);
+            String cipherPath = Path.cipher;
             String newPassword = txtPassword.getText();
             String lastPassword = txtLastPassword.getText();
-            String passwordPath= "files\\ConstantPassword.txt";
-            String password1 = dataLine.getConstantId(passwordPath);
+            String passwordPath= Path.logInPass;
+            String password1 = FileManager.getConstantId(passwordPath);
             if(lastPassword.equals(password1)){
                 Gson gson = new Gson();
                 String encryptPassword = FileManager.encrypt(newPassword);
-                String passwordLine = dataLine.parseFile(cipherPath, technicianId);
+                String passwordLine = FileManager.parseFile(cipherPath, technicianId);
                 Password password = gson.fromJson(passwordLine, Password.class);
                 String currentPassword = password.getPassword();
-                dataLine.modifyFile(cipherPath, currentPassword, encryptPassword);
-                dataLine.writeFile(passwordPath, newPassword);
+                FileManager.modifyFile(cipherPath, currentPassword, encryptPassword);
+                FileManager.writeFile(passwordPath, newPassword);
                 JOptionPane.showMessageDialog(this, "Contraseña actualizada!", "Cambio de contraseña", WIDTH);
             }else{
                 JOptionPane.showMessageDialog(this,"Contraseña actual inválida","Error", WIDTH);

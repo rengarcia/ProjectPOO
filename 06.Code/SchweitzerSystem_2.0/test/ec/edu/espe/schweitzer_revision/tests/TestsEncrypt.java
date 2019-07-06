@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.schweitzer_revision.tests;
-
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import filemanager.FileManager;
+import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.SparePart;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.FileNotFoundException;
@@ -663,7 +658,7 @@ public class TestsEncrypt {
     }
     @Test
     public void testcheckPassword() throws FileNotFoundException{
-        boolean actual = th.checkPassword("30001" , "hi" , "Files/Cipher.txt");
+        boolean actual = th.checkPassword("30001" , "hi",Path.cipher );
         boolean expected = false;
         assertEquals(expected, actual);
     }

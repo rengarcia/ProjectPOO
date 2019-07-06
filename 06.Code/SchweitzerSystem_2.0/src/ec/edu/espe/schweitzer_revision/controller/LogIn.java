@@ -1,8 +1,10 @@
 package ec.edu.espe.schweitzer_revision.controller;
 
 import ec.edu.espe.schweitzer_revision.model.Password;
+import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import ec.edu.espe.schweitzer_revision.view.FRMLoginTechnician;
+import filemanager.FileManager;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +19,7 @@ public class LogIn {
         boolean success=false;
         try {
             
-            String cipherPath = "Files//adCipher.txt";
+            String cipherPath = Path.adCipher;
             Password aux = new Password();
             Technician tech = new Technician();
             aux.setId(txtId);
@@ -39,9 +41,9 @@ public class LogIn {
         
         boolean sucess=false;
         try {
-            String cipherPath="Files\\Cipher.txt";
-            String filePath= "Files\\ConstantIdLogin.txt";
-            String passwordPath= "Files\\ConstantPassword.txt";
+            String cipherPath=Path.cipher;
+            String filePath=Path.logInId;
+            String passwordPath= Path.logInPass;
             
             Password aux = new Password();
             Technician tech = new Technician();

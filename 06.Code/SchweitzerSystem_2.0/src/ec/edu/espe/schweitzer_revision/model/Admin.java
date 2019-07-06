@@ -1,7 +1,7 @@
 package ec.edu.espe.schweitzer_revision.model;
 
 import com.google.gson.Gson;
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import filemanager.FileManager;
 import java.util.ArrayList;
 
 /**
@@ -12,40 +12,40 @@ public class Admin {
     
       
     public String newTechnicianId() {
-      String filePath= "files\\TechnicianId.txt";
+      
+      String filePath= Path.technicianIdForNewTech;
       String tempId;
       String id;
-      
-        FileManager updateId= new FileManager();
-        
-        tempId=updateId.getConstantId(filePath);
+       
+        tempId=FileManager.getConstantId(filePath);
         
         int repairId = Integer.parseInt(tempId);
         repairId= repairId+1;
         id=String.valueOf(repairId);
         
-        updateId.modifyFile(filePath, tempId, id);
+        FileManager.modifyFile(filePath, tempId, id);
        
        return id;
     }
 
     
     public String readID() {
-      String filePath= "files\\TechnicianId.txt";
+      
+      String filePath=Path.technicianIdForNewTech;
       String tempId;
 
-        FileManager updateId= new FileManager();  
-        tempId=updateId.getConstantId(filePath); 
+      tempId=FileManager.getConstantId(filePath); 
 
-       return tempId;
+      return tempId;
     }
     
     public String create(String txtName, String txtPassword){
     
-    String technicianFilePath="Files\\TechnicianList.txt" ;
-    String backupPath="Backup\\TechnicianList.txt";
-    String cipherPath="Files\\Cipher.txt"; 
-    String backupCipher="Backup\\Cipher.txt"; 
+    
+    String technicianFilePath=Path.technicianList;
+    String backupPath=Path.backupTechnicianList;
+    String cipherPath=Path.cipher; 
+    String backupCipher=Path.backupCipher; 
     Gson gson = new Gson();
     Technician newTechnician = new Technician();
     newTechnician.setName(txtName);

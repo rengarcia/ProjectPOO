@@ -28,7 +28,7 @@ public abstract class Order {
     
     public abstract String generateID();
     
-    public abstract void updateOrder(String clientOrderFilePath,String orderId) 
+    public abstract void updateOrder(String orderId) 
             throws FileNotFoundException;
     
     

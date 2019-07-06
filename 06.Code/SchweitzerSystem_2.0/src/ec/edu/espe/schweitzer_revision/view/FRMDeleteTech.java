@@ -1,6 +1,7 @@
 package ec.edu.espe.schweitzer_revision.view;
 
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import filemanager.FileManager;
+import ec.edu.espe.schweitzer_revision.model.Path;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -28,10 +29,10 @@ public class FRMDeleteTech extends javax.swing.JFrame {
     
    public void Delete() throws FileNotFoundException, IOException{
     
-   String backupFilePath="Backup\\TechnicianList.txt" ;
-   String technicianFilePath="Files\\TechnicianList.txt" ;
-   String cipherPath="Files\\Cipher.txt";
-   String backupCipher= "Backup\\Cipher.txt";
+   String technicianFilePath=Path.technicianList ;
+   String backupFilePath=Path.backupTechnicianList;
+   String cipherPath=Path.cipher;
+   String backupCipher= Path.backupCipher;
    
    String id = txtId.getText();
 

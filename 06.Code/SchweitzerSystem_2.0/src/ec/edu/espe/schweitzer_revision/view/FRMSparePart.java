@@ -1,7 +1,8 @@
 package ec.edu.espe.schweitzer_revision.view;
 
 import com.google.gson.Gson;
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import filemanager.FileManager;
+import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.SparePart;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class FRMSparePart extends javax.swing.JFrame {
     DefaultTableModel columns = new DefaultTableModel();
     static ArrayList<SparePart> arraySparePart = new ArrayList<SparePart>();
-    String sellForm = "Files\\SellForm.txt";
+    String sellForm = Path.itemList;
     /**
      * Creates new form FRMSparePart
      */

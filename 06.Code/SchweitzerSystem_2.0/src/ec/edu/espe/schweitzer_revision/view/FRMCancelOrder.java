@@ -28,10 +28,9 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
     public void cancelOrdeButton(){
         Client userCancelOrder = new Client();
         String tempCancelOrder = txtId.getText();
-        String clientOrderFilePath = "Files\\ClientOrder.txt";
-        String backupPath = "Backup\\ClientOrder.txt";
+
         try {
-            userCancelOrder.cancelOrder(backupPath, clientOrderFilePath, tempCancelOrder);
+            userCancelOrder.cancelOrder(tempCancelOrder);
             JOptionPane.showMessageDialog(this, "Orden cancelada", "Cancelar", WIDTH);
             clearTxtFiles();
         } catch (IOException ex) {

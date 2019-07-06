@@ -1,7 +1,7 @@
 package ec.edu.espe.schweitzer_revision.model;
 
 import com.google.gson.Gson;
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
+import filemanager.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ public class Maintenance extends Order{
     
     @Override
     public String generateID() {
-      String filePath= "files\\ConstantMaintenanceId.txt";
+      String filePath= Path.idForNewMaintenance;
       String tempId;
  
         tempId=FileManager.getConstantId(filePath);
@@ -46,12 +46,13 @@ public class Maintenance extends Order{
     }
 
     @Override
-    public void updateOrder(String clientOrderFilePath, String orderId) throws FileNotFoundException {
+    public void updateOrder(String orderId) throws FileNotFoundException {
         
     }
     
-    public void updateOrder(String clientOrderFilePath, String orderId, String descriptionUpdate, String completionDateUpdate) throws FileNotFoundException, IOException {
-
+    public void updateOrder(String orderId, String descriptionUpdate, String completionDateUpdate) throws FileNotFoundException, IOException {
+        
+        String clientOrderFilePath = Path.ClientOrders;
         String dataOrder;
         Gson gson = new Gson();
         dataOrder = FileManager.parseFile(clientOrderFilePath, orderId);
