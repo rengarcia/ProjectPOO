@@ -22,7 +22,7 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
      */
     public FRMUpdateMaintenance() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
 
     /**

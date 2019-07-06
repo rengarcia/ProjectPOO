@@ -27,7 +27,7 @@ public class FRMTechnician extends javax.swing.JFrame {
      */
     public FRMTechnician() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
     
     public FRMTechnician(String id) {

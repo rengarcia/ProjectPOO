@@ -20,7 +20,7 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
      */
     public FRMSchweitzerSystem() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
             try{
             Handler consoleHandler = new ConsoleHandler();
             Handler fileHandler = new FileHandler("Logger.log", false);
@@ -169,7 +169,7 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
     }//GEN-LAST:event_jMenuItemViewSparePartsActionPerformed
 
     private void menuAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuAdminMouseClicked
-        new FRMAdmin().setVisible(true);
+        new FRMLoginAdmin().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_menuAdminMouseClicked
     

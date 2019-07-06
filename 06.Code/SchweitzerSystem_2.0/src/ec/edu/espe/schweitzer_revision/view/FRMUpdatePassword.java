@@ -20,7 +20,7 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
      */
     public FRMUpdatePassword() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
 
     /**

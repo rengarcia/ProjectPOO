@@ -29,7 +29,7 @@ public class FRMClient extends javax.swing.JFrame {
     public FRMClient() {
         initComponents();
         setVisibility();
-        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
     
     public void clearTxtFiles(){
@@ -177,9 +177,6 @@ public class FRMClient extends javax.swing.JFrame {
        String backupPath="Backup\\ClientOrder.txt" ;
        String technicianFilePath="Files\\TechnicianList.txt"; 
         
-
-        FileManager newDataLine = new FileManager();
-
         String tempId;
 
         Boolean decide = clientData.flag;
@@ -198,8 +195,8 @@ public class FRMClient extends javax.swing.JFrame {
         File firstTimeRun = new File(clientOrderFilePath);
         boolean exist = firstTimeRun.exists();
         if (exist == false) {
-            newDataLine.writeFile(clientOrderFilePath, jsonClientData);
-            newDataLine.writeFile(backupPath, jsonClientData);
+            FileManager.writeFile(clientOrderFilePath, jsonClientData);
+            FileManager.writeFile(backupPath, jsonClientData);
         } else {
             FileManager.appendStrToFile(clientOrderFilePath, jsonClientData);
             FileManager.appendStrToFile(backupPath, jsonClientData);

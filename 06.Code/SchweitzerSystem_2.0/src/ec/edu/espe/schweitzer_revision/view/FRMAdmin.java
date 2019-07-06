@@ -1,5 +1,7 @@
 package ec.edu.espe.schweitzer_revision.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author David Lopez
@@ -11,6 +13,7 @@ public class FRMAdmin extends javax.swing.JFrame {
      */
     public FRMAdmin() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
 
     /**
@@ -50,7 +53,7 @@ public class FRMAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnMainMenu.setText("Menu Principal");
+        btnMainMenu.setText("Menú");
         btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMainMenuActionPerformed(evt);
@@ -68,7 +71,7 @@ public class FRMAdmin extends javax.swing.JFrame {
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(92, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(40, 40, 40)
                 .addComponent(btnMainMenu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalie)

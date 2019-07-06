@@ -6,6 +6,7 @@ import ec.edu.espe.schweitzer_revision.model.Password;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,9 +21,15 @@ public class FRMAddTech extends javax.swing.JFrame {
      */
     public FRMAddTech() {
         initComponents();
+         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
     
-    public String generateID() {
+    public void clearTxtFiles(){
+    txtName.setText("");
+    txtPassword.setText("");
+    }
+
+    public String newTechnicianId() {
       String filePath= "files\\TechnicianId.txt";
       String tempId;
       String id;
@@ -51,18 +58,17 @@ public class FRMAddTech extends javax.swing.JFrame {
        return tempId;
     }
     
-    
-    
-    
+
     public void Create(){
     
     String technicianFilePath="Files\\TechnicianList.txt" ;
+    String backupPath="Backup\\TechnicianList.txt";
     String cipherPath="Files\\Cipher.txt"; 
-    
+    String backupCipher="Backup\\Cipher.txt"; 
     Gson gson = new Gson();
     Technician newTechnician = new Technician();
     newTechnician.setName(txtName.getText());
-    String tempId= generateID();
+    String tempId= newTechnicianId();
     newTechnician.setId(tempId);//automatizar
 
     
@@ -85,6 +91,7 @@ public class FRMAddTech extends javax.swing.JFrame {
     newTechnician.setOrderId(orderId);
     String newTech = gson.toJson(newTechnician);
     FileManager.appendStrToFile(technicianFilePath,newTech);
+    FileManager.appendStrToFile(backupPath,newTech);
 
     
     Password newUser = new Password();
@@ -98,7 +105,7 @@ public class FRMAddTech extends javax.swing.JFrame {
     String newPass = gson.toJson(newUser);
     
     FileManager.appendStrToFile(cipherPath,newPass);
-
+    FileManager.appendStrToFile(backupCipher,newPass);
     }
     
     /**
@@ -192,7 +199,7 @@ public class FRMAddTech extends javax.swing.JFrame {
     private void btnAddNewTechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewTechActionPerformed
         Create();
         JOptionPane.showMessageDialog(this,"Tecnico Creado con Exito\n"+"El ID del técnico es: "+readID(),"Confirmación",JOptionPane.WARNING_MESSAGE);     
-        
+        clearTxtFiles();
     }//GEN-LAST:event_btnAddNewTechActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed

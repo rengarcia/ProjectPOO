@@ -34,9 +34,9 @@ public class Client {
     public void  AssignOrder(String clientOrderFilePath, String TechnicianFilePath,
             String orderId)
             throws FileNotFoundException, IOException {
+        
         String dataOrder;
         String technicianData;
-        FileManager dataLine = new FileManager();
 
         int intOrderId = Integer.parseInt(orderId);
         dataOrder = FileManager.parseFile(clientOrderFilePath, orderId);

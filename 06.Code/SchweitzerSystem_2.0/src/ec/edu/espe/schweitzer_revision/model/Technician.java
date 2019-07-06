@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -48,65 +47,7 @@ public class Technician {
         return pass;
     }
 
-    public void workStatus(String clientOrderFilePath, String technicianFilePath,
-            String cipherPath, String technicianId)
-            throws FileNotFoundException {
-
-        Scanner scanner = new Scanner(System.in);
-        String dataTechnician;
-        Gson gson = new Gson();
-
-        dataTechnician = FileManager.parseFile(technicianFilePath, technicianId);
-        Technician dataFromFileTechnician = gson.fromJson(dataTechnician, Technician.class);
-
-        System.out.println("Bienvenido  " + dataFromFileTechnician.getName());
-
-        System.out.println("\nEstos son las ordenes que tienes asignadas: ");
-        System.out.println(dataFromFileTechnician.getOrderId());
-        System.out.println("\nEn estas fechas: ");
-        
-        System.out.println(dataFromFileTechnician.dates);
-        int tempOption;
-        System.out.println("\n Escoja: ");
-        System.out.println("1. Reparaciones");
-        System.out.println("2. Mantenimeintos");
-        System.out.println("3. Cambiar Contrseña");
-        tempOption = scanner.nextInt();
-        scanner.nextLine();
-
-        switch (tempOption) {
-            case 1: {
-                System.out.println("\n Ingresa el id de la orden que deseas actualizar: ");
-                String tempOderId = scanner.nextLine();
-                Repair repair = new Repair();
-                repair.updateOrder(clientOrderFilePath, tempOderId);
-                break;
-            }
-            case 2: {
-                System.out.println("\n Ingresa el id de la orden que deseas actualizar: ");
-                String tempOderId = scanner.nextLine();
-                Maintenance maintenance = new Maintenance();
-                maintenance.updateOrder(clientOrderFilePath, tempOderId);
-                break;
-            }
-            case 3: {
-                System.out.println("Ingrese la nueva contraseña: ");
-                String newPassword = scanner.nextLine();
-                String encryptPassword = FileManager.encrypt(newPassword);
-
-                String passwordLine = FileManager.parseFile(cipherPath, technicianId);
-                Password password = gson.fromJson(passwordLine, Password.class);
-                String currentPassword = password.getPassword();
-
-                FileManager.modifyFile(cipherPath, currentPassword, encryptPassword);
-                System.out.println("Contraseña actualizada");
-            }
-            default:
-                break;
-        }
-
-    }
-
+   
     public String getName() {
         return name;
     }

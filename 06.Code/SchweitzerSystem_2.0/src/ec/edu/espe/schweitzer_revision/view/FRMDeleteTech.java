@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,28 +19,31 @@ public class FRMDeleteTech extends javax.swing.JFrame {
      */
     public FRMDeleteTech() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
+    }
+    
+    public void clearTxtFiles(){
+    txtId.setText("");
     }
     
    public void Delete() throws FileNotFoundException, IOException{
     
+   String backupFilePath="Backup\\TechnicianList.txt" ;
    String technicianFilePath="Files\\TechnicianList.txt" ;
-   String cipherPath="Files\\Cipher.txt";  
+   String cipherPath="Files\\Cipher.txt";
+   String backupCipher= "Backup\\Cipher.txt";
    
    String id = txtId.getText();
-   
-    
-   String riptech= FileManager.parseFile(technicianFilePath,id);
-   String rippass = FileManager.parseFile(cipherPath,id);
-   
+
+   String riptech= FileManager.parseFile(backupFilePath,id);
+   String rippass= FileManager.parseFile(backupCipher,id);
+           
    FileManager.removeLineFromFile(technicianFilePath,riptech);
    FileManager.removeLineFromFile(cipherPath,rippass);
   
     }
    
-   
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -126,7 +130,8 @@ public class FRMDeleteTech extends javax.swing.JFrame {
             Logger.getLogger(FRMDeleteTech.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        JOptionPane.showMessageDialog(this,"Tecnico Eliminado con Exito","Confirmación",JOptionPane.WARNING_MESSAGE);     
+        JOptionPane.showMessageDialog(this,"Tecnico Eliminado con Exito","Confirmación",JOptionPane.WARNING_MESSAGE); 
+        clearTxtFiles();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed

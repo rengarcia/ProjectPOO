@@ -18,9 +18,13 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
      */
     public FRMCancelOrder() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/ec/edu/espe/schweitzer_revision/view/icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
-
+    
+    public void clearTxtFiles(){
+    txtId.setText("");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -144,8 +148,9 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
         try {
             userCancelOrder.cancelOrder(backupPath, clientOrderFilePath, tempCancelOrder);
             JOptionPane.showMessageDialog(this, "Orden cancelada", "Cancelar", WIDTH);
+            clearTxtFiles();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this,"No se encontro el id ingresado","Cancelar orden", WIDTH);
+            JOptionPane.showMessageDialog(this,"No se encontro el id ingresado","Cancelar", WIDTH);
             Logger.getLogger(FRMCancelOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonCancelOrderMouseClicked

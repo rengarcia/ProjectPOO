@@ -1,7 +1,6 @@
 package ec.edu.espe.schweitzer_revision.controller;
 
 import com.google.gson.Gson;
-import ec.edu.espe.schweitzer_revision.model.Password;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,7 +26,7 @@ import java.util.Scanner;
  */
 public class FileManager {
     
-    public void writeFile(String fileName,String dataLine){
+    public static void writeFile(String fileName,String dataLine){
         File customerData=new File(fileName);
        
         try{
@@ -72,64 +71,7 @@ public class FileManager {
         return outString;
     }
     
-    
-    public String randomString(){
-        
-        int n = 6; //random String Length
-        
-        // chose a Character random from this String 
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                                    + "0123456789"
-                                    + "abcdefghijklmnopqrstuvxyz"; 
-  
-        // create StringBuffer size of AlphaNumericString 
-        StringBuilder sb = new StringBuilder(n); 
-  
-        for (int i = 0; i < n; i++) { 
-  
-            // generate a random number between 
-            // 0 to AlphaNumericString variable length 
-            int index 
-                = (int)(AlphaNumericString.length() 
-                        * Math.random()); 
-  
-            // add Character one by one in end of sb 
-            sb.append(AlphaNumericString 
-                          .charAt(index)); 
-        } 
-        return sb.toString(); 
-    }
-    
-     public String randomStringNumber(){
-        
-        int n = 3; //random String Length
-        
-        // chose a Character random from this String 
-        String AlphaNumericString = "123456789"
-                                    ; 
-  
-        // create StringBuffer size of AlphaNumericString 
-        StringBuilder sb = new StringBuilder(n); 
-  
-        for (int i = 0; i < n; i++) { 
-  
-            // generate a random number between 
-            // 0 to AlphaNumericString variable length 
-            int index 
-                = (int)(AlphaNumericString.length() 
-                        * Math.random()); 
-  
-            // add Character one by one in end of sb 
-            sb.append(AlphaNumericString 
-                          .charAt(index)); 
-         
-        } 
-        return sb.toString(); 
-    }
-    
-    
-    
-    
+ 
     public static void appendStrToFile(String fileName,String dataLine) 
     { 
         try {    
@@ -237,7 +179,7 @@ public class FileManager {
                 for(int w=0; w<technician.dates.size();w++){
 
                     if(technician.dates.get(w).equals(oldDate)){
-                       technician.dates.set(w, fileManager.randomStringNumber());
+                       technician.dates.set(w, "000000");
                        break;
                     }
                 }
@@ -379,27 +321,4 @@ public class FileManager {
         }
     }
 
- public boolean verifyUserExistence(Password auxPas) throws FileNotFoundException, IOException{
-        File archive = new File("files/Cipher.txt");
-        FileReader fr = new FileReader(archive);
-        BufferedReader br = new BufferedReader(fr);
-        ArrayList<Password> arrPassword = new ArrayList<>();
-        boolean flag = false;
-        
-        String line;
-        while((line = br.readLine())!=null){
-            Gson gson = new Gson();
-            Password auxExit = (Password)gson.fromJson(line,Password.class);
-            arrPassword.add(auxExit);
-        }
-        
-        String decryptedPassword;
-        for(Password aux : arrPassword){
-            decryptedPassword = decrypt(aux.getPassword());
-            if(aux.getId().equals(auxPas.getId()) && decryptedPassword.equals(auxPas.getPassword())){
-                flag = true;
-            }
-        }
-        return flag;
-    }
 }

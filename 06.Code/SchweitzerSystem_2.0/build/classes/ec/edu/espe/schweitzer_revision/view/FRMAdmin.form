@@ -32,7 +32,7 @@
               <EmptySpace pref="92" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="btnMainMenu" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btnSalie" min="-2" max="-2" attributes="0"/>
@@ -84,7 +84,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnMainMenu">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Menu Principal"/>
+        <Property name="text" type="java.lang.String" value="Men&#xfa;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMainMenuActionPerformed"/>
