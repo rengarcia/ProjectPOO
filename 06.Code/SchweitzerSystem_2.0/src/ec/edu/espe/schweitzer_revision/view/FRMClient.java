@@ -1,18 +1,9 @@
 package ec.edu.espe.schweitzer_revision.view;
 
-
-import com.google.gson.Gson;
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
 import ec.edu.espe.schweitzer_revision.model.Client;
-import ec.edu.espe.schweitzer_revision.model.Maintenance;
-import ec.edu.espe.schweitzer_revision.model.OrderStatus;
-import ec.edu.espe.schweitzer_revision.model.Repair;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import ec.edu.espe.schweitzer_revision.controller.NewOrder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -20,6 +11,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Jhony Naranjo
+ * modify by David Lopez
  */
 public class FRMClient extends javax.swing.JFrame {
  private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
@@ -69,150 +61,34 @@ public class FRMClient extends javax.swing.JFrame {
            
         btnSave.setVisible(false);
     }
-
-    public Client setData(){
-              
-        //Get Data for Client class
-        Client clientData = new Client();
-     
-        clientData.setName(txtName.getText());
-             
-        clientData.setId(Long.valueOf(txtId.getText()));
-             
-        clientData.setAddress(txtAddress.getText());
-        
-        clientData.setPhone(Long.valueOf(txtPhoneNumber.getText()));
-        
-        //Data for Order Status is set these values for default
-       
-        
-        OrderStatus orderStatusData= new OrderStatus();
-        orderStatusData.setDescription("null");
-        orderStatusData.setOrderCompletionDate("null");
-        orderStatusData.setOrderCompleted("null");
-        
-        //temperol value for Combo Box
-        String choice = (String)cmbType.getSelectedItem();
-       
-        if (choice.equals("Reparacion")){
-                      
-            clientData.flag=true;
+    
+    public Client  saveBtn(){
+        NewOrder newOrder = new NewOrder();
+        Client data = new Client();
+        data = newOrder.setData(txtName.getText(),txtId.getText(),txtAddress.getText(),
+            txtPhoneNumber.getText(), (String)cmbType.getSelectedItem());
+ 
+        if(data.flag==true){
+        String formato = jDateChooserRepair.getDateFormatString();
+        Date date = jDateChooserRepair.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+        Long dateInLong = Long.valueOf(dateFormat.format(date));
+        int priorityChoice = cmbType.getSelectedIndex();
+        data.setNewRepairOrder(newOrder.RepairOrder(dateInLong,txtReparationAddress.getText(), txtReparationDescription.getText()
+                ,priorityChoice));
+        }
+        else if (data.flag==false){
+        String formato = jDateChooserRepair.getDateFormatString();
+        Date date = jDateChooserRepair.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+        Long dateInLong = Long.valueOf(dateFormat.format(date));    
+        data.setNewMaintenanceOrder( newOrder. MaitenanceOrder(dateInLong,txtMaintenanceAddress.getText(),
+                txtMaintenanceDescription.getText(),txtSesionNumber.getText()));
         }
         
-        else if (choice.equals("Mantenimiento")){
-
-            clientData.flag=false;
-        
-            }
-        return clientData;
-    }  
-    
-    public Repair RepairOrder(){
-        Repair repairData = new Repair();
-
-            String formato = jDateChooserRepair.getDateFormatString();
-            Date date = jDateChooserRepair.getDate();
-            SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
-            Long dateInLong = Long.valueOf(dateFormat.format(date));
-
-            repairData.setDate(dateInLong);
-    
-            repairData.setAddress(txtReparationAddress.getText());
-            
-            repairData.setDescription(txtReparationDescription.getText());
-
-            int priorityChoice = cmbType.getSelectedIndex();
-            
-            if(priorityChoice==1){
-            repairData.setPriority(true);
-            }
-            else if(priorityChoice==2){
-            repairData.setPriority(false);    
-            }
-            
-            repairData.setId(repairData.generateID());
-            repairData.setStatus(Status());
-        
-        return repairData;
+        return data;
     }
-    
-    public Maintenance MaitenanceOrder(){
-        Maintenance maintenanceData = new Maintenance();
-
-            String formato = jDateChooserMaintenance.getDateFormatString();
-            Date date = jDateChooserMaintenance.getDate();
-            SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
-            Long dateInLong = Long.valueOf(dateFormat.format(date));
-            
-            maintenanceData.setDate(dateInLong);
-
-            maintenanceData.setAddress(txtMaintenanceAddress.getText());
-
-            maintenanceData.setDescription(txtMaintenanceDescription.getText());
-
-            maintenanceData.setSession(Integer.parseInt(txtSesionNumber.getText()));
-            
-    
-            maintenanceData.setId(maintenanceData.generateID());
-            
-            maintenanceData.setStatus(Status());
-        
-        return maintenanceData;
-    }
-    
-    
-    
-    public OrderStatus Status(){
-        OrderStatus orderStatusData= new OrderStatus();
-        orderStatusData.setDescription("null");
-        orderStatusData.setOrderCompletionDate("null");
-        orderStatusData.setOrderCompleted("null");
-        
-        return orderStatusData;
-    }
-    
-  public void reserveOrder(Client clientData){
-        
-       String clientOrderFilePath="Files\\ClientOrder.txt" ;
-       String backupPath="Backup\\ClientOrder.txt" ;
-       String technicianFilePath="Files\\TechnicianList.txt"; 
-        
-        String tempId;
-
-        Boolean decide = clientData.flag;
-
-        if (decide) {
-            tempId = clientData.getNewRepairOrder().getId();
-        } else {
-            tempId = clientData.getNewMaintenanceOrder().getId();
-        }
-
-        //convert data to json format
-        Gson gson = new Gson();
-        String jsonClientData;
-        jsonClientData = gson.toJson(clientData);
-
-        File firstTimeRun = new File(clientOrderFilePath);
-        boolean exist = firstTimeRun.exists();
-        if (exist == false) {
-            FileManager.writeFile(clientOrderFilePath, jsonClientData);
-            FileManager.writeFile(backupPath, jsonClientData);
-        } else {
-            FileManager.appendStrToFile(clientOrderFilePath, jsonClientData);
-            FileManager.appendStrToFile(backupPath, jsonClientData);
-        }
-
-        Client newOrderWaiting = new Client();
-        try {
-            newOrderWaiting.AssignOrder(clientOrderFilePath, technicianFilePath,
-                    tempId);
-            JOptionPane.showMessageDialog(this,"Su orden fue asignada con éxito\n"
-                    + "El ID de su orden es: "+ tempId,"Orden Asignada", WIDTH);
-        } catch (FileNotFoundException ex) {} catch (IOException ex) {
-         JOptionPane.showMessageDialog(this,"Error con su orden","Error Orden", WIDTH);
-         Logger.getLogger(FRMClient.class.getName()).log(Level.SEVERE, null, ex);
-     }
-    }
+      
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -730,17 +606,10 @@ public class FRMClient extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        Client data = new Client();
-        data = setData();
-
-        if(data.flag==true){
-        data.setNewRepairOrder(RepairOrder());
-        }
-        else if (data.flag==false){
-        data.setNewMaintenanceOrder(MaitenanceOrder());
-        }
-
-        reserveOrder(data);
+        Client data = saveBtn();
+        NewOrder newOrder = new NewOrder();
+        newOrder.reserveOrder(data,this);
+      
         clearTxtFiles();
     }//GEN-LAST:event_btnSaveActionPerformed
 

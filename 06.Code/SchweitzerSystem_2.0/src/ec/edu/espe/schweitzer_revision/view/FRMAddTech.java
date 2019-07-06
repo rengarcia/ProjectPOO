@@ -1,10 +1,6 @@
 package ec.edu.espe.schweitzer_revision.view;
 
-import com.google.gson.Gson;
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
-import ec.edu.espe.schweitzer_revision.model.Password;
-import ec.edu.espe.schweitzer_revision.model.Technician;
-import java.util.ArrayList;
+import ec.edu.espe.schweitzer_revision.model.Admin;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,93 +17,22 @@ public class FRMAddTech extends javax.swing.JFrame {
      */
     public FRMAddTech() {
         initComponents();
-         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
     
     public void clearTxtFiles(){
     txtName.setText("");
     txtPassword.setText("");
     }
-
-    public String newTechnicianId() {
-      String filePath= "files\\TechnicianId.txt";
-      String tempId;
-      String id;
-      
-        FileManager updateId= new FileManager();
         
-        tempId=updateId.getConstantId(filePath);
+    public void newTechBtn(){
+        Admin admin = new Admin();
+        String id = admin.create(txtName.getText(),txtPassword.getText());
         
-        int repairId = Integer.parseInt(tempId);
-        repairId= repairId+1;
-        id=String.valueOf(repairId);
-        
-        updateId.modifyFile(filePath, tempId, id);
-       
-       return id;
+        JOptionPane.showMessageDialog(this,"Tecnico Creado con Exito\n"+"El ID del técnico es: "+id,"Confirmación",JOptionPane.WARNING_MESSAGE);     
+        clearTxtFiles();
     }
-
-    
-      public String readID() {
-      String filePath= "files\\TechnicianId.txt";
-      String tempId;
-
-        FileManager updateId= new FileManager();  
-        tempId=updateId.getConstantId(filePath); 
-
-       return tempId;
-    }
-    
-
-    public void Create(){
-    
-    String technicianFilePath="Files\\TechnicianList.txt" ;
-    String backupPath="Backup\\TechnicianList.txt";
-    String cipherPath="Files\\Cipher.txt"; 
-    String backupCipher="Backup\\Cipher.txt"; 
-    Gson gson = new Gson();
-    Technician newTechnician = new Technician();
-    newTechnician.setName(txtName.getText());
-    String tempId= newTechnicianId();
-    newTechnician.setId(tempId);//automatizar
-
-    
-    ArrayList<String> dates = new ArrayList<String>();
-    int n= 0;
-    while(n<=7){
-    dates.add("000000");
-    n++;
-    }
-    
-    newTechnician.setDates(dates);
-    
-    ArrayList<String> orderId = new ArrayList<String>();
-    int m= 0;
-    while(m<=7){
-    orderId.add("00000");
-    m++;
-    }
-    
-    newTechnician.setOrderId(orderId);
-    String newTech = gson.toJson(newTechnician);
-    FileManager.appendStrToFile(technicianFilePath,newTech);
-    FileManager.appendStrToFile(backupPath,newTech);
-
-    
-    Password newUser = new Password();
-    String tempIdPass= readID();
-    newUser.setId(tempIdPass);
-    
-    newUser.setName(txtName.getText());
-    String encrypted = FileManager.encrypt(txtPassword.getText());
-    newUser.setPassword(encrypted);
-    
-    String newPass = gson.toJson(newUser);
-    
-    FileManager.appendStrToFile(cipherPath,newPass);
-    FileManager.appendStrToFile(backupCipher,newPass);
-    }
-    
+            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -197,9 +122,7 @@ public class FRMAddTech extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddNewTechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewTechActionPerformed
-        Create();
-        JOptionPane.showMessageDialog(this,"Tecnico Creado con Exito\n"+"El ID del técnico es: "+readID(),"Confirmación",JOptionPane.WARNING_MESSAGE);     
-        clearTxtFiles();
+        newTechBtn();
     }//GEN-LAST:event_btnAddNewTechActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed

@@ -14,7 +14,7 @@ public class Technician {
     private String name;
     private String id;
     public ArrayList<String> dates;
-    ArrayList<String> orderId;
+    public ArrayList<String> orderId;
 
     public Technician(String name, String id, ArrayList<String> dates, ArrayList<String> orderId) {
         this.name = name;

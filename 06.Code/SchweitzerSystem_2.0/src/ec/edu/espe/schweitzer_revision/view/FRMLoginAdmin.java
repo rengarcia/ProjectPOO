@@ -1,11 +1,5 @@
 package ec.edu.espe.schweitzer_revision.view;
-
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
-import ec.edu.espe.schweitzer_revision.model.Password;
-import ec.edu.espe.schweitzer_revision.model.Technician;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import ec.edu.espe.schweitzer_revision.controller.LogIn;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -26,37 +20,18 @@ public class FRMLoginAdmin extends javax.swing.JFrame {
         txtId.setText("");
         txtPassword.setText("");
     }
-    
-    public void LogIn(){
-        try {
-            
-            String cipherPath = "Files//adCipher.txt";
-            
-            Password aux = new Password();
-            Technician tech = new Technician();
-            aux.setId(txtId.getText());
-            aux.setPassword(txtPassword.getText());
-           
-            if(FileManager.searchFile(cipherPath, aux.getId())){
-                if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
-                this.setVisible(false);
-                new FRMAdmin().setVisible(true);
-                
-                }
-                else{
-                emptyFields();
-                new FRMUtilBadMessage().setVisible(true);
-                }
-            }else{
-                emptyFields();
-                FRMUtilBadMessage error = new FRMUtilBadMessage();
-                error.setVisible(true);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(FRMLoginTechnician.class.getName()).log(Level.SEVERE, null, ex);
+     public void LoginBtn(){
+          LogIn logIn = new LogIn();
+        boolean sucess=logIn.LogInAdmin(txtId.getText(),txtPassword.getText());
+        if(sucess){
+            this.setVisible(false);
+            new FRMAdmin().setVisible(true);
         }
-    }
-    
+        else{
+            emptyFields();
+            new FRMUtilBadMessage().setVisible(true);
+        }
+     }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -163,7 +138,7 @@ public class FRMLoginAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        LogIn();
+       LoginBtn();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed

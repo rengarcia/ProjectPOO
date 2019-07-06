@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Jhony Naranjo
+ * modify  by David Lopez
  */
 public class FRMCancelOrder extends javax.swing.JFrame {
 private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName());
@@ -24,6 +25,21 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
     public void clearTxtFiles(){
     txtId.setText("");
     }
+    public void cancelOrdeButton(){
+        Client userCancelOrder = new Client();
+        String tempCancelOrder = txtId.getText();
+        String clientOrderFilePath = "Files\\ClientOrder.txt";
+        String backupPath = "Backup\\ClientOrder.txt";
+        try {
+            userCancelOrder.cancelOrder(backupPath, clientOrderFilePath, tempCancelOrder);
+            JOptionPane.showMessageDialog(this, "Orden cancelada", "Cancelar", WIDTH);
+            clearTxtFiles();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this,"No se encontro el id ingresado","Cancelar", WIDTH);
+            Logger.getLogger(FRMCancelOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,18 +157,7 @@ private static final Logger LOG = Logger.getLogger(FRMCancelOrder.class.getName(
     }//GEN-LAST:event_jButtonMenuMouseClicked
 
     private void jButtonCancelOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCancelOrderMouseClicked
-        Client userCancelOrder = new Client();
-        String tempCancelOrder = txtId.getText();
-        String clientOrderFilePath = "Files\\ClientOrder.txt";
-        String backupPath = "Backup\\ClientOrder.txt";
-        try {
-            userCancelOrder.cancelOrder(backupPath, clientOrderFilePath, tempCancelOrder);
-            JOptionPane.showMessageDialog(this, "Orden cancelada", "Cancelar", WIDTH);
-            clearTxtFiles();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this,"No se encontro el id ingresado","Cancelar", WIDTH);
-            Logger.getLogger(FRMCancelOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      cancelOrdeButton();
     }//GEN-LAST:event_jButtonCancelOrderMouseClicked
 
     /**

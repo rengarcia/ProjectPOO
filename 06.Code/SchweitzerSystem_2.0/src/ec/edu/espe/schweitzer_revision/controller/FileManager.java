@@ -183,7 +183,14 @@ public class FileManager {
                        break;
                     }
                 }
+                for(int h=0; h<technician.orderId.size();h++){
 
+                    if(technician.orderId.get(h).equals(orderId)){
+                       technician.orderId.set(h, "00000");
+                       break;
+                    }
+                }
+               
                 String newLine= gson.toJson(technician);
                 fileContent.set(i, newLine);
                 break;

@@ -1,10 +1,5 @@
 package ec.edu.espe.schweitzer_revision.view;
-
-import ec.edu.espe.schweitzer_revision.controller.FileManager;
-import ec.edu.espe.schweitzer_revision.model.Password;
-import ec.edu.espe.schweitzer_revision.model.Technician;
-import java.io.IOException;
-import java.util.logging.Level;
+import ec.edu.espe.schweitzer_revision.controller.LogIn;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -12,13 +7,13 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Jhony Naranjo
+ * modify by David Lopez
  */
 public class FRMLoginTechnician extends javax.swing.JFrame {
     
  
     private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
     
-    String cipherPath="Files\\Cipher.txt"; 
     /**
      * Creates new form FRMLoginTechnician
      */
@@ -31,49 +26,20 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         txtId.setText("");
         txtPassword.setText("");
     }
-    
-    public void LogIn(){
-        try {
-            
-            String filePath= "Files\\ConstantIdLogin.txt";
-            String passwordPath= "Files\\ConstantPassword.txt";
-            
-            Password aux = new Password();
-            Technician tech = new Technician();
-            aux.setId(txtId.getText());
-            aux.setPassword(txtPassword.getText());
-           
-            if(FileManager.searchFile(cipherPath, aux.getId())){
-                if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
-                this.setVisible(false);
-                String id = txtId.getText();
-                String password = txtPassword.getText();
-                
-                FRMTechnician entry = new FRMTechnician(id);
-                entry.setVisible(true);
-                
-                String content = FileManager.getConstantId(filePath);
-                String contentPass = FileManager.getConstantId(passwordPath);
-                
-                FileManager.modifyFile(filePath,content,id);
-                FileManager.modifyFile(passwordPath,contentPass,password);
-                
-                }
-                else{
-                emptyFields();
-                FRMUtilBadMessage error = new FRMUtilBadMessage();
-                error.setVisible(true);
-                }
-            }else{
-                emptyFields();
-                FRMUtilBadMessage error = new FRMUtilBadMessage();
-                error.setVisible(true);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(FRMLoginTechnician.class.getName()).log(Level.SEVERE, null, ex);
+     
+    public void logInBtn(){
+        LogIn logIn = new LogIn();
+        boolean sucess= logIn.LogInTech(txtId.getText(), txtPassword.getText());
+        if (sucess){
+           this.setVisible(false);
+            new FRMTechnician(txtId.getText()).setVisible(true);
+        }
+        else {
+            emptyFields();
+            new FRMUtilBadMessage().setVisible(true);
         }
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -172,7 +138,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        LogIn();
+        logInBtn();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
