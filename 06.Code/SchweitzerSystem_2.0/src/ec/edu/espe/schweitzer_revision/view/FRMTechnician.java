@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import filemanager.FileManager;
 import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.Technician;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +21,8 @@ public class FRMTechnician extends javax.swing.JFrame {
     DefaultTableModel table = new DefaultTableModel();
     String technicianFilePath = Path.technicianList;
     FileManager dataLine = new FileManager();
+    String idTech;
+    String passTech;
     
    
     /**
@@ -30,25 +32,24 @@ public class FRMTechnician extends javax.swing.JFrame {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
-    
-    public FRMTechnician(String id) {
-        initComponents();
-   
+
+    public FRMTechnician(String idTech, String passTech) {
+        this.idTech = idTech;
+        this.passTech = passTech;
         try {
+            initComponents();
             Gson gson = new Gson();
-            String dataTechnician = dataLine.parseFile(technicianFilePath, id);
+            String dataTechnician = dataLine.parseFile(technicianFilePath, idTech);
             Technician dataFromFileTechnician = gson.fromJson(dataTechnician, Technician.class);
             ArrayList<String> order = new ArrayList<>();
             order = dataFromFileTechnician.getOrderId();
-            
             ArrayList<String> dates = new ArrayList<>();
             dates = dataFromFileTechnician.dates;
             setTable(order,dates);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FRMSparePart.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FRMTechnician.class.getName()).log(Level.SEVERE, null, ex);
         }
-  
+        
     }
 
      public void setTable(ArrayList dataTechnician, ArrayList dates){
@@ -84,7 +85,7 @@ public class FRMTechnician extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonMenu = new javax.swing.JButton();
         jButtonAccept = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jComboBoxOptions = new javax.swing.JComboBox<>();
@@ -138,16 +139,16 @@ public class FRMTechnician extends javax.swing.JFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Menú");
-        jButton1.setToolTipText("Salir de la ventana");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonMenu.setText("Menú");
+        jButtonMenu.setToolTipText("Salir de la ventana");
+        jButtonMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                jButtonMenuMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonMenuActionPerformed(evt);
             }
         });
 
@@ -183,7 +184,7 @@ public class FRMTechnician extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonAccept)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonMenu)
                         .addGap(34, 34, 34))))
         );
         layout.setVerticalGroup(
@@ -197,7 +198,7 @@ public class FRMTechnician extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAccept)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonMenu))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,30 +211,27 @@ public class FRMTechnician extends javax.swing.JFrame {
         String option2 = "Actualizar Mantenimientos";
                 
         if(value.equals(option1)){
-            FRMUpdateRepair repair = new FRMUpdateRepair();
-            repair.setVisible(true);
+            new FRMUpdateRepair(idTech, passTech).setVisible(true);
             this.setVisible(false);
         }else{
             if(value.equals(option2)){
-                FRMUpdateMaintenance maintenance = new FRMUpdateMaintenance();
-                maintenance.setVisible(true);
+                new FRMUpdateMaintenance(idTech, passTech).setVisible(true);
                 this.setVisible(false);
             }else{
-                FRMUpdatePassword password = new FRMUpdatePassword();
-                password.setVisible(true);
+                new FRMUpdatePassword(idTech, passTech).setVisible(true);
                 this.setVisible(false);
             }
         }
     }//GEN-LAST:event_jButtonAcceptMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void jButtonMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMenuMouseClicked
         new FRMSchweitzerSystem().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_jButtonMenuMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,8 +270,8 @@ public class FRMTechnician extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAccept;
+    private javax.swing.JButton jButtonMenu;
     private javax.swing.JComboBox<String> jComboBoxOptions;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

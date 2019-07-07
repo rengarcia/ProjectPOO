@@ -16,7 +16,8 @@ import javax.swing.JOptionPane;
  */
 public class FRMUpdateMaintenance extends javax.swing.JFrame {
    private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.getName());
-
+   String id;
+   String password;
     /**
      * Creates new form FRMUpdateMaintenance
      */
@@ -24,7 +25,12 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
-
+    public FRMUpdateMaintenance(String id, String password) {
+        initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
+        this.id = id;
+        this.password=password;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,7 +45,7 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDescription = new javax.swing.JTextArea();
-        jButtonUpdateMaintenance = new javax.swing.JButton();
+        BtnUpdate = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jDateChooser = new com.toedter.calendar.JDateChooser();
@@ -68,11 +74,11 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTextAreaDescription);
 
-        jButtonUpdateMaintenance.setText("Actualizar Mantenimiento");
-        jButtonUpdateMaintenance.setToolTipText("Actualizar estado del mantenimiento");
-        jButtonUpdateMaintenance.addMouseListener(new java.awt.event.MouseAdapter() {
+        BtnUpdate.setText("Actualizar Mantenimiento");
+        BtnUpdate.setToolTipText("Actualizar estado del mantenimiento");
+        BtnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonUpdateMaintenanceMouseClicked(evt);
+                BtnUpdateMouseClicked(evt);
             }
         });
 
@@ -100,7 +106,7 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonUpdateMaintenance)
+                        .addComponent(BtnUpdate)
                         .addGap(69, 69, 69)
                         .addComponent(jToggleButton1))
                     .addGroup(layout.createSequentialGroup()
@@ -143,37 +149,34 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
                         .addGap(27, 27, 27)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton1)
-                    .addComponent(jButtonUpdateMaintenance))
+                    .addComponent(BtnUpdate))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonUpdateMaintenanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpdateMaintenanceMouseClicked
-        String tempOderId = txtId.getText();
-        String descriptionUpdate = jTextAreaDescription.getText();
+    private void BtnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUpdateMouseClicked
+        
         String formato = jDateChooser.getDateFormatString();
         Date date = jDateChooser.getDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
         String completionDateUpdate = String.valueOf(dateFormat.format(date));
         Maintenance maintenance = new Maintenance();
         try {
-            maintenance.updateOrder(tempOderId, descriptionUpdate, completionDateUpdate);
+            maintenance.updateOrder(txtId.getText(), jTextAreaDescription.getText(), completionDateUpdate);
             JOptionPane.showMessageDialog(this,"Se Actualizo con los nuevos datos","Mantenimiento Actualizado", WIDTH);
             txtId.setText("");
             jTextAreaDescription.setText("");
-                       
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FRMUpdateMaintenance.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(FRMUpdateMaintenance.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonUpdateMaintenanceMouseClicked
+    }//GEN-LAST:event_BtnUpdateMouseClicked
 
     private void jToggleButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MouseClicked
-       FRMTechnician technician = new FRMTechnician();
-       technician.setVisible(true);
+       new FRMTechnician(id, password).setVisible(true);
        this.setVisible(false);
        
     }//GEN-LAST:event_jToggleButton1MouseClicked
@@ -258,7 +261,7 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonUpdateMaintenance;
+    private javax.swing.JButton BtnUpdate;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

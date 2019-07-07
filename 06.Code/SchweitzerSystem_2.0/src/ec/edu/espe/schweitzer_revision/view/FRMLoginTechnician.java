@@ -32,7 +32,7 @@ public class FRMLoginTechnician extends javax.swing.JFrame {
         boolean sucess= logIn.LogInTech(txtId.getText(), txtPassword.getText());
         if (sucess){
            this.setVisible(false);
-            new FRMTechnician(txtId.getText()).setVisible(true);
+           new FRMTechnician(txtId.getText(), txtPassword.getText()).setVisible(true);
         }
         else {
             emptyFields();

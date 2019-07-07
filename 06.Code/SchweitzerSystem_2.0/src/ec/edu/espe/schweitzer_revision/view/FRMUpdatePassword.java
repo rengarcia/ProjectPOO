@@ -15,7 +15,8 @@ import javax.swing.JOptionPane;
  * @author Jhony Naranjo
  */
 public class FRMUpdatePassword extends javax.swing.JFrame {
-
+    String idTech;
+    String passwordTech;
     /**
      * Creates new form FRMUpdatePassword
      */
@@ -23,7 +24,32 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
-
+   
+    
+    public FRMUpdatePassword(String idTech, String passwordTech) {
+        initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
+        this.idTech=idTech;
+        this.passwordTech=passwordTech;
+    }
+    
+    public void update(String newPassword, String cipherPath){
+        try {
+            Gson gson = new Gson();
+            String encryptPassword = FileManager.encrypt(newPassword);
+            String passwordLine = FileManager.parseFile(cipherPath, idTech);
+            Password password = gson.fromJson(passwordLine, Password.class);
+            String currentPassword = password.getPassword();
+            FileManager.modifyFile(cipherPath,currentPassword, encryptPassword);
+            JOptionPane.showMessageDialog(this, "Contraseña actualizada!", "Cambio de contraseña", WIDTH);
+            txtLastPassword.setText("");
+            txtPassword.setText("");
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FRMUpdatePassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -121,32 +147,14 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUpdatePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpdatePasswordMouseClicked
-        try {
-            
-            String filePath = Path.logInId;
-            String technicianId = FileManager.getConstantId(filePath);
-            String cipherPath = Path.cipher;
-            String newPassword = txtPassword.getText();
-            String lastPassword = txtLastPassword.getText();
-            String passwordPath= Path.logInPass;
-            String password1 = FileManager.getConstantId(passwordPath);
-            if(lastPassword.equals(password1)){
-                Gson gson = new Gson();
-                String encryptPassword = FileManager.encrypt(newPassword);
-                String passwordLine = FileManager.parseFile(cipherPath, technicianId);
-                Password password = gson.fromJson(passwordLine, Password.class);
-                String currentPassword = password.getPassword();
-                FileManager.modifyFile(cipherPath, currentPassword, encryptPassword);
-                FileManager.writeFile(passwordPath, newPassword);
-                JOptionPane.showMessageDialog(this, "Contraseña actualizada!", "Cambio de contraseña", WIDTH);
-            }else{
-                JOptionPane.showMessageDialog(this,"Contraseña actual inválida","Error", WIDTH);
-            }
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FRMUpdatePassword.class.getName()).log(Level.SEVERE, null, ex);
+        String cipherPath = Path.cipher;
+        String newPassword = txtPassword.getText();
+        String lastPassword = txtLastPassword.getText();
+        if(lastPassword.equals(passwordTech)){
+            update(newPassword,cipherPath);
+        }else{
+            JOptionPane.showMessageDialog(this,"Contraseña actual inválida","Error", WIDTH);
         }
-
     }//GEN-LAST:event_jButtonUpdatePasswordMouseClicked
 
     private void jButtonMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMenuMouseClicked

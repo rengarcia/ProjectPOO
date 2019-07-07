@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 public class FRMUpdateRepair extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(FRMClient.class.getName());
+    String id;
+    String password;
     /**
      * Creates new form FRMUpdateRepair
      */
@@ -26,7 +28,13 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
-
+    public FRMUpdateRepair(String id, String password) {
+        initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
+        this.id=id;
+        this.password=password;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +51,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDescription = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        BtnUpdate = new javax.swing.JButton();
         jButtonBack = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jComboBoxCompleted = new javax.swing.JComboBox<>();
@@ -74,10 +82,10 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTextAreaDescription);
 
-        jButton1.setText("Actualizar Reparación");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        BtnUpdate.setText("Actualizar Reparación");
+        BtnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                BtnUpdateMouseClicked(evt);
             }
         });
 
@@ -104,7 +112,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(BtnUpdate)
                         .addGap(74, 74, 74)
                         .addComponent(jButtonBack))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -156,7 +164,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
                         .addComponent(jComboBoxCompleted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(BtnUpdate)
                     .addComponent(jButtonBack))
                 .addContainerGap())
         );
@@ -175,17 +183,14 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        String tempOderId = txtId.getText();
-        String descriptionUpdate = jTextAreaDescription.getText();
+    private void BtnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUpdateMouseClicked
         String formato = jDateChooser.getDateFormatString();
         Date date = jDateChooser.getDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
         String completionDateUpdate = String.valueOf(dateFormat.format(date));
-        String completionOrderUpdate = jComboBoxCompleted.getSelectedItem().toString();
         Repair repair = new Repair();
         try {
-            repair.updateOrder(tempOderId, descriptionUpdate, completionDateUpdate, completionOrderUpdate);
+            repair.updateOrder(txtId.getText(),jTextAreaDescription.getText(), completionDateUpdate,jComboBoxCompleted.getSelectedItem().toString());
             JOptionPane.showMessageDialog(this,"Se Actualizo con los nuevos datos","Reparación Actualizada", WIDTH);
             txtId.setText("");
             jTextAreaDescription.setText("");
@@ -195,11 +200,10 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FRMUpdateRepair.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_BtnUpdateMouseClicked
 
     private void jButtonBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackMouseClicked
-        FRMTechnician technician = new FRMTechnician();
-        technician.setVisible(true);
+        new FRMTechnician(id, password).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonBackMouseClicked
 
@@ -277,7 +281,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton BtnUpdate;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JComboBox<String> jComboBoxCompleted;
     private com.toedter.calendar.JDateChooser jDateChooser;
