@@ -9,7 +9,7 @@ public class Path {
     public static String technicianIdForNewTech = "Files\\TechnicianId.txt";
     public static String technicianList = "Files\\TechnicianList.txt";
     public static String backupTechnicianList = "Backup\\TechnicianList.txt";
-    public static String cipher = "Files\\Cipher.txt";
+    public static String cipher = "Files/Cipher.txt";
     public static String backupCipher = "Backup\\Cipher.txt";
     public static String ClientOrders ="Files\\ClientOrder.txt";
     public static String backupClientOrders = "Backup\\ClientOrder.txt";

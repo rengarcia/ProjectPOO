@@ -617,7 +617,7 @@ public class FRMClient extends javax.swing.JFrame {
        char validate=evt.getKeyChar();
 
    if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 || 
-           validate >=48 && validate<=57 || validate ==45){
+           validate >=48 && validate<=57 || validate ==45 || validate==32){
      
     }
     else{
@@ -632,7 +632,7 @@ public class FRMClient extends javax.swing.JFrame {
         char validate=evt.getKeyChar();
 
    if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 || 
-           validate >=48 && validate<=57 || validate ==45){
+           validate >=48 && validate<=57 || validate ==45 || validate ==32 ){
      
     }
     else{
@@ -677,7 +677,7 @@ public class FRMClient extends javax.swing.JFrame {
         char validate=evt.getKeyChar();
 
    if(validate >=65 && validate<=90 || validate==8 || validate >=97 && validate<=122 || 
-           validate >=48 && validate<=57 || validate ==45){
+           validate >=48 && validate<=57 || validate ==45 || validate ==32){
      
     }
     else{
