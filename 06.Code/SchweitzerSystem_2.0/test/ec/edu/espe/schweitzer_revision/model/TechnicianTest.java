@@ -25,5 +25,6 @@ public class TechnicianTest {
         boolean expected = false;
         assertEquals(expected, actual);
     }
+
     
 }
