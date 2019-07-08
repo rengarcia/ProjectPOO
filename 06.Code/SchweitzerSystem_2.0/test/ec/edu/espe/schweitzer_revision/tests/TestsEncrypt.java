@@ -656,12 +656,6 @@ public class TestsEncrypt {
         String expected =  "bravo16";
         assertEquals(expected,actual);
     }
-    @Test
-    public void testcheckPassword() throws FileNotFoundException{
-        boolean actual = th.checkPassword("30001" , "hi",Path.cipher );
-        boolean expected = false;
-        assertEquals(expected, actual);
-    }
-   
+
     
 }
