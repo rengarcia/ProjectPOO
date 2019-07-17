@@ -8,7 +8,6 @@ package ec.edu.espe.schweitzer_revision.model;
 import java.io.FileNotFoundException;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.lang.NullPointerException;
 /**
  *
  * @author Andres Garcia
