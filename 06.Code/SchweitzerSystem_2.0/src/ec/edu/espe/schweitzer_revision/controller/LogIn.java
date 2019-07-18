@@ -1,5 +1,7 @@
 package ec.edu.espe.schweitzer_revision.controller;
 
+import com.google.gson.Gson;
+import com.mongodb.DBCursor;
 import ec.edu.espe.schweitzer_revision.model.Password;
 import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.Technician;
@@ -16,24 +18,20 @@ import java.util.logging.Logger;
 public class LogIn {
       
     public boolean LogInAdmin(String txtId, String txtPassword){
-        boolean success=false;
-        try {
-            
-            String cipherPath = Path.adCipher;
-            Password aux = new Password();
-            Technician tech = new Technician();
-            aux.setId(txtId);
-            aux.setPassword(txtPassword);
-           
-            if(FileManager.searchFile(cipherPath, aux.getId())){
-                if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
-                success= true;
-                }
+        boolean success = false;
+        Password aux = new Password();
+        aux.setId(txtId);
+        aux.setPassword(aux.encrypt(txtPassword));
+        ConnectionDataBase connection = new ConnectionDataBase();
+        DBCursor cursor = connection.getDb().getCollection("AdminsCipher").find();
+        while(cursor.hasNext()){
+            Gson gson = new Gson();
+            Password aux1 = new Password();
+            aux1 = gson.fromJson(cursor.next().toString(),Password.class);
+            if(aux1.getId().equals(aux.getId()) && aux1.getPassword().equals(aux.getPassword())){
+                success = true;
             }
-        } catch (IOException ex) {
-            Logger.getLogger(FRMLoginTechnician.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return success;
     }
     
@@ -54,17 +52,8 @@ public class LogIn {
                 if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
                 
                 sucess=true;
-                String id = txtId;
-                String password = txtPassword;
-            
-                String content = FileManager.getConstantId(filePath);
-                String contentPass = FileManager.getConstantId(passwordPath);
-                
-                FileManager.modifyFile(filePath,content,id);
-                FileManager.modifyFile(passwordPath,contentPass,password);
                 }    
             }
-                
             } catch (IOException ex) {
             Logger.getLogger(FRMLoginTechnician.class.getName()).log(Level.SEVERE, null, ex);
         }

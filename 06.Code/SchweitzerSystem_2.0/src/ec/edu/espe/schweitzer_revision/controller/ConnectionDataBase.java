@@ -6,7 +6,6 @@
 package ec.edu.espe.schweitzer_revision.controller;
 
 import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class ConnectionDataBase {
  private DB db;
- private DBCollection collection;
+
  
     public ConnectionDataBase() {
      try {
@@ -33,17 +32,4 @@ public class ConnectionDataBase {
         return db;
     }
 
-    public void setDb(DB db) {
-        this.db = db;
-    }
-
-    public DBCollection getCollection() {
-        return collection;
-    }
-
-    public void setCollection(DBCollection collection) {
-        this.collection = collection;
-    }
-    
-   
 }
