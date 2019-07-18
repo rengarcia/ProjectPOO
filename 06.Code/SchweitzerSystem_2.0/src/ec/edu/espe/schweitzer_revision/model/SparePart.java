@@ -9,13 +9,21 @@ public class SparePart {
     private Float price;
     private int stock;
 
-    public SparePart(String name, Float price, int stock) {
+    private static SparePart sparepart;
+    
+   
+
+    public static SparePart getSparePart( String name, Float price, int stock){
+        if(sparepart==null){
+            sparepart = new SparePart(name, price, stock);
+        }
+        return sparepart;
+    }
+    
+     private SparePart(String name, Float price, int stock) {
         this.name = name;
         this.price = price;
         this.stock = stock;
-    }
-
-    public SparePart() {
     }
 
     public String getName() {
