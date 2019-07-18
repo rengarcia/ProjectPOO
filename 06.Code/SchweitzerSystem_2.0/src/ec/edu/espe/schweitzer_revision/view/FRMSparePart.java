@@ -1,16 +1,10 @@
 package ec.edu.espe.schweitzer_revision.view;
 
 import com.google.gson.Gson;
-import filemanager.FileManager;
-import ec.edu.espe.schweitzer_revision.model.Path;
+import com.mongodb.DBCursor;
+import ec.edu.espe.schweitzer_revision.controller.ConnectionDataBase;
 import ec.edu.espe.schweitzer_revision.model.SparePart;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,32 +14,36 @@ import javax.swing.table.DefaultTableModel;
  * @author Jhony Naranjo
  */
 public class FRMSparePart extends javax.swing.JFrame {
-    DefaultTableModel columns = new DefaultTableModel();
+    private final DefaultTableModel columns = new DefaultTableModel();
     static ArrayList<SparePart> arraySparePart = new ArrayList<SparePart>();
-    String sellForm = Path.itemList;
+   // private DBCollection spareParts;
+    
+    
     /**
      * Creates new form FRMSparePart
      */
     public FRMSparePart(){
         initComponents();
-        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
-        try {
-            readLastLine(sellForm);
-        } catch (IOException ex) {
-            Logger.getLogger(FRMSparePart.class.getName()).log(Level.SEVERE, null, ex);
+        ConnectionDataBase connection = new ConnectionDataBase();
+        DBCursor cursor = connection.getDb().getCollection("SpareParts").find();
+        while(cursor.hasNext()){
+            Gson gson = new Gson();
+            SparePart sparepart;
+            sparepart = gson.fromJson(cursor.next().toString(),SparePart.class);
+            arraySparePart.add(sparepart);
         }
         setTable();
     }
     
-    public void setTable(){
-        ArrayList<String> column = new ArrayList<String>();
+    private void setTable(){
+        ArrayList<String> column = new ArrayList<>();
         column.add("Nombre");
         column.add("Precio");
         column.add("Cantidad");
-        for (Object col : column) {
+        column.forEach((col) -> {
             columns.addColumn(col);
-        }
+        });
         this.jTableSpareParts.setModel(columns);
         Object[] fila = new Object[columns.getColumnCount()];
         for (int i = 0; i < arraySparePart.size(); i++) {
@@ -55,29 +53,7 @@ public class FRMSparePart extends javax.swing.JFrame {
             columns.addRow(fila);
         }       
     }
-    
-    
-    public static void readLastLine(String filePath) throws IOException{
-         BufferedReader input = null;
-         
-         try {
-             input = new BufferedReader(new FileReader(filePath));
-         } catch (FileNotFoundException ex) {
-             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
-         }
-
-         String last = null, line;
-
-         while ((line = input.readLine()) != null) {
-             last = line;
-             Gson gson = new Gson();
-             SparePart sparePart;
-             sparePart = gson.fromJson(last, SparePart.class);
-             arraySparePart.add(sparePart);
-         }
-
-    }
-    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
