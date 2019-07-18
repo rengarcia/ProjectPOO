@@ -22,8 +22,8 @@ public class FRMLoginAdmin extends javax.swing.JFrame {
         txtPassword.setText("");
     }
      public void LoginBtn(){
-          LogIn logIn = new LogIn();
-        boolean sucess=logIn.LogInAdmin(txtId.getText(),txtPassword.getText());
+        LogIn logIn = new LogIn();
+        boolean sucess = logIn.LogInAdmin(txtId.getText(),txtPassword.getText());
         if(sucess){
             this.setVisible(false);
             new FRMAdmin().setVisible(true);
