@@ -12,10 +12,6 @@ import java.io.IOException;
 public class Repair extends Order{
     
     private Boolean priority;
-  
-    public Repair(Long date, String address, String id, String description, OrderStatus status) {
-        super(date, address, id, description, status);
-    } 
     
     public Repair(){   
     }
@@ -37,15 +33,19 @@ public class Repair extends Order{
        return id;
     }
     
- 
-    public Boolean getPriority() {
-        return priority;
+    @Override
+
+    public void Priority(Boolean flag) {
+        this.priority=flag;
     }
 
-    public void setPriority(Boolean priority) {
-        this.priority = priority;
+    @Override
+    public void SessionNumber(int sessionNumber) {
+       //nothing to do here
     }
-
+    
+    
+    
     @Override
     public void updateOrder(String orderId) throws FileNotFoundException {
         
@@ -70,4 +70,5 @@ public class Repair extends Order{
         
        
     }
+ 
 }

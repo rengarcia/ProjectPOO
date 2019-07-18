@@ -14,24 +14,44 @@ public abstract class Order {
    
     
     public Order(){
-        
     }
 
-    public Order(Long date, String address, String id, String description, OrderStatus status) {
+    public void build (Long date, String address, String description,
+            int sessionNumber,Boolean type,Boolean flag){ 
         this.date = date;
         this.address = address;
-        this.id = id;
         this.description = description;
-        this.status = status;
+        this.id=generateID();
+        
+        if(type){
+            Priority(flag);
+        }
+        else if (type==false){
+            SessionNumber(sessionNumber);
+        }
+        
+        this.status= defaultStatus();
     }
-    
     
     public abstract String generateID();
     
+    public abstract void Priority(Boolean flag);
+    
+    public abstract void SessionNumber(int sessionNumber);
+    
+    public OrderStatus defaultStatus(){
+        OrderStatus orderStatusData= new OrderStatus();
+        orderStatusData.setDescription("null");
+        orderStatusData.setOrderCompletionDate("null");
+        orderStatusData.setOrderCompleted("null");
+        
+        return orderStatusData;
+    }
+    
+    
     public abstract void updateOrder(String orderId) 
-            throws FileNotFoundException;
-    
-    
+         throws FileNotFoundException;
+
     public Long getDate() {
         return date;
     }

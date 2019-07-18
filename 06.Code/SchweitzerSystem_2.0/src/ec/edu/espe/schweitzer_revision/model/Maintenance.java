@@ -11,12 +11,9 @@ import java.io.IOException;
  */
 public class Maintenance extends Order{
     
-    private int session;
+   private int session;
 
-    public Maintenance(Long date, String address, String id, String description, OrderStatus status) {
-        super(date, address, id, description, status);
-    }
-
+   
     public Maintenance(){   
     }    
     
@@ -36,13 +33,14 @@ public class Maintenance extends Order{
        return id;
     }
     
-
-    public int getSession() {
-        return session;
+    @Override
+    public void Priority(Boolean flag) {
+        //nothing to do here
     }
 
-    public void setSession(int session) {
-        this.session = session;
+    @Override
+    public void SessionNumber(int sessionNumber) {
+       this.session= sessionNumber;
     }
 
     @Override

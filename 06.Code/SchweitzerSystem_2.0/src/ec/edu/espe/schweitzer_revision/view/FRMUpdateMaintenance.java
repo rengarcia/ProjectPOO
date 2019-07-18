@@ -23,6 +23,7 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
      */
     public FRMUpdateMaintenance() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
     public FRMUpdateMaintenance(String id, String password) {
@@ -51,6 +52,7 @@ public class FRMUpdateMaintenance extends javax.swing.JFrame {
         jDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Schweitzer System");
 
         jToggleButton1.setText("Atrás");
         jToggleButton1.setToolTipText("Regresar al menu");

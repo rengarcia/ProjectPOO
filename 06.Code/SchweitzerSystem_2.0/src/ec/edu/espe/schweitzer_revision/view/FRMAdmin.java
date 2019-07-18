@@ -13,6 +13,7 @@ public class FRMAdmin extends javax.swing.JFrame {
      */
     public FRMAdmin() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
 
@@ -31,6 +32,7 @@ public class FRMAdmin extends javax.swing.JFrame {
         btnMainMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Schweitzer System");
 
         btnAdd.setText("Agregar Ténico");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {

@@ -20,6 +20,7 @@ public class FRMDeleteTech extends javax.swing.JFrame {
      */
     public FRMDeleteTech() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
     

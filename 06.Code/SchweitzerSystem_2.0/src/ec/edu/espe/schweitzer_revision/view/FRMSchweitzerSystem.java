@@ -20,6 +20,7 @@ private static final Logger LOG = Logger.getLogger(FRMSchweitzerSystem.class.get
      */
     public FRMSchweitzerSystem() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
             try{
             Handler consoleHandler = new ConsoleHandler();

@@ -10,6 +10,7 @@ public class FRMUtilBadMessage extends javax.swing.JFrame {
      * Creates new form FRMUtilBadMessage
      */
     public FRMUtilBadMessage() {
+        this.setLocationRelativeTo(null);
         initComponents();
     }
 

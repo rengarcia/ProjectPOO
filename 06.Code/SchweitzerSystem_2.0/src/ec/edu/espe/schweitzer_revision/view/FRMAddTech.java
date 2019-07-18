@@ -17,6 +17,7 @@ public class FRMAddTech extends javax.swing.JFrame {
      */
     public FRMAddTech() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
     
@@ -53,6 +54,7 @@ public class FRMAddTech extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Schweitzer System");
 
         jLabel1.setText("Nombre:");
 

@@ -2,6 +2,8 @@ package ec.edu.espe.schweitzer_revision.view;
 
 import ec.edu.espe.schweitzer_revision.model.Client;
 import ec.edu.espe.schweitzer_revision.controller.NewOrder;
+import ec.edu.espe.schweitzer_revision.model.Maintenance;
+import ec.edu.espe.schweitzer_revision.model.Repair;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -21,6 +23,7 @@ public class FRMClient extends javax.swing.JFrame {
     public FRMClient() {
         initComponents();
         setVisibility();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
     
@@ -62,7 +65,7 @@ public class FRMClient extends javax.swing.JFrame {
         btnSave.setVisible(false);
     }
     
-    public Client  saveBtn(){
+    public Client saveBtn(){
         NewOrder newOrder = new NewOrder();
         Client data = new Client();
         data = newOrder.setData(txtName.getText(),txtId.getText(),txtAddress.getText(),
@@ -73,17 +76,21 @@ public class FRMClient extends javax.swing.JFrame {
         Date date = jDateChooserRepair.getDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
         Long dateInLong = Long.valueOf(dateFormat.format(date));
+        
         int priorityChoice = cmbType.getSelectedIndex();
-        data.setNewRepairOrder(newOrder.RepairOrder(dateInLong,txtReparationAddress.getText(), txtReparationDescription.getText()
-                ,priorityChoice));
+        data.setNewRepairOrder((Repair) newOrder.RepairOrder(dateInLong,
+                txtReparationAddress.getText(), txtReparationDescription.getText()
+                ,data.flag,priorityChoice));
         }
         else if (data.flag==false){
-        String formato = jDateChooserRepair.getDateFormatString();
-        Date date = jDateChooserRepair.getDate();
+        String formato =  jDateChooserMaintenance.getDateFormatString();
+        Date date =  jDateChooserMaintenance.getDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
-        Long dateInLong = Long.valueOf(dateFormat.format(date));    
-        data.setNewMaintenanceOrder( newOrder. MaitenanceOrder(dateInLong,txtMaintenanceAddress.getText(),
-                txtMaintenanceDescription.getText(),txtSesionNumber.getText()));
+        Long dateInLong = Long.valueOf(dateFormat.format(date));  
+        
+        data.setNewMaintenanceOrder((Maintenance) newOrder. MaitenanceOrder(dateInLong,
+                txtMaintenanceAddress.getText(),txtMaintenanceDescription.getText(),
+                Integer.parseInt(txtSesionNumber.getText()),data.flag));
         }
         
         return data;
@@ -143,6 +150,7 @@ public class FRMClient extends javax.swing.JFrame {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Schweitzer System");
 
         jLabel5.setText("Numero telefónico: ");
 

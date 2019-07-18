@@ -3,7 +3,7 @@ package ec.edu.espe.schweitzer_revision.controller;
 import com.google.gson.Gson;
 import ec.edu.espe.schweitzer_revision.model.Client;
 import ec.edu.espe.schweitzer_revision.model.Maintenance;
-import ec.edu.espe.schweitzer_revision.model.OrderStatus;
+import ec.edu.espe.schweitzer_revision.model.Order;
 import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.Repair;
 import ec.edu.espe.schweitzer_revision.view.FRMClient;
@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author David Lopez
  */
 public class NewOrder {
-    
+    Order newOrder;
     public Client setData(String txtName,String txtId, String txtAddress, String txtPhoneNumber, 
             String choice){
               
@@ -36,15 +36,7 @@ public class NewOrder {
         
         clientData.setPhone(Long.valueOf(txtPhoneNumber));
         
-        //Data for Order Status is set these values for default
-       
-        
-        OrderStatus orderStatusData= new OrderStatus();
-        orderStatusData.setDescription("null");
-        orderStatusData.setOrderCompletionDate("null");
-        orderStatusData.setOrderCompleted("null");
-        
-        //temperol value for Combo Box
+        //temperal value for Combo Box
        
         if (choice.equals("Reparacion")){
                       
@@ -59,56 +51,28 @@ public class NewOrder {
         return clientData;
     }  
     
-    public Repair RepairOrder(Long dateInLong,String txtReparationAddress,String txtReparationDescription,
-        int priorityChoice){
-        Repair repairData = new Repair();
-
-            repairData.setDate(dateInLong);
-    
-            repairData.setAddress(txtReparationAddress);
+    public Order RepairOrder(Long dateInLong,String txtReparationAddress,String txtReparationDescription,
+        boolean type,int priorityChoice){
             
-            repairData.setDescription(txtReparationDescription);
-           
-            if(priorityChoice==1){
-            repairData.setPriority(true);
-            }
-            else if(priorityChoice==2){
-            repairData.setPriority(false);    
-            }
-            
-            repairData.setId(repairData.generateID());
-            repairData.setStatus(Status());
+        boolean flag = false; 
+        if(priorityChoice==1){
+            flag=true;
+            }        
+        newOrder = new Repair( );
+        newOrder.build(dateInLong, txtReparationAddress, txtReparationDescription,0,type, flag);
         
-        return repairData;
+        return newOrder;
     }
     
-    public Maintenance MaitenanceOrder(long dateInLong,String txtMaintenanceAddress, 
-            String txtMaintenanceDescription,String txtSesionNumber){
-        Maintenance maintenanceData = new Maintenance();
-            
-            maintenanceData.setDate(dateInLong);
-
-            maintenanceData.setAddress(txtMaintenanceAddress);
-
-            maintenanceData.setDescription(txtMaintenanceDescription);
-
-            maintenanceData.setSession(Integer.parseInt(txtSesionNumber));
-
-            maintenanceData.setId(maintenanceData.generateID());
-            
-            maintenanceData.setStatus(Status());
-        
-        return maintenanceData;
+    public Order MaitenanceOrder(long dateInLong,String txtMaintenanceAddress, 
+            String txtMaintenanceDescription,int txtSesionNumber,boolean type){
+       
+        newOrder = new Maintenance();  
+        newOrder.build (dateInLong, txtMaintenanceAddress, txtMaintenanceDescription, txtSesionNumber, type,
+                Boolean.FALSE);
+        return newOrder;
     }
     
-    public OrderStatus Status(){
-        OrderStatus orderStatusData= new OrderStatus();
-        orderStatusData.setDescription("null");
-        orderStatusData.setOrderCompletionDate("null");
-        orderStatusData.setOrderCompleted("null");
-        
-        return orderStatusData;
-    }
     
     public void reserveOrder(Client clientData,FRMClient currentFrame){
         

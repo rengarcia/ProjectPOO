@@ -14,6 +14,7 @@ public class FRMLoginAdmin extends javax.swing.JFrame {
      */
     public FRMLoginAdmin() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
      public void emptyFields(){
@@ -50,6 +51,7 @@ public class FRMLoginAdmin extends javax.swing.JFrame {
         btnMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Schweitzer System");
 
         jLabel1.setText("Ingrese su ID: ");
 

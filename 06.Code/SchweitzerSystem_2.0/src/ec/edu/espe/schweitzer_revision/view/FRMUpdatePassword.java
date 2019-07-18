@@ -22,6 +22,7 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
      */
     public FRMUpdatePassword() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
    
@@ -68,6 +69,7 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Schweitzer System");
 
         jLabel1.setText("Ingrese la nueva contraseña: ");
 

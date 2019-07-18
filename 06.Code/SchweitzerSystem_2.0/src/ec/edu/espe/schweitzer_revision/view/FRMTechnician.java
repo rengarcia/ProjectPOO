@@ -30,6 +30,7 @@ public class FRMTechnician extends javax.swing.JFrame {
      */
     public FRMTechnician() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
 
@@ -91,7 +92,7 @@ public class FRMTechnician extends javax.swing.JFrame {
         jComboBoxOptions = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SchweitzerSystem");
+        setTitle("Schweitzer System");
 
         lblWelcome.setText("Bienvenid@ ");
 

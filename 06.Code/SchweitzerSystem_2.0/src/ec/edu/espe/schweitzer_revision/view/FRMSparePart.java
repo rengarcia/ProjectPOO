@@ -28,6 +28,7 @@ public class FRMSparePart extends javax.swing.JFrame {
      */
     public FRMSparePart(){
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
         try {
             readLastLine(sellForm);
@@ -93,6 +94,7 @@ public class FRMSparePart extends javax.swing.JFrame {
         jTableSpareParts = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Schweitzer System");
 
         jLabel1.setText("Productos Disponibles");
 

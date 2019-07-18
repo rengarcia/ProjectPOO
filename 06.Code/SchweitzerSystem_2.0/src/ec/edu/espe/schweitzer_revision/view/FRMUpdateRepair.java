@@ -26,6 +26,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
      */
     public FRMUpdateRepair() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
     public FRMUpdateRepair(String id, String password) {
@@ -58,6 +59,7 @@ public class FRMUpdateRepair extends javax.swing.JFrame {
         jDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Schweitzer System");
 
         jLabel1.setText("Ingrese ID de la reparación: ");
 
