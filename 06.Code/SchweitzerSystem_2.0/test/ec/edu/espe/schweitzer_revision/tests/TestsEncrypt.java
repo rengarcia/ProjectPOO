@@ -1,6 +1,5 @@
 package ec.edu.espe.schweitzer_revision.tests;
 import filemanager.FileManager;
-import ec.edu.espe.schweitzer_revision.model.SparePart;
 import ec.edu.espe.schweitzer_revision.model.Technician;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -13,7 +12,6 @@ public class TestsEncrypt {
     
     FileManager fm = new FileManager();
     Technician th = new Technician();
-    SparePart sp = new SparePart();
     public TestsEncrypt() {
     }
 
