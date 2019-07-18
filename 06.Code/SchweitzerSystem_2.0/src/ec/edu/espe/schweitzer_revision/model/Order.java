@@ -17,7 +17,7 @@ public abstract class Order {
     }
 
     public void build (Long date, String address, String description,
-            int sessionNumber,Boolean type,Boolean flag){ 
+            int sessionNumber,Boolean type, Boolean flag){ 
         this.date = date;
         this.address = address;
         this.description = description;
