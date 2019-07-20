@@ -1,6 +1,9 @@
 package ec.edu.espe.schweitzer_revision.model;
 
-import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
 import filemanager.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,8 +15,10 @@ import java.io.IOException;
 public class Maintenance extends Order{
     
    private int session;
-
-   
+   DB db;
+   DBCollection orderTable;
+   DBCollection technicianTable;
+  
     public Maintenance(){   
     }    
     
@@ -48,20 +53,33 @@ public class Maintenance extends Order{
         
     }
     
-    public void updateOrder(String orderId, String descriptionUpdate, String completionDateUpdate) throws FileNotFoundException, IOException {
+    public void updateOrder(String orderId, String descriptionUpdate, String completionDateUpdate,
+            String completionOrderUpdate) throws FileNotFoundException, IOException {
         
-        String clientOrderFilePath = Path.ClientOrders;
-        String dataOrder;
-        Gson gson = new Gson();
-        dataOrder = FileManager.parseFile(clientOrderFilePath, orderId);
-        Client dataFromFileClient = gson.fromJson(dataOrder, Client.class);
+        Mongo mongo = new Mongo("localhost",27017);
+        db=mongo.getDB("SchweitzerSystem");
+        orderTable=db.getCollection("orderTableTest");
+        technicianTable=db.getCollection("technicianTableTest");
    
-        dataFromFileClient.getNewMaintenanceOrder().getStatus().setDescription(descriptionUpdate);
-        dataFromFileClient.getNewMaintenanceOrder().getStatus().setOrderCompletionDate(completionDateUpdate);
+        BasicDBObject olddoc = new BasicDBObject().append("newMaintenanceOrder.id",orderId);
         
+        BasicDBObject newDescription = new BasicDBObject();
+        newDescription.append("$set",new BasicDBObject().append("newMaintenanceOrder.status.description"
+                ,descriptionUpdate));
+        
+        orderTable.update(olddoc, newDescription,false,false);
        
-        String newString = gson.toJson(dataFromFileClient);
-        FileManager.updateLine(clientOrderFilePath,dataOrder,newString);
+        BasicDBObject newCompletionOrder = new BasicDBObject();
+        newCompletionOrder.append("$set",new BasicDBObject().append("newMaintenanceOrder.status.orderCompleted"
+                ,completionOrderUpdate));
         
+        orderTable.update(olddoc, newCompletionOrder,false,false);
+        
+        BasicDBObject newCompletionDate = new BasicDBObject();
+        newCompletionDate.append("$set",new BasicDBObject().append("newMaintenanceOrder.status.orderCompletionDate"
+                ,completionDateUpdate));
+        
+        orderTable.update(olddoc, newCompletionDate,false,false);
+ 
     }
 }

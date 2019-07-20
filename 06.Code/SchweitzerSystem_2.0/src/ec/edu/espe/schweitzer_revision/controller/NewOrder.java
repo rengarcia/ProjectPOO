@@ -1,26 +1,32 @@
 package ec.edu.espe.schweitzer_revision.controller;
 
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.Mongo;
 import ec.edu.espe.schweitzer_revision.model.Client;
 import ec.edu.espe.schweitzer_revision.model.Maintenance;
 import ec.edu.espe.schweitzer_revision.model.Order;
-import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.Repair;
 import ec.edu.espe.schweitzer_revision.view.FRMClient;
-import filemanager.FileManager;
 import static java.awt.image.ImageObserver.WIDTH;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import org.bson.BSONObject;
 
 /**
  *
  * @author David Lopez
  */
 public class NewOrder {
+    
+    DB db;
+    DBCollection orderTable;
+    DBCollection technicianTable;
+    
     Order newOrder;
     public Client setData(String txtName,String txtId, String txtAddress, String txtPhoneNumber, 
             String choice){
@@ -74,19 +80,25 @@ public class NewOrder {
     }
     
     
-    public void reserveOrder(Client clientData,FRMClient currentFrame){
+    public void reserveOrder(Client clientData,FRMClient currentFrame) throws UnknownHostException{
         
-        String clientOrderFilePath=Path.ClientOrders;
-        String backupPath=Path.backupClientOrders;
+        Mongo mongo = new Mongo("localhost",27017);
+        db=mongo.getDB("SchweitzerSystem");
+        orderTable=db.getCollection("orderTableTest");
+        technicianTable=db.getCollection("technicianTableTest");
         
         String tempId;
+        Long tempDate;
 
         Boolean decide = clientData.flag;
 
         if (decide) {
             tempId = clientData.getNewRepairOrder().getId();
+            tempDate= clientData.getNewRepairOrder().getDate();
+            
         } else {
             tempId = clientData.getNewMaintenanceOrder().getId();
+            tempDate= clientData.getNewMaintenanceOrder().getDate();
         }
 
         //convert data to json format
@@ -94,26 +106,40 @@ public class NewOrder {
         String jsonClientData;
         jsonClientData = gson.toJson(clientData);
 
-        File firstTimeRun = new File(clientOrderFilePath);
-        boolean exist = firstTimeRun.exists();
-        if (exist == false) {
-            FileManager.writeFile(clientOrderFilePath, jsonClientData);
-            FileManager.writeFile(backupPath, jsonClientData);
-        } else {
-            FileManager.appendStrToFile(clientOrderFilePath, jsonClientData);
-            FileManager.appendStrToFile(backupPath, jsonClientData);
-        }
+        BSONObject bson = (BSONObject)com.mongodb.util.JSON.parse(jsonClientData);        
+        BasicDBObject document = new BasicDBObject();
+        document.putAll(bson);
+        orderTable.insert(document);
 
-        Client newOrderWaiting = new Client();
-        try {
-            newOrderWaiting.AssignOrder(tempId);
-
+        
+        BasicDBObject doc = new BasicDBObject();
+        boolean stop=true;
+        String id;
+        DBCursor cursorDates = technicianTable.find(doc);
+        DBCursor cursorOrderId= technicianTable.find(doc);
+        DBCursor techId= technicianTable.find(doc);
+        while(cursorDates.hasNext()&&stop)
+        {
+            ArrayList datesList= (ArrayList<String>) cursorDates.next().get("dates");
+            ArrayList idList= (ArrayList<String>) cursorOrderId.next().get("orderId");
+            id = (String)techId.next().get("id");
+            
+            boolean flag = Client.AsssignOrder(datesList,Long.toString(tempDate),idList,tempId);
+            if(flag)
+            {
+                doc.append("$set",new BasicDBObject().append("dates", datesList));
+                BasicDBObject olddoc = new BasicDBObject().append("id",id);
+                technicianTable.update(olddoc, doc,false,false);
+                
+                doc.append("$set",new BasicDBObject().append("orderId",idList));
+                technicianTable.update(olddoc, doc,false,false);
+                
+                System.out.println("Sucess");
+                stop=false;
+            }
+            
             JOptionPane.showMessageDialog(currentFrame,"Su orden fue asignada con éxito\n"
                     + "El ID de su orden es: "+ tempId,"Orden Asignada", WIDTH);
-            
-        } catch (FileNotFoundException ex) {} catch (IOException ex) {
-         JOptionPane.showMessageDialog(currentFrame,"Error con su orden","Error Orden", WIDTH);
-         Logger.getLogger(FRMClient.class.getName()).log(Level.SEVERE, null, ex);
-     }
+        }
     }
 }

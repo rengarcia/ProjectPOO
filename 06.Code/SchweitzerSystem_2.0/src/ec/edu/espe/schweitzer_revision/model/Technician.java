@@ -1,21 +1,24 @@
 package ec.edu.espe.schweitzer_revision.model;
 
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.Mongo;
 import filemanager.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  *
  * @author David Lopez
  */
-public class Technician {
 
+public class Technician {
+    
     private String name;
     private String id;
     public ArrayList<String> dates;
@@ -52,44 +55,61 @@ public class Technician {
         return pass;
     }
     
-    public static void updateTechnicianDate(String filePath, String orderId, String oldDate) throws IOException{
+    public static void updateTechnicianDate(String orderId) throws IOException{
+       
+       DB db;
+
+       DBCollection technicianTable; 
+       
+       Mongo mongo = new Mongo("localhost",27017);
+       db=mongo.getDB("SchweitzerSystem");
+
+       technicianTable=db.getCollection("technicianTableTest");
         
-        java.nio.file.Path path = Paths.get(filePath);
-        FileManager fileManager= new FileManager();
-        List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
-      
-         for (int i = 0; i < fileContent.size(); i++) {
-         String a= fileContent.get(i);
-                
-            if (a.contains(oldDate)&&a.contains(orderId)) {
-
-                String line= fileManager.parseFile(filePath,orderId);
-                Gson gson= new Gson();
-
-                Technician technician= gson.fromJson(line, Technician.class);
-                
-                for(int w=0; w<technician.dates.size();w++){
-
-                    if(technician.dates.get(w).equals(oldDate)){
-                       technician.dates.set(w, "000000");
-                       break;
-                    }
-                }
-                for(int h=0; h<technician.orderId.size();h++){
-
-                    if(technician.orderId.get(h).equals(orderId)){
-                       technician.orderId.set(h, "00000");
-                       break;
-                    }
-                }
+       
+       BasicDBObject technicianCollection = new BasicDBObject();
+   
+        boolean stop=true;
+        String id;
+        DBCursor cursorDates = technicianTable.find(technicianCollection);
+        DBCursor cursorOrderId= technicianTable.find(technicianCollection);
+        DBCursor techId= technicianTable.find(technicianCollection);
+        
+        while(cursorDates.hasNext()&&stop)
+        {
+          ArrayList datesList= (ArrayList<String>) cursorDates.next().get("dates");
+          ArrayList idList= (ArrayList<String>) cursorOrderId.next().get("orderId");          
+          id = (String)techId.next().get("id");   
+          
+          boolean flag = check(datesList,idList,orderId);
+          if(flag)
+          {     
+            BasicDBObject olddoc = new BasicDBObject().append("id",id); 
+            technicianCollection.append("$set",new BasicDBObject().append("dates", datesList));
+            technicianTable.update(olddoc, technicianCollection,false,false);
                
-                String newLine= gson.toJson(technician);
-                fileContent.set(i, newLine);
-                break;
-            }
+            technicianCollection.append("$set",new BasicDBObject().append("orderId", idList));
+            technicianTable.update(olddoc, technicianCollection,false,false);
+               
+            System.out.println("Sucess");
+            stop=false;
+          }   
         }
-        Files.write(path, fileContent, StandardCharsets.UTF_8);
     }
+
+    public static boolean check (ArrayList dateList, ArrayList idLists,String orderId){
+        boolean flag=false;
+        for(int i=0;i<dateList.size();i++){
+            if (orderId.equals(idLists.get(i))){
+               idLists.set(i,"00000");
+               dateList.set(i,"000000");
+               flag=true;
+               break;  
+            }    
+        }
+        return flag;
+    }   
+ 
         
     public String getName() {
         return name;
