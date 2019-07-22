@@ -1,22 +1,21 @@
 package ec.edu.espe.schweitzer_revision.view;
 
 import com.google.gson.Gson;
-import filemanager.FileManager;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
+import ec.edu.espe.schweitzer_revision.controller.ConnectionDataBase;
 import ec.edu.espe.schweitzer_revision.model.Password;
-import ec.edu.espe.schweitzer_revision.model.Path;
-import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.bson.BSONObject;
 
 /**
  *
  * @author Jhony Naranjo
  */
 public class FRMUpdatePassword extends javax.swing.JFrame {
-    String idTech;
-    String passwordTech;
+   private String idTech;
+   private String passwordTech;
     /**
      * Creates new form FRMUpdatePassword
      */
@@ -34,21 +33,28 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
         this.passwordTech=passwordTech;
     }
     
-    public void update(String newPassword, String cipherPath){
-        try {
-            Gson gson = new Gson();
-            String encryptPassword = FileManager.encrypt(newPassword);
-            String passwordLine = FileManager.parseFile(cipherPath, idTech);
-            Password password = gson.fromJson(passwordLine, Password.class);
-            String currentPassword = password.getPassword();
-            FileManager.modifyFile(cipherPath,currentPassword, encryptPassword);
-            JOptionPane.showMessageDialog(this, "Contraseña actualizada!", "Cambio de contraseña", WIDTH);
-            txtLastPassword.setText("");
-            txtPassword.setText("");
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FRMUpdatePassword.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void update(String newPassword){
+        Gson gson = new Gson();
+        ConnectionDataBase connection = new ConnectionDataBase();
+        BasicDBObject techCheckPass = new BasicDBObject().append("id",this.idTech);
+        DBCursor cursor = connection.getDb().getCollection("technicianCipher").find(techCheckPass);
+        String dataTech = cursor.next().toString();
+        Password passwordOld = gson.fromJson(dataTech,Password.class);
+        Password passwordNew = new Password();
+        passwordNew.setId(idTech);
+        passwordNew.setPassword(passwordOld.encrypt(newPassword));
+        passwordNew.setName(passwordOld.getName());
+        String dataNew = gson.toJson(passwordNew);
+        BSONObject bson = (BSONObject)com.mongodb.util.JSON.parse(dataTech);
+        BasicDBObject old = new BasicDBObject();
+        old.putAll(bson);
+        BSONObject bsonNew = (BSONObject)com.mongodb.util.JSON.parse(dataNew);
+        BasicDBObject newPass = new BasicDBObject();
+        newPass.putAll(bsonNew);
+        connection.getDb().getCollection("technicianCipher").update(old, newPass);
+        JOptionPane.showMessageDialog(this, "Contraseña actualizada!", "Cambio de contraseña", WIDTH);
+        txtLastPassword.setText("");
+        txtPassword.setText("");
     }
     
     /**
@@ -149,11 +155,10 @@ public class FRMUpdatePassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUpdatePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonUpdatePasswordMouseClicked
-        String cipherPath = Path.cipher;
         String newPassword = txtPassword.getText();
         String lastPassword = txtLastPassword.getText();
         if(lastPassword.equals(passwordTech)){
-            update(newPassword,cipherPath);
+            update(newPassword);
         }else{
             JOptionPane.showMessageDialog(this,"Contraseña actual inválida","Error", WIDTH);
         }
