@@ -1,5 +1,7 @@
 package ec.edu.espe.schweitzer_revision.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Andres Garcia
@@ -12,6 +14,7 @@ public class FRMUtilBadMessage extends javax.swing.JFrame {
     public FRMUtilBadMessage() {
         this.setLocationRelativeTo(null);
         initComponents();
+         setIconImage(new ImageIcon(getClass().getResource("icono.png")).getImage());
     }
 
     /**
@@ -28,6 +31,7 @@ public class FRMUtilBadMessage extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Error");
 
         jLabel1.setText("Datos Erroneos, Por Favor Ingrese Correctamente Los Datos");
 
@@ -44,20 +48,21 @@ public class FRMUtilBadMessage extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jButton1)
-                .addContainerGap(211, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(54, 54, 54))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(171, 171, 171)
+                        .addComponent(jButton1)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
