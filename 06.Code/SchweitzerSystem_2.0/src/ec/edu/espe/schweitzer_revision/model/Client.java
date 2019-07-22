@@ -29,7 +29,8 @@ public class Client {
     private Repair newRepairOrder;
     private Maintenance newMaintenanceOrder;
 
-    public Client(String name, long id, String address, long phone, Repair newRepairOrder, Maintenance newMaintenanceOrder) {
+    public Client(String name, long id, String address, long phone, 
+            Repair newRepairOrder, Maintenance newMaintenanceOrder) {
         this.name = name;
         this.id = id;
         this.address = address;
