@@ -6,8 +6,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.Mongo;
-import filemanager.FileManager;
-import java.io.FileNotFoundException;
+import ec.edu.espe.schweitzer_revision.controller.ConnectionDataBase;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,23 +34,20 @@ public class Technician {
 
     }
 
-    public boolean checkPassword( String technicianId, String passwordAttempt,
-                String cipherFilePath)
-                throws FileNotFoundException {
+    public boolean checkPassword( String technicianId, String passwordAttempt){
         
         boolean pass = false;
-
         Gson gson = new Gson();
-
-        String passwordLine = FileManager.parseFile(cipherFilePath, technicianId);
-        Password password = gson.fromJson(passwordLine, Password.class);
-
-        String actualPassword = FileManager.decrypt(password.getPassword());
-
-        if (actualPassword.equals(passwordAttempt)) {
-            pass = true;
+        ConnectionDataBase connection = new ConnectionDataBase();
+        BasicDBObject techCheckPass = new BasicDBObject().append("id",technicianId);
+        DBCursor cursor = connection.getDb().getCollection("technicianCipher").find(techCheckPass);
+        if(cursor.hasNext()){
+            Password aux1 = new Password();
+            aux1 = gson.fromJson(cursor.next().toString(),Password.class);
+            if(passwordAttempt.equals(aux1.getPassword())){
+                pass = true;
+            }
         }
-
         return pass;
     }
     
