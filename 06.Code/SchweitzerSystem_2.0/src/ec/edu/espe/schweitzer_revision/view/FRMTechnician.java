@@ -1,13 +1,12 @@
 package ec.edu.espe.schweitzer_revision.view;
 
 import com.google.gson.Gson;
-import filemanager.FileManager;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
+import ec.edu.espe.schweitzer_revision.controller.ConnectionDataBase;
 import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.Technician;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,13 +15,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Jhony Naranjo
  */
 public class FRMTechnician extends javax.swing.JFrame {
-
-    
-    DefaultTableModel table = new DefaultTableModel();
-    String technicianFilePath = Path.technicianList;
-    FileManager dataLine = new FileManager();
-    String idTech;
-    String passTech;
+    private DefaultTableModel table = new DefaultTableModel();
+    private String technicianFilePath = Path.technicianList;
+    private String idTech;
+    private String passTech;
     
    
     /**
@@ -37,30 +33,28 @@ public class FRMTechnician extends javax.swing.JFrame {
     public FRMTechnician(String idTech, String passTech) {
         this.idTech = idTech;
         this.passTech = passTech;
-        try {
-            initComponents();
-            Gson gson = new Gson();
-            String dataTechnician = dataLine.parseFile(technicianFilePath, idTech);
-            Technician dataFromFileTechnician = gson.fromJson(dataTechnician, Technician.class);
-            ArrayList<String> order = new ArrayList<>();
-            order = dataFromFileTechnician.getOrderId();
-            ArrayList<String> dates = new ArrayList<>();
-            dates = dataFromFileTechnician.dates;
-            setTable(order,dates);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FRMTechnician.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        initComponents();
+        Gson gson = new Gson();
+        ConnectionDataBase connection = new ConnectionDataBase();
+        BasicDBObject techCheckPass = new BasicDBObject().append("id",this.idTech);
+        DBCursor cursor = connection.getDb().getCollection("technicianTableTest").find(techCheckPass);
+        String dataTech = cursor.next().toString();
+        Technician dataFromFileTechnician = gson.fromJson(dataTech, Technician.class);
+        ArrayList<String> order = new ArrayList<>();
+        order = dataFromFileTechnician.getOrderId();
+        ArrayList<String> dates = new ArrayList<>();
+        dates = dataFromFileTechnician.dates;
+        setTable(order,dates);
     }
 
-     public void setTable(ArrayList dataTechnician, ArrayList dates){
-        ArrayList<String> column = new ArrayList<String>();
+     private void setTable(ArrayList dataTechnician, ArrayList dates){
+        ArrayList<String> column = new ArrayList<>();
         column.add("Id de la Orden");
         column.add("Fecha de la Orden");
     
-        for (Object col : column) {
+        column.forEach((col) -> {
             table.addColumn(col);
-        }
+        });
         this.jTable1.setModel(table);
         Object[] fila = new Object[table.getColumnCount()];
         for (int i = 0; i < dataTechnician.size(); i++) {

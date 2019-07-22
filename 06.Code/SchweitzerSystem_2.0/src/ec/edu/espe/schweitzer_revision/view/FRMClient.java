@@ -4,8 +4,10 @@ import ec.edu.espe.schweitzer_revision.model.Client;
 import ec.edu.espe.schweitzer_revision.controller.NewOrder;
 import ec.edu.espe.schweitzer_revision.model.Maintenance;
 import ec.edu.espe.schweitzer_revision.model.Repair;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -616,7 +618,11 @@ public class FRMClient extends javax.swing.JFrame {
 
         Client data = saveBtn();
         NewOrder newOrder = new NewOrder();
-        newOrder.reserveOrder(data,this);
+     try {
+         newOrder.reserveOrder(data,this);
+     } catch (UnknownHostException ex) {
+         Logger.getLogger(FRMClient.class.getName()).log(Level.SEVERE, null, ex);
+     }
       
         clearTxtFiles();
     }//GEN-LAST:event_btnSaveActionPerformed

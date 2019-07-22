@@ -1,10 +1,8 @@
 package ec.edu.espe.schweitzer_revision.view;
 
-import filemanager.FileManager;
-import ec.edu.espe.schweitzer_revision.model.Path;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
+import ec.edu.espe.schweitzer_revision.controller.ConnectionDataBase;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -28,22 +26,18 @@ public class FRMDeleteTech extends javax.swing.JFrame {
     txtId.setText("");
     }
     
-   public void Delete() throws FileNotFoundException, IOException{
-    
-   String technicianFilePath=Path.technicianList ;
-   String backupFilePath=Path.backupTechnicianList;
-   String cipherPath=Path.cipher;
-   String backupCipher= Path.backupCipher;
-   
-   String id = txtId.getText();
-
-   String riptech= FileManager.parseFile(backupFilePath,id);
-   String rippass= FileManager.parseFile(backupCipher,id);
-           
-   FileManager.removeLineFromFile(technicianFilePath,riptech);
-   FileManager.removeLineFromFile(cipherPath,rippass);
-  
-    }
+   public void Delete(){
+   ConnectionDataBase connection = new ConnectionDataBase();
+   BasicDBObject techDelete = new BasicDBObject().append("id",txtId.getText());
+   DBCursor cursor = connection.getDb().getCollection("technicianTableTest").find(techDelete);
+   if(cursor.hasNext()){
+       connection.getDb().getCollection("technicianTableTest").remove(techDelete);
+       connection.getDb().getCollection("technicianCipher").remove(techDelete);
+       JOptionPane.showMessageDialog(this, "Tecnico Eliminado con Exito", "Confirmación", JOptionPane.WARNING_MESSAGE);
+   }else{
+       JOptionPane.showMessageDialog(this,"No existe técnico con Id ingresado","Confirmación",JOptionPane.WARNING_MESSAGE);
+   }
+}
    
 
     /**
@@ -126,13 +120,7 @@ public class FRMDeleteTech extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        try {
-            Delete();
-        } catch (IOException ex) {
-            Logger.getLogger(FRMDeleteTech.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        JOptionPane.showMessageDialog(this,"Tecnico Eliminado con Exito","Confirmación",JOptionPane.WARNING_MESSAGE); 
+        Delete();
         clearTxtFiles();
     }//GEN-LAST:event_btnEliminarActionPerformed
 

@@ -1,8 +1,11 @@
 package ec.edu.espe.schweitzer_revision.model;
 
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import ec.edu.espe.schweitzer_revision.controller.ConnectionDataBase;
 import filemanager.FileManager;
 import java.util.ArrayList;
+import org.bson.BSONObject;
 
 /**
  *
@@ -40,12 +43,7 @@ public class Admin {
     }
     
     public String create(String txtName, String txtPassword){
-    
-    
-    String technicianFilePath=Path.technicianList;
-    String backupPath=Path.backupTechnicianList;
-    String cipherPath=Path.cipher; 
-    String backupCipher=Path.backupCipher; 
+   
     Gson gson = new Gson();
     Technician newTechnician = new Technician();
     newTechnician.setName(txtName);
@@ -71,23 +69,26 @@ public class Admin {
     
     newTechnician.setOrderId(orderId);
     String newTech = gson.toJson(newTechnician);
-    FileManager.appendStrToFile(technicianFilePath,newTech);
-    FileManager.appendStrToFile(backupPath,newTech);
-
     
+    BSONObject bson = (BSONObject)com.mongodb.util.JSON.parse(newTech);        
+    BasicDBObject document = new BasicDBObject();
+    document.putAll(bson);
+    ConnectionDataBase connection = new ConnectionDataBase();
+    connection.getDb().getCollection("technicianTableTest").insert(document);
+  
     Password newUser = new Password();
     String tempIdPass= readID();
     newUser.setId(tempIdPass);
     
     newUser.setName(txtName);
-    String encrypted = FileManager.encrypt(txtPassword);
+    String encrypted = newUser.encrypt(txtPassword);
     newUser.setPassword(encrypted);
     
     String newPass = gson.toJson(newUser);
-    
-    FileManager.appendStrToFile(cipherPath,newPass);
-    FileManager.appendStrToFile(backupCipher,newPass);
-    
+    BSONObject bsonCipher = (BSONObject)com.mongodb.util.JSON.parse(newPass);
+    BasicDBObject documentCipher = new BasicDBObject();
+    documentCipher.putAll(bsonCipher);
+    connection.getDb().getCollection("technicianCipher").insert(documentCipher);
     return tempIdPass;
     }
     

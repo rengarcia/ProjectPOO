@@ -1,6 +1,9 @@
 package ec.edu.espe.schweitzer_revision.model;
 
-import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
 import filemanager.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +15,10 @@ import java.io.IOException;
 public class Repair extends Order{
     
     private Boolean priority;
+    
+    DB db;
+    DBCollection orderTable;
+    DBCollection technicianTable;
     
     public Repair(){   
     }
@@ -43,9 +50,7 @@ public class Repair extends Order{
     public void SessionNumber(int sessionNumber) {
        //nothing to do here
     }
-    
-    
-    
+
     @Override
     public void updateOrder(String orderId) throws FileNotFoundException {
         
@@ -53,22 +58,32 @@ public class Repair extends Order{
     
     public void updateOrder(String orderId, String descriptionUpdate, 
             String completionDateUpdate, String completionOrderUpdate) throws FileNotFoundException, IOException {
-
-        String clientOrderFilePath= Path.ClientOrders;
-        String dataOrder;
-  
-        Gson gson = new Gson();
-        dataOrder=FileManager.parseFile(clientOrderFilePath, orderId);
-        Client dataFromFileClient = gson.fromJson(dataOrder,Client.class);   
         
-        dataFromFileClient.getNewRepairOrder().getStatus().setDescription(descriptionUpdate);
-        dataFromFileClient.getNewRepairOrder().getStatus().setOrderCompletionDate(completionDateUpdate);
-        dataFromFileClient.getNewRepairOrder().getStatus().setOrderCompleted(completionOrderUpdate);
+        Mongo mongo = new Mongo("localhost",27017);
+        db=mongo.getDB("SchweitzerSystem");
+        orderTable=db.getCollection("orderTableTest");
+        technicianTable=db.getCollection("technicianTableTest");
         
-        String newString = gson.toJson(dataFromFileClient);
-        FileManager.updateLine(clientOrderFilePath,dataOrder,newString);
+        BasicDBObject olddoc = new BasicDBObject().append("newRepairOrder.id",orderId);
         
+        BasicDBObject newDescription = new BasicDBObject();
+        newDescription.append("$set",new BasicDBObject().append("newRepairOrder.status.description"
+                ,descriptionUpdate));
+        
+        orderTable.update(olddoc, newDescription,false,false);
        
+        BasicDBObject newCompletionOrder = new BasicDBObject();
+        newCompletionOrder.append("$set",new BasicDBObject().append("newRepairOrder.status.orderCompleted"
+                ,completionOrderUpdate));
+        
+        orderTable.update(olddoc, newCompletionOrder,false,false);
+        
+        BasicDBObject newCompletionDate = new BasicDBObject();
+        newCompletionDate.append("$set",new BasicDBObject().append("newRepairOrder.status.orderCompletionDate"
+                ,completionDateUpdate));
+        
+        orderTable.update(olddoc, newCompletionDate,false,false);
+
     }
  
 }

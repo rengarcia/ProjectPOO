@@ -1,16 +1,26 @@
 package ec.edu.espe.schweitzer_revision.model;
 
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
 import filemanager.FileManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
  * @author David Lopez
  */
 public class Client {
-
+    
+    DB db;
+    DBCollection orderTable;
+    DBCollection technicianTable;
+    
+    
     private String name;
     private long id;
     private String address;
@@ -32,108 +42,44 @@ public class Client {
     public Client() {
     }
 
-    public void  AssignOrder( String orderId)
-            throws FileNotFoundException, IOException {
-        
-        String clientOrderFilePath= Path.ClientOrders;
-        String technicianFilePath=Path.technicianList; 
-        String dataOrder;
-        String technicianData;
-
-        int intOrderId = Integer.parseInt(orderId);
-        dataOrder = FileManager.parseFile(clientOrderFilePath, orderId);
-
-        Gson gson = new Gson();
-        Client dataFromJsonClient = gson.fromJson(dataOrder, Client.class);
-        String tempNewDateString;
-        String tempNewIdString;
-
-        if (intOrderId < 20000) {
-            tempNewDateString = dataFromJsonClient.newRepairOrder.date.toString();
-            tempNewIdString = dataFromJsonClient.newRepairOrder.id;
-        } else {
-            tempNewDateString = dataFromJsonClient.newMaintenanceOrder.date.toString();
-            tempNewIdString = dataFromJsonClient.newMaintenanceOrder.id;
-        }
-
-        int n = 2;
-        /*Si aumentas el tamaño de los arreglos  CAMBIA ESTE NUMERO 6*/
-        while (n <= 6) {
-            boolean flag = false;
-            int loopTemporal = 30000 + n;
-            String id = String.valueOf(loopTemporal);
-
-            technicianData = FileManager.parseFile(technicianFilePath, id);
-            Technician dataFromJsonTechnician = gson.fromJson(technicianData, Technician.class);
-            int tempSize = dataFromJsonTechnician.dates.size();
-
-            for (int i = 0; i <= tempSize; i++) {
-                String tempOldDateString = dataFromJsonTechnician.dates.get(i);
-              
-                if (tempOldDateString.equals(tempNewDateString)) {
-                    break;
-                } 
-
-                else if (!tempOldDateString.equals(tempNewDateString)&&
-                        tempOldDateString.equals("000000")) {
-                     
-                    dataFromJsonTechnician.dates.set(i,tempNewDateString);
-                    dataFromJsonTechnician.orderId.set(i,tempNewIdString);
-                    
-                    String newString = gson.toJson(dataFromJsonTechnician);
-
-                    FileManager.updateLine(technicianFilePath,technicianData,newString);
-
-                    System.out.println("Su orden fue asignada");
-                    flag = true;
-                    break;
-                }
+    public static boolean AsssignOrder (ArrayList dateList, String date, ArrayList idLists,String orderId){
+        boolean flag=false;
+        for(int i=0;i<dateList.size();i++){
+            if (date.equals(dateList.get(i))){
+                System.out.println("Iguales");
+               break;  
             }
-            if (flag == true) {
+            else if (dateList.get(i).equals("000000")){
+                dateList.set(i, date);
+                idLists.set(i,orderId);
+                flag=true;
                 break;
             }
-
-            if (n == 6 && flag == false) {
-                System.out.println("Lo sentimos, no hay nadie disponible en esa fecha");
-            }
-            n++;
+                
         }
+        return flag;
+    }   
         
-    }
-       
-    
     public void cancelOrder(String orderId)
             throws FileNotFoundException, IOException {
         
-        String technicianFilePath = Path.technicianList;
-        String backupPath = Path.backupClientOrders;
-        String clientOrderFilePath= Path.ClientOrders;
-        
-        String linetoDelete;
-        String linetoUpdate;
-     
-        linetoDelete = FileManager.parseFile(backupPath, orderId);
-        FileManager.removeLineFromFile(clientOrderFilePath, linetoDelete);
-        
-        //we update the Technician File
-        linetoUpdate = FileManager.parseFile(backupPath, orderId);
+       Mongo mongo = new Mongo("localhost",27017);
+       db=mongo.getDB("SchweitzerSystem");
+       orderTable=db.getCollection("orderTableTest");
 
-        Gson gson = new Gson();
-        Client updateTechnicianDates = gson.fromJson(linetoUpdate, Client.class);
         
         int value = Integer.parseInt(orderId);
       
         if (value < 20000) {
-            long tempDate = updateTechnicianDates.newRepairOrder.date;
-            String tempDeleteOldDate = Long.toString(tempDate);
-            Technician.updateTechnicianDate(technicianFilePath,orderId,tempDeleteOldDate);
+          Technician.updateTechnicianDate(orderId);
+          BasicDBObject orderToDelete = new BasicDBObject().append("newRepairOrder.id",orderId);
+          orderTable.remove(orderToDelete);
         } 
         else {
-            long tempDate = updateTechnicianDates.newMaintenanceOrder.date;
-            String tempDeleteOldDate = Long.toString(tempDate);
-            Technician.updateTechnicianDate(technicianFilePath,orderId,tempDeleteOldDate);
+          Technician.updateTechnicianDate(orderId);
+          BasicDBObject orderToDelete = new BasicDBObject().append("newMaintenanceOrder.id",orderId);
+          orderTable.remove(orderToDelete);
         } 
-
     }
 
     public String getName() {

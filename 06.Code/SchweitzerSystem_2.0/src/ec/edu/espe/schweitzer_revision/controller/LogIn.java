@@ -1,15 +1,10 @@
 package ec.edu.espe.schweitzer_revision.controller;
 
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import ec.edu.espe.schweitzer_revision.model.Password;
-import ec.edu.espe.schweitzer_revision.model.Path;
 import ec.edu.espe.schweitzer_revision.model.Technician;
-import ec.edu.espe.schweitzer_revision.view.FRMLoginTechnician;
-import filemanager.FileManager;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -38,26 +33,19 @@ public class LogIn {
     public boolean LogInTech(String txtId, String txtPassword){
         
         boolean sucess=false;
-        try {
-            String cipherPath=Path.cipher;
-            String filePath=Path.logInId;
-            String passwordPath= Path.logInPass;
-            
-            Password aux = new Password();
-            Technician tech = new Technician();
-            aux.setId(txtId);
-            aux.setPassword(txtPassword);
-           
-            if(FileManager.searchFile(cipherPath, aux.getId())){
-                if(tech.checkPassword(aux.getId(),aux.getPassword(),cipherPath)==true){
-                
-                sucess=true;
-                }    
+        Password aux = new Password();
+        Technician tech = new Technician();
+        aux.setId(txtId);
+        String encrypt = aux.encrypt(txtPassword);
+        aux.setPassword(encrypt);
+        ConnectionDataBase connection = new ConnectionDataBase();
+        BasicDBObject techCheckPass = new BasicDBObject().append("id",txtId);
+        DBCursor cursor = connection.getDb().getCollection("technicianCipher").find(techCheckPass);
+        if(cursor.hasNext()){
+            if(tech.checkPassword(aux.getId(),aux.getPassword())){
+                sucess = true;
             }
-            } catch (IOException ex) {
-            Logger.getLogger(FRMLoginTechnician.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return sucess;
     }
 }
