@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/model/DataBaseS.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/controller/ConnectionDataBase.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/controller/LogIn.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/controller/NewOrder.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/model/Repair.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMAddTech.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMSchweitzerSystem.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/ConfigureIP.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/model/SparePart.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/model/Maintenance.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMSplash.java</file>
+            <file>file:/C:/Users/alejo/Documents/ProjectPOO/06.Code/SchweitzerSystem_2.0/src/ec/edu/espe/schweitzer_revision/view/FRMCancelOrder.java</file>
+        </group>
+    </open-files>
 </project-private>
